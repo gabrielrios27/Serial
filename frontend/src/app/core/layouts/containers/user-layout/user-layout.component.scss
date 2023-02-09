@@ -1,0 +1,19 @@
+.userLayout {
+  width: 100%;
+  height: 100vh;
+  padding: 0 28px;
+  position: relative;
+
+  .userLayout__logo {
+    position: fixed;
+    top: 56px;
+    left: 28px;
+    width: 105px; //Hace mas chico el logo para que no lo tape el buscador
+  }
+  .userLayout__navbar {
+    position: fixed;
+    bottom: 48px;
+    left: 0;
+    width: 100%;
+  }
+}

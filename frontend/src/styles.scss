@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "HelveticaNeue", sans-serif, "Open Sans";
+  color: white;
+  letter-spacing: 0.5px;
+}
+body {
+  background-color: black;
+}
+
+@font-face {
+  font-family: "HelveticaNeue";
+  src: url("assets/fonts/HelveticaNeueCyr-Roman.ttf") format("trueType");
+  font-style: normal;
+}
+@font-face {
+  font-family: "HelveticaNeue-Thin";
+  src: url("assets/fonts/HelveticaNeueCyr-Thin.ttf") format("trueType");
+  font-style: normal;
+}
+@font-face {
+  font-family: "HelveticaNeue-Bold";
+  src: url("assets/fonts/HelveticaNeueCyr-Bold.ttf") format("trueType");
+  font-style: normal;
+}
+@font-face {
+  font-family: "AkiraExpanded";
+  src: url("assets/fonts/AkiraExpandedDemo.otf") format("openType");
+  font-style: normal;
+}
