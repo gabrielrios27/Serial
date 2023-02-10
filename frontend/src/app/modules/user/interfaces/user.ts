@@ -99,6 +99,7 @@ export interface TvShow {
   episode_run_time: number[];
   first_air_date: Date;
   genres: Genre[];
+  genre_ids: Number[];
   homepage: string;
   id: number;
   in_production: boolean;

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { PageTvShow, TvShow } from '../../interfaces/user';
+import { Genre, PageTvShow, TvShow } from '../../interfaces/user';
 import { Subject, takeUntil } from 'rxjs';
 
 import { UserService } from '../../services/user.service';
@@ -38,10 +38,77 @@ export class HomeComponent implements OnInit, OnDestroy {
   translatePaginationString: string = '0px';
   toSearch: string = '';
   quantity: number = 0;
-
+  genres: Genre[];
   // suscripciones
   onDestroy$: Subject<boolean> = new Subject();
-  constructor(private _UserSvc: UserService) {}
+  constructor(private _UserSvc: UserService) {
+    this.genres = [
+      {
+        id: 37,
+        name: 'Western',
+      },
+      {
+        id: 10768,
+        name: 'War & Politics',
+      },
+      {
+        id: 10767,
+        name: 'Talk',
+      },
+      {
+        id: 10766,
+        name: 'Soap',
+      },
+      {
+        id: 10765,
+        name: 'Sci-Fi & Fantasy',
+      },
+      {
+        id: 10764,
+        name: 'Reality',
+      },
+      {
+        id: 10763,
+        name: 'News',
+      },
+      {
+        id: 9648,
+        name: 'Mystery',
+      },
+      {
+        id: 10762,
+        name: 'Kids',
+      },
+      {
+        id: 10751,
+        name: 'Family',
+      },
+      {
+        id: 18,
+        name: 'Drama',
+      },
+      {
+        id: 99,
+        name: 'Documentary',
+      },
+      {
+        id: 80,
+        name: 'Crime',
+      },
+      {
+        id: 35,
+        name: 'Comedy',
+      },
+      {
+        id: 16,
+        name: 'Animation',
+      },
+      {
+        id: 10759,
+        name: 'Action & Adventure',
+      },
+    ];
+  }
 
   ngOnInit(): void {
     this.getTvShow();
@@ -70,8 +137,18 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.createNumbersPagesArray();
           // this.ReWriteAtFilterChange(this.toSearch);
           console.log('Request trending complete');
+          this.namedGenre(this.genres, this.tvShows_toShow);
         },
       });
+  }
+
+  namedGenre(genresNames: Genre[], listTvShows: TvShow[]) {
+    listTvShows.map((item: TvShow) => {
+      let genreSelected: Genre[] = genresNames.filter((gen: Genre) =>
+        item.genre_ids.includes(gen.id)
+      );
+      item.genres = genreSelected;
+    });
   }
 
   getSearchTvShow() {

@@ -18,7 +18,7 @@ export class UserService {
   constructor(private _http: HttpClient) {}
   getTvShow(page: number): Observable<PageTvShow> {
     let params = new HttpParams()
-      .set('language', 'es')
+      .set('language', 'en')
       .set('page', page.toString());
 
     return this._http.get<PageTvShow>(this.baseUrl + this.subUrl, {
@@ -28,7 +28,7 @@ export class UserService {
   }
   getSearchTvShow(page: number, toSearch: string): Observable<PageTvShow> {
     let params = new HttpParams()
-      .set('language', 'es')
+      .set('language', 'en')
       .set('query', toSearch)
       .set('page', page.toString())
       .set('include_adult', false);

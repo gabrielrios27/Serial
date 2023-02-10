@@ -122,9 +122,11 @@
   .prelogin__titlesContainer {
     padding-top: 146px;
     position: relative;
-    width: 275px;
-    margin-left: 20px;
+    width: 100%;
+
+    // margin-left: 20px;
     .prelogin__title {
+      width: 275px;
       position: relative;
       z-index: 5;
       font-weight: 400;
@@ -132,11 +134,12 @@
       line-height: 28px;
       font-family: "AkiraExpanded";
       text-align: end;
+      margin: auto;
     }
     .prelogin__img {
       position: absolute;
-      z-index: 2;
-      top: 90px;
+      z-index: -1;
+      top: -56px;
       left: 46px;
     }
   }
@@ -159,7 +162,7 @@
       cursor: pointer;
       transition: all 0.2s linear;
       &:hover {
-        background: #0019a3;
+        background: #1045ff;
       }
     }
     .prelogin__already {
