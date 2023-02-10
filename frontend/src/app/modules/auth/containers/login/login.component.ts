@@ -14,24 +14,37 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, AfterViewInit {
+  backVideo: boolean;
   visible: boolean;
   preLogin: boolean;
+  preLoginPhrase: boolean;
   login: boolean;
   register: boolean;
   success: boolean;
+  letterS: boolean;
+  spotLight: boolean;
+  restWord: boolean;
+  endWord: boolean;
   @ViewChild('videoHome', { static: false }) videoHome!: ElementRef;
 
   flagSeePassword: boolean = false;
   constructor(private router: Router) {
+    this.backVideo = false;
     this.visible = false;
     this.login = false;
     this.register = false;
     this.preLogin = true;
+    this.preLoginPhrase = false;
     this.success = false;
+    this.letterS = false;
+    this.spotLight = false;
+    this.restWord = false;
+    this.endWord = false;
   }
 
   ngOnInit(): void {
     this.turnVisible();
+    this.startSpotLight();
   }
   ngAfterViewInit() {
     this.togglevideoHome();
@@ -40,7 +53,27 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.videoHome.nativeElement.muted = true;
     this.videoHome.nativeElement.play();
   }
+  startSpotLight() {
+    setTimeout(() => {
+      this.letterS = true;
+    }, 500);
 
+    setTimeout(() => {
+      this.spotLight = true;
+      setTimeout(() => {
+        this.restWord = true;
+        setTimeout(() => {
+          this.endWord = true;
+        }, 500);
+      }, 400);
+    }, 1000);
+    setTimeout(() => {
+      this.backVideo = true;
+    }, 3000);
+    setTimeout(() => {
+      this.preLoginPhrase = true;
+    }, 4000);
+  }
   turnVisible() {
     setTimeout(() => {
       this.visible = true;
