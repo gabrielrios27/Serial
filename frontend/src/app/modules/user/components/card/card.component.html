@@ -1,7 +1,7 @@
 <section class="card" [ngClass]="cardOpen ? 'card--expand' : ''">
   <img
     class="card__img"
-    src="../../../../../assets/images/pre/{{ image }}.png"
+    src="https://image.tmdb.org/t/p/w500{{ tvShow.poster_path }}"
     alt=""
     (click)="openCard()"
   />

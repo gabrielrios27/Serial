@@ -121,10 +121,23 @@
 
   .prelogin__titlesContainer {
     padding-top: 146px;
+    position: relative;
+    width: 275px;
+    margin-left: 20px;
     .prelogin__title {
+      position: relative;
+      z-index: 5;
       font-weight: 400;
       font-size: 24px;
+      line-height: 28px;
       font-family: "AkiraExpanded";
+      text-align: end;
+    }
+    .prelogin__img {
+      position: absolute;
+      z-index: 2;
+      top: 90px;
+      left: 46px;
     }
   }
   .prelogin__btnContainer {

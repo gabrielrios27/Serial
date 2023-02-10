@@ -1,6 +1,6 @@
-export interface PageMoviesSeriesActors {
+export interface PageTvShow {
   page: number;
-  results: MoviesSeriesActors[];
+  results: TvShow[];
   total_pages: number;
   total_results: number;
 }
