@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -8,9 +10,10 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class RegisterComponent implements OnInit {
   @Output() goPreLogin = new EventEmitter<boolean>();
   @Output() goLogin = new EventEmitter<boolean>();
+  @Output() onContinue = new EventEmitter<boolean>();
   success: boolean;
   flagSeePassword: boolean;
-  constructor() {
+  constructor(private router: Router) {
     this.flagSeePassword = false;
     this.success = false;
   }
@@ -38,6 +41,8 @@ export class RegisterComponent implements OnInit {
     }
   }
   toogleSuccess(value: boolean) {
-    this.success = value;
+    // this.success = value;
+    // this.router.navigate(['user']);
+    console.log('Log Google');
   }
 }

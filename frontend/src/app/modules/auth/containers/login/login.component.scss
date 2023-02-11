@@ -32,6 +32,7 @@
 }
 .logoContainer {
   width: 100%;
+  height: 56px;
   max-width: 59px;
   overflow: hidden;
   display: inline-flex;
@@ -56,8 +57,10 @@
     .logoContainer__spotLight {
       // width: 40px;
       position: absolute;
+      height: 32px;
+      width: 58px;
       top: 20px;
-      right: -15px;
+      right: -16px;
       z-index: 3;
       opacity: 0;
       transition: all 1s linear;
@@ -75,6 +78,7 @@
     letter-spacing: 1.4px;
     z-index: 1;
     transition: all 1s linear;
+    line-height: 55px;
   }
   .logoContainer__word--show {
     // display: flex;
@@ -237,22 +241,34 @@
       margin-top: 5px;
       align-self: flex-start;
     }
-    .login__loginGoogle {
-      margin-top: 14px;
-      margin-bottom: 34px;
-      width: 239px;
-      height: 30px;
-      color: black;
-      background: #ffffff;
-      border: 4px solid #ffffff;
-    }
+
     .login__notNow {
       font-weight: 600;
       font-size: 14px;
     }
   }
 }
+.googleBtn {
+  position: relative;
+  .googleBtn__label {
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    .googleBtn__img {
+      width: 22px;
+    }
+  }
 
+  .googleBtn__btn {
+    margin-top: 14px;
+    margin-bottom: 34px;
+    width: 239px;
+    height: 30px;
+    color: black;
+    background: #ffffff;
+    border: 4px solid #ffffff;
+  }
+}
 .form {
   padding-top: 54px;
   border-bottom: 1px solid #ffffff;
@@ -311,6 +327,7 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
   }
 }
+
 .success {
   flex-direction: column;
   align-items: center;

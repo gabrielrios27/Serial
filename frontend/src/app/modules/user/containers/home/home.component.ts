@@ -135,8 +135,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         complete: () => {
           this.CountQuantity();
           this.createNumbersPagesArray();
-          // this.ReWriteAtFilterChange(this.toSearch);
-          console.log('Request trending complete');
           this.namedGenre(this.genres, this.tvShows_toShow);
         },
       });
@@ -151,6 +149,28 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
+  /*para buscar la informacion del input dentro de las cards mostradas en el home*/
+  onSearch(e: string) {
+    /*informacion a buscar, que viene desde el componente searcher*/
+    this.toSearch = e;
+
+    // lo siguiente se hace para volver la paginación a la pagina 1 cada vez que se busca algo
+    this.arrowPagination = 1;
+    this.translatePaginationNumber = 0;
+    this.translatePaginationString = '0px';
+    this.pageSelected = 1;
+
+    /*vacío el arreglo en donde guardaremos las series que coincidan con la busqueda */
+    this.tvShows_toSearch = [];
+    if (e !== '') {
+      this.getSearchTvShow();
+    } else {
+      /*si el input de busqueda esta vacio se muestra el arreglo de todas las series*/
+      this.getTvShow();
+    }
+    /*se calcula la cantidad de series mostradas*/
+    this.quantity = this.tvShows_toShow.length;
+  }
   getSearchTvShow() {
     this._UserSvc
       .getSearchTvShow(this.pageSelected, this.toSearch)
@@ -158,6 +178,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (data: PageTvShow) => {
           this.tvShows = data.results;
+          let firstElement = this.tvShows.shift();
+          if (firstElement && firstElement.poster_path) {
+            this.tvShowCover = firstElement;
+          }
           this.totalPages = data.total_pages;
           this.tvShows_toShow = this.tvShows;
         },
@@ -167,10 +191,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         complete: () => {
           this.CountQuantity();
           this.createNumbersPagesArray();
-          console.log('Request series to search complete');
         },
       });
   }
+
   createNumbersPagesArray() {
     this.numbersPages = [];
     if (this.totalPages > this.pagesToShow) {
