@@ -73,9 +73,21 @@
         </button>
       </form>
       <p class="login__alternative">Alternative Log in</p>
-      <button class="login__loginGoogle" (click)="toogleSuccess(true)">
-        Sign in with Google
-      </button>
+      <div class="googleBtn">
+        <label class="googleBtn__label" for="logGoogle"
+          ><img
+            class="googleBtn__img"
+            src="../../../../../assets/icons/google.svg"
+            alt="Icon of Google"
+        /></label>
+        <button
+          id="logGoogle"
+          class="googleBtn__btn"
+          (click)="toogleSuccess(true)"
+        >
+          Sign in with Google
+        </button>
+      </div>
       <p class="login__notNow" (click)="toogleLogin('preLogin')">NOT NOW</p>
     </ng-container>
     <div class="success" [ngClass]="success ? 'show' : 'notShow'">

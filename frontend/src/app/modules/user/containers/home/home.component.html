@@ -1,5 +1,8 @@
 <div class="user">
-  <app-searcher class="searchContainer"></app-searcher>
+  <app-searcher
+    class="searchContainer"
+    (search)="onSearch($event)"
+  ></app-searcher>
   <main class="cover">
     <img
       class="cover__img"
@@ -12,6 +15,58 @@
     </div>
   </main>
   <section class="gallery">
-    <app-card *ngFor="let item of tvShows_toShow" [tvShow]="item"></app-card>
+    <ng-container *ngFor="let item of tvShows_toShow">
+      <app-card *ngIf="item.poster_path" [tvShow]="item"></app-card>
+    </ng-container>
+    <div class="pagination">
+      <svg
+        *ngIf="toSearch == ''"
+        (click)="onClickLeftArrowPagination()"
+        class="pagination__arrow"
+        width="44"
+        height="33"
+        viewBox="0 0 29 32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3.25596 11.7628L20.78 0.76797C24.0968 -1.31283 28.4 1.07957 28.4 5.00517V26.9948C28.4 30.92 24.0968 33.3128 20.78 31.232L3.25596 20.2372C0.136359 18.2796 0.136359 13.7204 3.25596 11.7628Z"
+          fill="#506cff"
+        />
+      </svg>
+      <div class="pagination__container">
+        <div
+          class="pagination__numbers"
+          [ngStyle]="{
+            left: arrowPagination > 1 ? translatePaginationString : '0px'
+          }"
+        >
+          <ng-container *ngFor="let number of numbersPages">
+            <p
+              class="pagination__cell"
+              [ngClass]="number == pageSelected ? 'pagination__cellActive' : ''"
+              (click)="onClickPage(number)"
+            >
+              {{ number }}
+            </p>
+          </ng-container>
+        </div>
+      </div>
+      <svg
+        *ngIf="toSearch == ''"
+        (click)="onClickRightArrowPagination()"
+        class="pagination__arrow"
+        width="44"
+        height="33"
+        viewBox="0 0 29 32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M25.744 11.7628L8.21998 0.76797C4.90318 -1.31283 0.599976 1.07957 0.599976 5.00517V26.9948C0.599976 30.92 4.90318 33.3128 8.21998 31.232L25.744 20.2372C28.8636 18.2796 28.8636 13.7204 25.744 11.7628Z"
+          fill="#506cff"
+        />
+      </svg>
+    </div>
   </section>
 </div>
