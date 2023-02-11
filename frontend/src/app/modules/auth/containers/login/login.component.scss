@@ -32,6 +32,7 @@
 }
 .logoContainer {
   width: 100%;
+  height: 56px;
   max-width: 59px;
   overflow: hidden;
   display: inline-flex;
@@ -56,8 +57,10 @@
     .logoContainer__spotLight {
       // width: 40px;
       position: absolute;
+      height: 32px;
+      width: 58px;
       top: 20px;
-      right: -15px;
+      right: -16px;
       z-index: 3;
       opacity: 0;
       transition: all 1s linear;
@@ -75,6 +78,7 @@
     letter-spacing: 1.4px;
     z-index: 1;
     transition: all 1s linear;
+    line-height: 55px;
   }
   .logoContainer__word--show {
     // display: flex;
