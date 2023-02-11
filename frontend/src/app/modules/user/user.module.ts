@@ -2,14 +2,20 @@ import { CardComponent } from './components/card/card.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './containers/home/home.component';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SearcherComponent } from './components/searcher/searcher.component';
 import { UserRoutingModule } from './user-routing.module';
-
 @NgModule({
   declarations: [HomeComponent, SearcherComponent, CardComponent],
-  imports: [CommonModule, UserRoutingModule, RouterModule, FormsModule],
+  imports: [
+    CommonModule,
+    UserRoutingModule,
+    RouterModule,
+    FormsModule,
+    HttpClientModule,
+  ],
   exports: [SearcherComponent, CardComponent],
 })
 export class UserModule {}

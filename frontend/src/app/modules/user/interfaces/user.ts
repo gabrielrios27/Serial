@@ -1,6 +1,6 @@
-export interface PageMoviesSeriesActors {
+export interface PageTvShow {
   page: number;
-  results: MoviesSeriesActors[];
+  results: TvShow[];
   total_pages: number;
   total_results: number;
 }
@@ -99,6 +99,7 @@ export interface TvShow {
   episode_run_time: number[];
   first_air_date: Date;
   genres: Genre[];
+  genre_ids: Number[];
   homepage: string;
   id: number;
   in_production: boolean;

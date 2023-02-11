@@ -7,13 +7,47 @@
   align-items: center;
   padding-top: 62px;
   .cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 77%;
+    position: relative;
+    .cover__img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      object-position: center;
+    }
+    .cover__linksContainer {
+      margin: auto;
+      display: flex;
+      width: 100px;
+      justify-content: space-between;
+      position: absolute;
+      bottom: -15px;
+      .cover__link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        color: black;
+        text-decoration: none;
+        width: 30px;
+        height: 30px;
+        background-color: white;
+        border-radius: 50%;
+      }
+      .cover__link--up {
+        padding-bottom: 3px;
+      }
+    }
   }
 }
 
 .gallery {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
   margin-top: 60px;
   margin-bottom: 115px;

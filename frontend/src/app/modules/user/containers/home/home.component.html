@@ -2,16 +2,16 @@
   <app-searcher class="searchContainer"></app-searcher>
   <main class="cover">
     <img
-      src="../../../../../assets/images/image 27.png"
+      class="cover__img"
+      src="https://image.tmdb.org/t/p/w500{{ tvShowCover.poster_path }}"
       alt="Cover of tv show random"
     />
+    <div class="cover__linksContainer">
+      <a class="cover__link">i</a>
+      <a class="cover__link cover__link--up">+</a>
+    </div>
   </main>
   <section class="gallery">
-    <app-card *ngFor="let image of images" [image]="image"></app-card>
-    <!-- <app-card></app-card>
-    <app-card></app-card>
-    <app-card></app-card>
-    <app-card></app-card>
-    <app-card></app-card> -->
+    <app-card *ngFor="let item of tvShows_toShow" [tvShow]="item"></app-card>
   </section>
 </div>

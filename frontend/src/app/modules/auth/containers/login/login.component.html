@@ -1,26 +1,61 @@
 <section class="main">
-  <div class="main__videoContainer">
+  <div
+    class="main__videoContainer"
+    [ngClass]="backVideo ? 'main__videoContainer--show' : ''"
+  >
     <video #videoHome autoplay loop muted class="main__video">
       <source src="../../../../../assets/videos/1899.mp4" type="video/mp4" />
     </video>
   </div>
   <!-- <h2 class="logo">SERIAL</h2> -->
-  <img
+  <!-- <img
     class="logo"
     src="../../../../../assets/icons/logo.svg"
     alt="Logo Serial app"
-  />
-  <!-- [ngClass]="!login ? 'show' : 'notShow'" -->
-  <div class="prelogin" *ngIf="preLogin">
+  /> -->
+  <div
+    class="logoContainer"
+    [ngClass]="restWord ? 'logoContainer--expanse' : ''"
+  >
+    <!-- <h2 class="logoContainer__letter">S</h2> -->
+    <div class="logoContainer__letter">
+      <img
+        class="logoContainer__letterS"
+        [ngClass]="letterS ? 'logoContainer__letterS--show' : ''"
+        src="../../../../../assets/icons/S-letter.svg"
+        alt="Letra S"
+      />
+      <img
+        class="logoContainer__spotLight"
+        [ngClass]="spotLight ? 'spotLightExpanse' : ''"
+        src="../../../../../assets/icons/spotlight-blue3.svg"
+        alt="SpotLight"
+      />
+    </div>
+    <h2
+      class="logoContainer__word"
+      [ngClass]="endWord ? 'logoContainer__word--show' : ''"
+    >
+      ERIAL
+    </h2>
+  </div>
+  <!-- [ngClass]="!login ? 'show' : 'notShow'" ; *ngIf="preLogin"-->
+  <div
+    class="prelogin"
+    *ngIf="preLogin"
+    [ngClass]="preLoginPhrase ? 'visible' : 'invisible'"
+  >
     <!-- <img class="prelogin__logo" src="" alt="" /> -->
 
     <section class="prelogin__titlesContainer">
       <h1 class="prelogin__title">
         SHED SOME LIGHT OVER YOUR FAVORITE TV SHOWS
+        <img
+          class="prelogin__img"
+          src="../../../../../assets/icons/spotlight-blue-Great.svg"
+          alt=""
+        />
       </h1>
-      <!-- <h1 class="prelogin__title">
-    COMPARTE TUS OPINIONES CON SERIEFILOS DE TODO EL MUNDO
-  </h1> -->
     </section>
     <section
       class="prelogin__btnContainer"
