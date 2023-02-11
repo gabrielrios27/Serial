@@ -39,13 +39,17 @@
         <p class="card__details" *ngIf="tvShow.overview">
           {{ shortOverview }}...
         </p>
-        <p class="card__details--genres" *ngFor="let gen of tvShow.genres">
-          <ng-container *ngIf="!tvShow.overview">
+        <ng-container *ngIf="!tvShow.overview">
+          <p class="card__details--genres" *ngFor="let gen of tvShow.genres">
             {{ gen.name }}
-          </ng-container>
-        </p>
+          </p>
+        </ng-container>
         <div class="actions">
-          <img class="actions__play" src="" alt="" />
+          <img
+            class="action__icon"
+            src="../../../../../assets/icons/more-ico.svg"
+            alt=" icon More Details"
+          />
         </div>
       </div>
       <img
