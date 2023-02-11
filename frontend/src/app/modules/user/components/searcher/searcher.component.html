@@ -1,0 +1,25 @@
+<label
+  class="searcher"
+  for="search"
+  [ngClass]="searchOpen ? 'searcher--open' : ''"
+>
+  <img
+    class="icons searcher__ico"
+    src="../../../../../assets/icons/search.svg"
+    alt="icon searcher"
+    (click)="toogleSearchOpen()"
+  />
+  <div class="searcher__containerInput">
+    <!-- se coloca required al input ya que si no se coloca considera valido el campo a pesar de estar vacio y la animacion no funciona al hacer focus y escribir -->
+    <input
+      class="searcher__input"
+      type="text"
+      [(ngModel)]="toSearch"
+      (ngModelChange)="Search(toSearch)"
+      required
+      id="search"
+      autocomplete="off"
+      spellcheck="false"
+    />
+  </div>
+</label>

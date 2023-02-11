@@ -1,0 +1,91 @@
+<section class="login">
+  <!-- <h2 class="logo">SERIAL</h2> -->
+  <div class="login__container">
+    <ng-container *ngIf="!success">
+      <svg
+        class="login__close"
+        (click)="toogleLogin('preLogin')"
+        width="24"
+        height="31"
+        viewBox="0 0 24 31"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M17.781 8.0329C17.8508 8.12289 17.9062 8.22979 17.944 8.34748C17.9818 8.46518 18.0013 8.59135 18.0013 8.71877C18.0013 8.8462 17.9818 8.97237 17.944 9.09006C17.9062 9.20776 17.8508 9.31466 17.781 9.40465L7.28097 22.9671C7.14014 23.1491 6.94913 23.2512 6.74997 23.2512C6.55081 23.2512 6.3598 23.1491 6.21897 22.9671C6.07814 22.7852 5.99902 22.5385 5.99902 22.2813C5.99902 22.024 6.07814 21.7773 6.21897 21.5954L16.719 8.0329C16.7886 7.94268 16.8714 7.8711 16.9625 7.82227C17.0536 7.77343 17.1513 7.74829 17.25 7.74829C17.3486 7.74829 17.4463 7.77343 17.5374 7.82227C17.6285 7.8711 17.7113 7.94268 17.781 8.0329V8.0329Z"
+          fill="#fff"
+        />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M6.21936 8.0329C6.14952 8.12289 6.0941 8.22979 6.0563 8.34748C6.01849 8.46518 5.99902 8.59135 5.99902 8.71877C5.99902 8.8462 6.01849 8.97237 6.0563 9.09006C6.0941 9.20776 6.14952 9.31466 6.21936 9.40465L16.7194 22.9671C16.8602 23.1491 17.0512 23.2512 17.2504 23.2512C17.4495 23.2512 17.6405 23.1491 17.7814 22.9671C17.9222 22.7852 18.0013 22.5385 18.0013 22.2813C18.0013 22.024 17.9222 21.7773 17.7814 21.5954L7.28136 8.0329C7.2117 7.94268 7.12893 7.8711 7.03781 7.82227C6.9467 7.77343 6.84902 7.74829 6.75036 7.74829C6.65171 7.74829 6.55403 7.77343 6.46291 7.82227C6.3718 7.8711 6.28903 7.94268 6.21936 8.0329V8.0329Z"
+          fill="#fff"
+        />
+      </svg>
+      <h2 class="login__title">Sign up</h2>
+      <p class="login__extras" (click)="toogleLogin('login')">
+        Already have an account? <span class="login__extrasSpan">Log in!</span>
+      </p>
+
+      <form class="form" action="">
+        <input
+          class="form__inputName"
+          type="text"
+          placeholder="Username or E-mail"
+        />
+        <div class="form__containerPass">
+          <input
+            class="form__inputPass"
+            type="password"
+            name="password"
+            id="password"
+          />
+          <img
+            (click)="changeType()"
+            class="form__PassIco"
+            src="../../../../../assets/icons/eye-hide-filled.svg"
+            alt="Icon eye - see password"
+          />
+        </div>
+        <div class="form__containerPass">
+          <input
+            class="form__inputPass"
+            type="password"
+            name="password"
+            id="password2"
+          />
+        </div>
+        <div class="form__containerRememberMe">
+          <input
+            class="form__inputRememberMe"
+            type="checkbox"
+            name="rememberMe"
+            id="rememberMe"
+          />
+          <label class="form__rememberMeLabel" for="rememberMe"
+            >Remember me</label
+          >
+        </div>
+        <button class="form__submit" (click)="toogleSuccess(true)">
+          Continue
+        </button>
+      </form>
+      <p class="login__alternative">Alternative Log in</p>
+      <button class="login__loginGoogle" (click)="toogleSuccess(true)">
+        Sign in with Google
+      </button>
+      <p class="login__notNow" (click)="toogleLogin('preLogin')">NOT NOW</p>
+    </ng-container>
+    <div class="success" [ngClass]="success ? 'show' : 'notShow'">
+      <div class="success__container">
+        <img
+          src="../../../../../assets/icons/check-circle.svg"
+          alt="Icon Success log in"
+        />
+      </div>
+      <h2 class="success__title">Welcome!</h2>
+    </div>
+  </div>
+</section>

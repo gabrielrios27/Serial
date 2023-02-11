@@ -1,0 +1,21 @@
+.user {
+  background-color: black;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 62px;
+  .cover {
+  }
+}
+
+.gallery {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 60px;
+  margin-bottom: 115px;
+  gap: 13px;
+}
