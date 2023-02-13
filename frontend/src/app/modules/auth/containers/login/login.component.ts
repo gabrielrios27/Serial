@@ -28,6 +28,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
   @ViewChild('videoHome', { static: false }) videoHome!: ElementRef;
 
   flagSeePassword: boolean = false;
+  GOOGLE_CLIENT_ID:string='591408333352-mj91m76m2mufk2r16a15obil0507s6dn.apps.googleusercontent.com';
+GOOGLE_REDIRECT_URL:string ='https://serial-backend.onrender.com/user/home';
+
   constructor(private router: Router) {
     this.backVideo = false;
     this.visible = false;
@@ -57,16 +60,17 @@ export class LoginComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.letterS = true;
     }, 500);
-
     setTimeout(() => {
       this.spotLight = true;
-      setTimeout(() => {
+      
+    }, 1000);
+    setTimeout(() => {
         this.restWord = true;
-        setTimeout(() => {
+        
+      }, 400);
+      setTimeout(() => {
           this.endWord = true;
         }, 500);
-      }, 400);
-    }, 1000);
     setTimeout(() => {
       this.backVideo = true;
     }, 3000);
@@ -111,4 +115,25 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.success = value;
     this.router.navigate(['user']);
   }
+  getGoogleOAuthURL = () => {
+    const rootUrl = "https://accounts.google.com/o/oauth2/v2/auth";
+
+    const options = {
+      redirect_uri: this.GOOGLE_REDIRECT_URL,
+      client_id: this.GOOGLE_CLIENT_ID,
+      access_type: "offline",
+      response_type: "code",
+      prompt: "consent",
+      scope: [
+        "https://www.googleapis.com/auth/userinfo.profile",
+        "https://www.googleapis.com/auth/userinfo.email",
+      ].join(" "),
+    };
+
+    const query = new URLSearchParams(options);
+console.log('log with google retorna: ', `${rootUrl}?${query.toString()}`);
+    // return `${rootUrl}?${query.toString()}`;
+     `${rootUrl}?${query.toString()}`;
+  }
+
 }
