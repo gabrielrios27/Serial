@@ -6,6 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -28,10 +29,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
   @ViewChild('videoHome', { static: false }) videoHome!: ElementRef;
 
   flagSeePassword: boolean = false;
-  GOOGLE_CLIENT_ID:string='591408333352-mj91m76m2mufk2r16a15obil0507s6dn.apps.googleusercontent.com';
-GOOGLE_REDIRECT_URL:string ='https://serial-backend.onrender.com/user/home';
-
-  constructor(private router: Router) {
+  GOOGLE_CLIENT_ID: string =
+    '591408333352-mj91m76m2mufk2r16a15obil0507s6dn.apps.googleusercontent.com';
+  GOOGLE_REDIRECT_URL: string = 'https://serial-backend.onrender.com/user/home';
+  //Datos del form
+  email: string;
+  password: string;
+  constructor(private router: Router, private _authSvc: AuthService) {
     this.backVideo = false;
     this.visible = false;
     this.login = false;
@@ -43,6 +47,8 @@ GOOGLE_REDIRECT_URL:string ='https://serial-backend.onrender.com/user/home';
     this.spotLight = false;
     this.restWord = false;
     this.endWord = false;
+    this.email = '';
+    this.password = '';
   }
 
   ngOnInit(): void {
@@ -62,15 +68,13 @@ GOOGLE_REDIRECT_URL:string ='https://serial-backend.onrender.com/user/home';
     }, 500);
     setTimeout(() => {
       this.spotLight = true;
-      
     }, 1000);
     setTimeout(() => {
-        this.restWord = true;
-        
-      }, 400);
-      setTimeout(() => {
-          this.endWord = true;
-        }, 500);
+      this.restWord = true;
+    }, 400);
+    setTimeout(() => {
+      this.endWord = true;
+    }, 500);
     setTimeout(() => {
       this.backVideo = true;
     }, 3000);
@@ -115,25 +119,31 @@ GOOGLE_REDIRECT_URL:string ='https://serial-backend.onrender.com/user/home';
     this.success = value;
     this.router.navigate(['user']);
   }
+  onSubmit() {
+    this._authSvc.logIn(this.email, this.password).subscribe({
+      next: (resp: any) => console.log('resp: ', resp),
+      error: (error: any) => console.log('error', error),
+    });
+  }
+
   getGoogleOAuthURL = () => {
-    const rootUrl = "https://accounts.google.com/o/oauth2/v2/auth";
+    const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
 
     const options = {
       redirect_uri: this.GOOGLE_REDIRECT_URL,
       client_id: this.GOOGLE_CLIENT_ID,
-      access_type: "offline",
-      response_type: "code",
-      prompt: "consent",
+      access_type: 'offline',
+      response_type: 'code',
+      prompt: 'consent',
       scope: [
-        "https://www.googleapis.com/auth/userinfo.profile",
-        "https://www.googleapis.com/auth/userinfo.email",
-      ].join(" "),
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/userinfo.email',
+      ].join(' '),
     };
 
     const query = new URLSearchParams(options);
-console.log('log with google retorna: ', `${rootUrl}?${query.toString()}`);
+    console.log('log with google retorna: ', `${rootUrl}?${query.toString()}`);
     // return `${rootUrl}?${query.toString()}`;
-     `${rootUrl}?${query.toString()}`;
-  }
-
+    `${rootUrl}?${query.toString()}`;
+  };
 }

@@ -29,11 +29,13 @@
         Already have an account? <span class="login__extrasSpan">Log in!</span>
       </p>
 
-      <form class="form" action="">
+      <form class="form" (ngSubmit)="onSubmit()">
         <input
           class="form__inputName"
           type="text"
           placeholder="Username or E-mail"
+          [(ngModel)]="email"
+          name="email"
         />
         <div class="form__containerPass">
           <input
@@ -41,6 +43,7 @@
             type="password"
             name="password"
             id="password"
+            [(ngModel)]="password"
           />
           <img
             (click)="changeType()"
@@ -53,7 +56,7 @@
           <input
             class="form__inputPass"
             type="password"
-            name="password"
+            name="password2"
             id="password2"
           />
         </div>
@@ -68,9 +71,7 @@
             >Remember me</label
           >
         </div>
-        <button class="form__submit" (click)="toogleSuccess(true)">
-          Continue
-        </button>
+        <button class="form__submit" type="submit">Continue</button>
       </form>
       <p class="login__alternative">Alternative Log in</p>
       <div class="googleBtn">

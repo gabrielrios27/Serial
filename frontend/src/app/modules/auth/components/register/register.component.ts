@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
+import { AuthService } from './../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,9 +14,14 @@ export class RegisterComponent implements OnInit {
   @Output() onContinue = new EventEmitter<boolean>();
   success: boolean;
   flagSeePassword: boolean;
-  constructor(private router: Router) {
+  //Datos del form
+  email: string;
+  password: string;
+  constructor(private router: Router, private _authSvc: AuthService) {
     this.flagSeePassword = false;
     this.success = false;
+    this.email = '';
+    this.password = '';
   }
 
   ngOnInit(): void {}
@@ -43,5 +49,17 @@ export class RegisterComponent implements OnInit {
   toogleSuccess(value: boolean) {
     this.success = value;
     this.router.navigate(['user']);
+  }
+  onSubmit() {
+    this._authSvc.signUp(this.email, this.password).subscribe({
+      next: (resp: any) => console.log('resp: ', resp),
+      error: (error: any) => console.log('error', error),
+    });
+
+    // .subscribe(response => {
+    //   // Handle the successful login response
+    // }, error => {
+    //   // Handle the error response
+    // });
   }
 }
