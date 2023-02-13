@@ -41,8 +41,7 @@ export class RegisterComponent implements OnInit {
     }
   }
   toogleSuccess(value: boolean) {
-    // this.success = value;
-    // this.router.navigate(['user']);
-    console.log('Log Google');
+    this.success = value;
+    this.router.navigate(['user']);
   }
 }
