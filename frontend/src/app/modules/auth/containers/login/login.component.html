@@ -99,21 +99,55 @@
         <p class="login__extras">
           Forgot something? <span class="login__extrasSpan">Recover ID</span>
         </p>
-        <form class="form" (ngSubmit)="onSubmit()">
-          <input
-            class="form__inputName"
-            type="text"
-            placeholder="Username or E-mail"
-            [(ngModel)]="email"
-            name="email"
-          />
+        <form
+          class="form"
+          [formGroup]="form"
+          (ngSubmit)="onSubmit()"
+          autocomplete="off"
+        >
+          <div class="form__containerEmail">
+            <input
+              class="form__inputEmail"
+              type="text"
+              placeholder="Username or E-mail"
+              formControlName="email"
+              autocomplete="off"
+              (ngModelChange)="changeInput()"
+            />
+            <div
+              class="invalidEmail"
+              *ngIf="messageError === messageErrorEmail"
+            >
+              <p class="invalidForm__text">
+                {{ messageError }}
+              </p>
+            </div>
+            <div class="invalidEmail" *ngIf="invalidForm">
+              <p
+                class="invalidForm__text"
+                *ngIf="form.get('email')?.hasError('required')"
+              >
+                E-mail is required
+              </p>
+              <p
+                class="invalidForm__text"
+                *ngIf="
+                  form.get('email')?.hasError('email') ||
+                  form.get('email')?.hasError('pattern')
+                "
+              >
+                Invalid E-mail
+              </p>
+            </div>
+          </div>
           <div class="form__containerPass">
             <input
               class="form__inputPass"
               type="password"
-              name="password"
               id="password"
-              [(ngModel)]="password"
+              formControlName="password"
+              autoComplete="new-password"
+              (ngModelChange)="changeInput()"
             />
             <img
               (click)="changeType()"
@@ -121,7 +155,43 @@
               src="../../../../../assets/icons/eye-hide-filled.svg"
               alt="Icon eye - see password"
             />
+            <div
+              class="invalidForm"
+              *ngIf="messageError === messageErrorPassword"
+            >
+              <p class="invalidForm__text">
+                {{ messageError }}
+              </p>
+            </div>
+            <div class="invalidForm" *ngIf="invalidForm">
+              <p
+                class="invalidForm__text"
+                *ngIf="form.get('password')?.hasError('required')"
+              >
+                Password is required
+              </p>
+              <p
+                class="invalidForm__text"
+                *ngIf="
+                  form.get('password')?.hasError('minlength') &&
+                  !form.get('password')?.hasError('required')
+                "
+              >
+                Password must be at least 6 characters long
+              </p>
+              <p
+                class="invalidForm__text"
+                *ngIf="
+                  form.get('password')?.hasError('invalidPassword') &&
+                  !form.get('password')?.hasError('required')
+                "
+              >
+                Password must contain at least one uppercase letter and one
+                number
+              </p>
+            </div>
           </div>
+
           <div class="form__containerRememberMe">
             <input
               class="form__inputRememberMe"
@@ -133,6 +203,7 @@
               >Remember me</label
             >
           </div>
+
           <button class="form__submit" type="submit">Continue</button>
         </form>
         <p class="login__alternative">Alternative Log in</p>
@@ -146,7 +217,7 @@
           <button
             id="logGoogle"
             class="googleBtn__btn"
-            (click)="getGoogleOAuthURL()"
+            (click)="signUpWithGoogle()"
           >
             Log in with Google
           </button>

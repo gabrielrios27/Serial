@@ -28,8 +28,110 @@
       <p class="login__extras" (click)="toogleLogin('login')">
         Already have an account? <span class="login__extrasSpan">Log in!</span>
       </p>
+      <form
+        class="form"
+        [formGroup]="form"
+        (ngSubmit)="onSubmit()"
+        autocomplete="off"
+      >
+        <div class="form__containerEmail">
+          <input
+            class="form__inputEmail"
+            type="text"
+            placeholder="Username or E-mail"
+            formControlName="email"
+            autocomplete="off"
+            (ngModelChange)="changeInput()"
+          />
+          <div class="invalidEmail" *ngIf="messageError === messageErrorEmail">
+            <p class="invalidForm__text">
+              {{ messageError }}
+            </p>
+          </div>
+          <div class="invalidEmail" *ngIf="invalidForm">
+            <div
+              class="invalidForm__text"
+              *ngIf="form.get('email')?.hasError('required')"
+            >
+              E-mail is required
+            </div>
+            <div
+              class="invalidForm__text"
+              *ngIf="
+                form.get('email')?.hasError('email') ||
+                form.get('email')?.hasError('pattern')
+              "
+            >
+              Invalid E-mail
+            </div>
+          </div>
+        </div>
+        <div class="form__containerPass">
+          <input
+            class="form__inputPass"
+            type="password"
+            id="password"
+            formControlName="password"
+            autocomplete="off"
+            (ngModelChange)="changeInput()"
+          />
+          <img
+            (click)="changeType()"
+            class="form__PassIco"
+            src="../../../../../assets/icons/eye-hide-filled.svg"
+            alt="Icon eye - see password"
+          />
 
-      <form class="form" (ngSubmit)="onSubmit()">
+          <div class="invalidForm" *ngIf="invalidForm">
+            <div
+              class="invalidForm__text"
+              *ngIf="form.get('password')?.hasError('required')"
+            >
+              Password is required
+            </div>
+            <div
+              class="invalidForm__text"
+              *ngIf="form.get('password')?.hasError('minlength')"
+            >
+              Password must be at least 6 characters long
+            </div>
+            <div
+              class="invalidForm__text"
+              *ngIf="form.get('password')?.hasError('invalidPassword')"
+            >
+              Password must contain at least one uppercase letter and one number
+            </div>
+          </div>
+        </div>
+        <div class="form__containerPass">
+          <input
+            class="form__inputPass"
+            type="password"
+            name="password2"
+            id="password2"
+            autocomplete="off"
+            formControlName="password2"
+            (ngModelChange)="changeInput()"
+          />
+          <div class="invalidForm" *ngIf="notEqualPass">
+            <div class="invalidForm__text">Check Passwords</div>
+          </div>
+        </div>
+        <div class="form__containerRememberMe">
+          <input
+            class="form__inputRememberMe"
+            type="checkbox"
+            name="rememberMe"
+            id="rememberMe"
+          />
+          <label class="form__rememberMeLabel" for="rememberMe"
+            >Remember me</label
+          >
+        </div>
+
+        <button class="form__submit" type="submit">Continue</button>
+      </form>
+      <!-- <form class="form" (ngSubmit)="onSubmit()">
         <input
           class="form__inputName"
           type="text"
@@ -72,7 +174,7 @@
           >
         </div>
         <button class="form__submit" type="submit">Continue</button>
-      </form>
+      </form> -->
       <p class="login__alternative">Alternative Log in</p>
       <div class="googleBtn">
         <label class="googleBtn__label" for="logGoogle"
@@ -84,7 +186,7 @@
         <button
           id="logGoogle"
           class="googleBtn__btn"
-          (click)="toogleSuccess(true)"
+          (click)="signUpWithGoogle()"
         >
           Sign in with Google
         </button>

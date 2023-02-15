@@ -5,9 +5,16 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { UserLog } from '../../interfaces/auth.interface';
 
 @Component({
   selector: 'app-login',
@@ -35,7 +42,17 @@ export class LoginComponent implements OnInit, AfterViewInit {
   //Datos del form
   email: string;
   password: string;
-  constructor(private router: Router, private _authSvc: AuthService) {
+
+  form: FormGroup;
+  invalidForm: boolean;
+  messageError: string;
+  messageErrorEmail: string;
+  messageErrorPassword: string;
+  constructor(
+    private router: Router,
+    private _authSvc: AuthService,
+    private _fb: FormBuilder
+  ) {
     this.backVideo = false;
     this.visible = false;
     this.login = false;
@@ -49,6 +66,24 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.endWord = false;
     this.email = '';
     this.password = '';
+    this.form = this._fb.group({
+      email: [
+        ,
+        [
+          Validators.email,
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],
+      ],
+      password: [
+        ,
+        [Validators.minLength(6), Validators.required, this.passwordValidator],
+      ],
+    });
+    this.invalidForm = false;
+    this.messageError = '';
+    this.messageErrorEmail = "User Doesn't exist";
+    this.messageErrorPassword = 'Wrong Password';
   }
 
   ngOnInit(): void {
@@ -57,6 +92,16 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
     this.togglevideoHome();
+  }
+  passwordValidator(control: FormControl) {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+    if (!passwordRegex.test(control.value)) {
+      return { invalidPassword: true };
+    }
+    return null;
+  }
+  changeInput() {
+    this.messageError = '';
   }
   togglevideoHome() {
     this.videoHome.nativeElement.muted = true;
@@ -115,35 +160,33 @@ export class LoginComponent implements OnInit, AfterViewInit {
       element.type = 'text';
     }
   }
-  toogleSuccess(value: boolean) {
-    this.success = value;
-    this.router.navigate(['user']);
-  }
+
   onSubmit() {
-    this._authSvc.logIn(this.email, this.password).subscribe({
-      next: (resp: any) => console.log('resp: ', resp),
-      error: (error: any) => console.log('error', error),
+    if (this.form.invalid) {
+      this.invalidForm = true;
+      return;
+    }
+    this.invalidForm = false;
+    const { email, password } = this.form.value;
+    this._authSvc.logIn(email, password).subscribe({
+      next: (resp: UserLog) => {
+        console.log('resp: ', resp);
+        this.saveInLclStg('user', resp);
+        // this.success = true;
+        this.router.navigate(['user']);
+      },
+      error: (error: any) => {
+        this.messageError = error.error.message;
+        console.log('error.error.message: ', this.messageError);
+      },
     });
   }
 
-  getGoogleOAuthURL = () => {
-    const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
-
-    const options = {
-      redirect_uri: this.GOOGLE_REDIRECT_URL,
-      client_id: this.GOOGLE_CLIENT_ID,
-      access_type: 'offline',
-      response_type: 'code',
-      prompt: 'consent',
-      scope: [
-        'https://www.googleapis.com/auth/userinfo.profile',
-        'https://www.googleapis.com/auth/userinfo.email',
-      ].join(' '),
-    };
-
-    const query = new URLSearchParams(options);
-    console.log('log with google retorna: ', `${rootUrl}?${query.toString()}`);
-    // return `${rootUrl}?${query.toString()}`;
-    `${rootUrl}?${query.toString()}`;
-  };
+  signUpWithGoogle() {
+    let googleUrl: string = this._authSvc.getGoogleOAuthURL();
+    window.location.href = googleUrl;
+  }
+  saveInLclStg(key: string, data: any) {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
 }

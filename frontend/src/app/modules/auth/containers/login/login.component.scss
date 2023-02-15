@@ -260,6 +260,7 @@
   }
 
   .googleBtn__btn {
+    cursor: pointer;
     margin-top: 14px;
     margin-bottom: 34px;
     width: 239px;
@@ -276,17 +277,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  .form__inputName {
-    width: 255px;
-    height: 30px;
-    background: #ffffff;
-    border: 4px solid #ffffff;
-    background-color: #fff;
-    outline: #506cff;
-    color: black;
+  .form__containerEmail {
+    margin-bottom: 28px;
+    position: relative;
+    max-width: 255px;
+    .form__inputEmail {
+      width: 255px;
+      height: 30px;
+      background: #ffffff;
+      border: 4px solid #ffffff;
+      background-color: #fff;
+      outline: #506cff;
+      color: black;
+    }
+    .form__invalidEmail {
+    }
   }
   .form__containerPass {
-    margin-top: 28px;
+    max-width: 255px;
     margin-bottom: 10px;
     position: relative;
     .form__inputPass {
@@ -319,6 +327,7 @@
     }
   }
   .form__submit {
+    cursor: pointer;
     margin: 33px 0;
     width: 135px;
     height: 24px;
@@ -327,7 +336,21 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
   }
 }
-
+.invalidForm,
+.invalidEmail {
+  display: block;
+  margin-top: 5px;
+  .invalidForm__text {
+    color: rgb(253, 81, 81);
+    margin-bottom: 5px;
+  }
+}
+.invalidEmail {
+  position: absolute;
+  bottom: -28px;
+  left: 0;
+  margin-top: 0;
+}
 .success {
   flex-direction: column;
   align-items: center;

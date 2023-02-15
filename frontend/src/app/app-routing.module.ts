@@ -1,13 +1,14 @@
 import { RouterModule, Routes } from '@angular/router';
 
 import { NgModule } from '@angular/core';
+import { StartAppComponent } from './modules/auth/containers/start-app/start-app.component';
 import { UserLayoutComponent } from './core/layouts/containers/user-layout/user-layout.component';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'auth',
+    component: StartAppComponent,
   },
   {
     path: 'auth',
