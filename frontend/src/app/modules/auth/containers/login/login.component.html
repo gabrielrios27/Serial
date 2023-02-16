@@ -28,7 +28,7 @@
         class="logoContainer__spotLight"
         [ngClass]="{
           spotLightExpanse: spotLight,
-          logoContainer__spotLightLowOpacity: login
+          logoContainer__spotLightLowOpacity: login || register
         }"
         src="../../../../../assets/icons/spotlight-blue3.svg"
         alt="SpotLight"
@@ -86,7 +86,7 @@
   <section class="login" *ngIf="login">
     <div class="login__container">
       <ng-container *ngIf="!success">
-        <h2 class="login__title">LOG IN</h2>
+        <h2 class="login__title">Log in</h2>
         <p class="login__extras" (click)="toogleLogin('register')">
           Don’t have an account? <span class="login__extrasSpan">SIGN UP</span>
         </p>

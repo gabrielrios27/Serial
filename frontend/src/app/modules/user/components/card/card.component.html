@@ -13,7 +13,7 @@
     </div>
     <div class="card__face card__face--back">
       <div class="card__container">
-        <svg
+        <!-- <svg
           class="card__close"
           width="24"
           height="31"
@@ -33,30 +33,42 @@
             d="M6.21936 8.0329C6.14952 8.12289 6.0941 8.22979 6.0563 8.34748C6.01849 8.46518 5.99902 8.59135 5.99902 8.71877C5.99902 8.8462 6.01849 8.97237 6.0563 9.09006C6.0941 9.20776 6.14952 9.31466 6.21936 9.40465L16.7194 22.9671C16.8602 23.1491 17.0512 23.2512 17.2504 23.2512C17.4495 23.2512 17.6405 23.1491 17.7814 22.9671C17.9222 22.7852 18.0013 22.5385 18.0013 22.2813C18.0013 22.024 17.9222 21.7773 17.7814 21.5954L7.28136 8.0329C7.2117 7.94268 7.12893 7.8711 7.03781 7.82227C6.9467 7.77343 6.84902 7.74829 6.75036 7.74829C6.65171 7.74829 6.55403 7.77343 6.46291 7.82227C6.3718 7.8711 6.28903 7.94268 6.21936 8.0329V8.0329Z"
             fill="#fff"
           />
-        </svg>
+        </svg> -->
         <h4 class="card__title">{{ tvShow.name }}</h4>
-        <h5 class="card__subtitle">{{ tvShow.first_air_date }}</h5>
+        <!-- <h5 class="card__subtitle">{{ tvShow.first_air_date }}</h5>
         <p class="card__details" *ngIf="tvShow.overview">
           {{ shortOverview }}...
-        </p>
-        <ng-container *ngIf="!tvShow.overview">
+        </p> -->
+        <!-- <ng-container *ngIf="!tvShow.overview">
           <p class="card__details--genres" *ngFor="let gen of tvShow.genres">
             {{ gen.name }}
           </p>
-        </ng-container>
+        </ng-container> -->
         <div class="actions">
           <img
             class="action__icon"
-            src="../../../../../assets/icons/more-ico.svg"
+            src="../../../../../assets/icons/play-trailer.svg"
             alt=" icon More Details"
           />
+          <div class="actions__container">
+            <img
+              class="action__icon"
+              src="../../../../../assets/icons/more-ico.svg"
+              alt=" icon More Details"
+            />
+            <img
+              class="action__icon"
+              src="../../../../../assets/icons/like.svg"
+              alt=" icon More Details"
+            />
+          </div>
         </div>
       </div>
-      <img
+      <!-- <img
         class="card__img card__img--back"
         src="https://image.tmdb.org/t/p/w500{{ tvShow.poster_path }}"
         alt=""
-      />
+      /> -->
     </div>
   </div>
 </div>
