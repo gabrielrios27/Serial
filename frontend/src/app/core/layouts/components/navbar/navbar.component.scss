@@ -8,5 +8,27 @@
     height: 48px;
     background-color: white;
     border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    .linkTool__img {
+      width: 38px;
+      margin-right: 1px;
+    }
+    .linkTool__img--list {
+      margin-right: 15px;
+      width: 40px;
+    }
+    .linkTool__img--activity {
+      width: 74px;
+    }
+    .linkTool__img--profile {
+      height: 32px;
+      align-self: flex-end;
+    }
+  }
+  .linkTool--active {
+    background-color: #ddff7c;
   }
 }
