@@ -1,0 +1,16 @@
+.containerStart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.logoContainer__letterS {
+  width: 38px;
+  opacity: 0;
+  transition: all 0.9s linear;
+}
+.logoContainer__letterS--show {
+  opacity: 1;
+}

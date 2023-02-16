@@ -11,18 +11,25 @@ import { UserLog } from './../../interfaces/auth.interface';
 })
 export class StartAppComponent implements OnInit {
   user: any = {};
-
+  letterS: boolean;
   constructor(
     private _activeRoute: ActivatedRoute,
     private _router: Router,
     private _authSvc: AuthService
-  ) {}
+  ) {
+    this.letterS = false;
+  }
 
   ngOnInit(): void {
+    this.letterS = true;
+  }
+  ngAfterViewInit() {
     this.valueInRoute();
   }
 
   valueInRoute() {
+    console.log('valueinroute()');
+
     let valueRoute;
     this._activeRoute.queryParamMap.subscribe((params: ParamMap) => {
       valueRoute = params.get('code');
@@ -37,8 +44,10 @@ export class StartAppComponent implements OnInit {
           const url = `https://serial-backend.onrender.com/user/signin/oauth/${id_token}`;
           this._authSvc.getAuthFromDb(url).subscribe({
             next: (userLog: UserLog) => {
-              this.saveInLclStg('user', userLog);
+              console.log('userLog: ', userLog);
+
               this._router.navigate(['user']);
+              this.saveInLclStg('user', userLog);
             },
             error: (error: any) => {
               console.log('error22: ', error);
@@ -54,6 +63,8 @@ export class StartAppComponent implements OnInit {
     }
   }
   saveInLclStg(key: string, data: any) {
+    console.log('saveInLclStg()');
+
     localStorage.setItem(key, JSON.stringify(data));
   }
 }
