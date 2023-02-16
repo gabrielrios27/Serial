@@ -110,22 +110,28 @@ export class LoginComponent implements OnInit, AfterViewInit {
   startSpotLight() {
     setTimeout(() => {
       this.letterS = true;
-    }, 500);
+      // aparece la letra S
+    }, 800);
     setTimeout(() => {
       this.spotLight = true;
-    }, 1000);
+      // cambia opacity de spotlight de 0 a 1
+    }, 1200);
     setTimeout(() => {
       this.restWord = true;
-    }, 400);
+      // cambia max-with de contenedor para prepararse para mostrar el resto de la palabra
+    }, 2400);
     setTimeout(() => {
       this.endWord = true;
-    }, 500);
+      // cambia opacity de resto de la palabra de 0 a 1
+    }, 2500);
     setTimeout(() => {
       this.backVideo = true;
-    }, 3000);
+      // cambia opacity de video de fondo de 0 a 1
+    }, 3200);
     setTimeout(() => {
       this.preLoginPhrase = true;
-    }, 4000);
+      // cambia opacity de frase inicial de 0 a 1
+    }, 4200);
   }
   turnVisible() {
     setTimeout(() => {

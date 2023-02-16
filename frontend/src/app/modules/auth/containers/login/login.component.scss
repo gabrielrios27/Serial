@@ -3,7 +3,7 @@
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  padding: 113px 26px 70px;
+  padding: 51px 34px 70px;
 
   .main__videoContainer {
     opacity: 0;
@@ -29,27 +29,54 @@
   .main__videoContainer--show {
     opacity: 1;
   }
+  .main__LightBackground {
+    opacity: 0.1;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    max-height: 0%;
+    margin-top: 62px;
+    transition: all 2s ease;
+    overflow: hidden;
+    .main__clipPath {
+      width: 100vw;
+      height: calc(100vh - 62px);
+      clip-path: polygon(58px 0, 100% 38%, 100% 100%, 0 100%, 0 24%);
+      background-color: rgba(16, 69, 255, 0.5);
+    }
+  }
+  .main__LightBackground--expanse {
+    opacity: 1;
+    max-height: 100%;
+  }
 }
+
 .logoContainer {
   width: 100%;
   height: 56px;
   max-width: 59px;
   overflow: hidden;
   display: inline-flex;
+
   position: relative;
   top: calc(50% - 28px - 21px);
   left: calc(50% - 29px);
   .logoContainer__letter {
     position: relative;
     .logoContainer__letterS {
+      width: 38px;
       position: relative;
-      box-sizing: content-box;
-      height: 34px;
-      padding: 8.5px 0;
-      margin-right: -12px;
+      margin-right: 3px;
       z-index: 5;
       opacity: 0;
       transition: all 0.3s linear;
+      font-family: "AkiraExpanded";
+      font-size: 40px;
+      letter-spacing: 1.4px;
     }
     .logoContainer__letterS--show {
       opacity: 1;
@@ -57,10 +84,10 @@
     .logoContainer__spotLight {
       // width: 40px;
       position: absolute;
-      height: 32px;
+      height: 26px;
       width: 58px;
-      top: 20px;
-      right: -16px;
+      top: 18px;
+      right: -17px;
       z-index: 3;
       opacity: 0;
       transition: all 1s linear;
@@ -68,17 +95,19 @@
     .spotLightExpanse {
       opacity: 1;
     }
+    .logoContainer__spotLightLowOpacity {
+      opacity: 0;
+    }
   }
   .logoContainer__word {
     // display: none;
     opacity: 0;
     position: relative;
     font-family: "AkiraExpanded";
-    font-size: 48px;
+    font-size: 40px;
     letter-spacing: 1.4px;
     z-index: 1;
     transition: all 1s linear;
-    line-height: 55px;
   }
   .logoContainer__word--show {
     // display: flex;
@@ -121,14 +150,19 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   transition: all 0.3s linear;
 
   .prelogin__titlesContainer {
-    padding-top: 146px;
+    padding-top: 125px;
     position: relative;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    .prelogin__titleImg {
+      width: 233px;
+    }
 
-    // margin-left: 20px;
     .prelogin__title {
       width: 275px;
       position: relative;
@@ -148,7 +182,8 @@
     }
   }
   .prelogin__btnContainer {
-    margin: 0 10px;
+    width: 120%;
+    margin-bottom: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -156,17 +191,19 @@
     .prelogin__btn {
       width: 100%;
       height: 42px;
-      max-width: 330px;
-      background: black;
+      font-family: "HelveticaNeue-Bold";
+      background: white;
+      color: black;
       outline: none;
       border: none;
-      font-weight: 400;
-      font-size: 16px;
+      font-weight: 700;
+      font-size: 14px;
       line-height: 22px;
       cursor: pointer;
       transition: all 0.2s linear;
       &:hover {
         background: #1045ff;
+        color: white;
       }
     }
     .prelogin__already {
@@ -205,55 +242,53 @@
 
   .login__container {
     width: 100%;
-    background: rgba(0, 0, 0, 0.77);
-    // border: 5px solid rgba(0, 0, 0, 0.77);
+
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-    padding: 91px 43px 25px;
-    margin-top: 10px;
-    .login__close {
-      box-sizing: content-box;
-      width: 16px;
-      padding: 15px;
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
+
+    margin-top: 158px;
+
     .login__title {
+      font-family: "HelveticaNeue-Bold";
       font-size: 34px;
-      font-weight: 500;
-      margin-bottom: 8px;
+      font-weight: 700;
+      margin-bottom: 21px;
       align-self: flex-start;
     }
     .login__extras {
-      padding: 2px 0;
+      padding: 5px 0;
       cursor: pointer;
       font-size: 16px;
       align-self: flex-start;
+      font-family: "HelveticaNeue-Thin";
       .login__extrasSpan {
-        color: #506cff;
+        font-family: "HelveticaNeue-Bold";
+        padding-left: 5px;
+        // color: white;
       }
     }
-    .login__alternative {
-      font-size: 12px;
-      margin-top: 5px;
-      align-self: flex-start;
+    .login__or {
+      font-size: 14px;
+      font-family: "HelveticaNeue-Bold";
+      margin: 22px 0;
     }
 
     .login__notNow {
       font-weight: 600;
       font-size: 14px;
+      font-family: "HelveticaNeue-Bold";
     }
   }
 }
 .googleBtn {
   position: relative;
+  width: 180%;
   .googleBtn__label {
     position: absolute;
-    top: 18px;
-    left: 20px;
+    top: 12px;
+    left: calc(50% - 115px);
     .googleBtn__img {
       width: 22px;
     }
@@ -261,79 +296,93 @@
 
   .googleBtn__btn {
     cursor: pointer;
-    margin-top: 14px;
-    margin-bottom: 34px;
-    width: 239px;
-    height: 30px;
+
+    margin-bottom: 15px;
+
+    width: 100%;
+
+    font-family: "HelveticaNeue-Bold";
+    font-weight: 700;
+    font-size: 14px;
+    height: 45px;
+    background-color: white;
     color: black;
-    background: #ffffff;
-    border: 4px solid #ffffff;
+    border: none;
   }
 }
 .form {
-  padding-top: 54px;
-  border-bottom: 1px solid #ffffff;
+  margin-top: 72px;
+
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  .form__containerEmail {
-    margin-bottom: 28px;
-    position: relative;
-    max-width: 255px;
-    .form__inputEmail {
-      width: 255px;
-      height: 30px;
-      background: #ffffff;
-      border: 4px solid #ffffff;
-      background-color: #fff;
-      outline: #506cff;
-      color: black;
+  .form__containerInputs {
+    width: 240px;
+    .form__containerEmail {
+      margin-bottom: 12px;
+      position: relative;
+      width: 100%;
+      .form__inputEmail {
+        width: 100%;
+        height: 30px;
+        background: #ffffff;
+        // border: 4px solid #ffffff;
+        background-color: #fff;
+        outline: #506cff;
+        color: black;
+        padding-left: 26px;
+      }
     }
-    .form__invalidEmail {
+    .form__containerPass {
+      width: 100%;
+      margin-bottom: 12px;
+      position: relative;
+      .form__inputPass {
+        width: 100%;
+        height: 30px;
+        background: #ffffff;
+        border: 4px solid #ffffff;
+        background-color: #fff;
+        outline: #506cff;
+        color: black;
+        padding-left: 26px;
+      }
+      .form__PassIco {
+        position: absolute;
+        box-sizing: content-box;
+        width: 24px;
+        top: 0;
+        right: -35px;
+        padding: 4px;
+      }
     }
-  }
-  .form__containerPass {
-    max-width: 255px;
-    margin-bottom: 10px;
-    position: relative;
-    .form__inputPass {
-      width: 255px;
-      height: 30px;
-      background: #ffffff;
-      border: 4px solid #ffffff;
-      background-color: #fff;
-      outline: #506cff;
-      color: black;
-    }
-    .form__PassIco {
-      position: absolute;
-      box-sizing: content-box;
-      width: 24px;
-      top: 0;
-      right: -35px;
-      padding: 4px;
-    }
-  }
-  .form__containerRememberMe {
-    align-self: flex-start;
-    display: flex;
-    align-items: center;
-    .form__inputRememberMe {
-      background-color: black;
-    }
-    .form__rememberMeLabel {
-      padding-left: 5px;
+    .form__containerRememberMe {
+      align-self: flex-start;
+      display: flex;
+      align-items: center;
+      .form__inputRememberMe {
+        background-color: black;
+      }
+      .form__rememberMeLabel {
+        padding-left: 7px;
+        font-family: "HelveticaNeue-Thin";
+        font-size: 14px;
+      }
     }
   }
   .form__submit {
+    width: 180%;
     cursor: pointer;
-    margin: 33px 0;
-    width: 135px;
-    height: 24px;
-    background: #000000;
-    border: 2px solid #ffffff;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    margin-top: 18px;
+    font-family: "HelveticaNeue-Bold";
+    font-weight: 700;
+    font-size: 14px;
+    height: 45px;
+    background: #ddff7c;
+    color: black;
+    border: none;
+    // box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
   }
 }
 .invalidForm,
