@@ -2,22 +2,36 @@
   <app-searcher
     class="searchContainer"
     (search)="onSearch($event)"
+    (openSearch)="onOpenSearch($event)"
   ></app-searcher>
-  <main class="cover">
+  <main class="cover" [ngClass]="openSearch ? 'cover--openSearch' : ''">
     <img
       class="cover__img"
       src="https://image.tmdb.org/t/p/w500{{ tvShowCover.poster_path }}"
       alt="Cover of tv show random"
     />
-    <div class="cover__linksContainer">
+    <div class="cover__linksContainer" [ngClass]="openSearch ? 'hidden' : ''">
       <a class="cover__link">i</a>
       <a class="cover__link cover__link--up">+</a>
     </div>
   </main>
-  <div class="gallery">
+  <div
+    class="gallery"
+    infinite-scroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="1000"
+    (scrolled)="loadMore()"
+  >
     <ng-container *ngFor="let item of tvShows_toShow">
       <app-card *ngIf="item.poster_path" [tvShow]="item"></app-card>
     </ng-container>
-    <div *ngIf="loading">Loading...</div>
+    <h2 class="gallery__notMatches" *ngIf="notFound">No matches found</h2>
+    <div class="loader" *ngIf="loading">
+      <div class="loaderBalls">
+        <div class="loaderBalls__item"></div>
+        <div class="loaderBalls__item"></div>
+        <div class="loaderBalls__item"></div>
+      </div>
+    </div>
   </div>
 </div>

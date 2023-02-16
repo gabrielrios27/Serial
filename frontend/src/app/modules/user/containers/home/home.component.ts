@@ -27,6 +27,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   genres: Genre[];
 
   loading = false;
+  openSearch: boolean;
+  notFound: boolean;
   // suscripciones
   onDestroy$: Subject<boolean> = new Subject();
   constructor(private _UserSvc: UserService) {
@@ -96,7 +98,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         name: 'Action & Adventure',
       },
     ];
-    this.loadMore();
+    this.openSearch = false;
+    this.notFound = false;
   }
 
   ngOnInit(): void {
@@ -109,6 +112,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe({
         next: (data: PageTvShow) => {
+          data.results.length === 0
+            ? (this.notFound = true)
+            : (this.notFound = false);
           this.tvShows = data.results;
           let firstElement = this.tvShows.shift();
           if (firstElement) {
@@ -122,8 +128,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           console.log(err);
         },
         complete: () => {
-          this.CountQuantity();
-          this.createNumbersPagesArray();
           this.namedGenre(this.genres, this.tvShows_toShow);
         },
       });
@@ -133,34 +137,46 @@ export class HomeComponent implements OnInit, OnDestroy {
       return;
     }
     this.loading = true;
-    this.pageSelected += 1;
-    this._UserSvc
-      .getTvShow(this.pageSelected)
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe({
-        next: (data: PageTvShow) => {
-          this.tvShows.push(...data.results);
-          this.tvShows_toShow = this.tvShows;
-          console.log(this.tvShows_toShow);
-          this.loading = false;
-        },
-        error: (err) => {
-          console.log(err);
-        },
-        complete: () => {
-          this.namedGenre(this.genres, this.tvShows_toShow);
-        },
-      });
-    // this.http.get('https://api.example.com/pictures', {
-    //   params: {
-    //     start: this.startIndex,
-    //     count: this.perPage
-    //   }
-    // }).subscribe(data => {
-    //   this.pictures = this.pictures.concat(data);
-    //   this.startIndex += this.perPage;
-    //   this.loading = false;
-    // });
+
+    if (this.toSearch === '') {
+      this.pageSelected += 1;
+      console.log('_UserSvc');
+      this._UserSvc
+        .getTvShow(this.pageSelected)
+        .pipe(takeUntil(this.onDestroy$))
+        .subscribe({
+          next: (data: PageTvShow) => {
+            this.tvShows.push(...data.results);
+            this.tvShows_toShow = this.tvShows;
+            this.loading = false;
+          },
+          error: (err) => {
+            console.log(err);
+          },
+          complete: () => {
+            this.namedGenre(this.genres, this.tvShows_toShow);
+          },
+        });
+    } else {
+      this.pageSelected += 1;
+      this._UserSvc
+        .getSearchTvShow(this.pageSelected, this.toSearch)
+        .pipe(takeUntil(this.onDestroy$))
+        .subscribe({
+          next: (data: PageTvShow) => {
+            this.tvShows.push(...data.results);
+            this.totalPages = data.total_pages;
+            this.tvShows_toShow = this.tvShows;
+            this.loading = false;
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+    }
+  }
+  onOpenSearch(value: boolean) {
+    this.openSearch = value;
   }
   namedGenre(genresNames: Genre[], listTvShows: TvShow[]) {
     listTvShows.map((item: TvShow) => {
@@ -199,11 +215,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe({
         next: (data: PageTvShow) => {
+          data.results.length === 0
+            ? (this.notFound = true)
+            : (this.notFound = false);
           this.tvShows = data.results;
-          let firstElement = this.tvShows.shift();
-          if (firstElement && firstElement.poster_path) {
-            this.tvShowCover = firstElement;
-          }
           this.totalPages = data.total_pages;
           this.tvShows_toShow = this.tvShows;
         },

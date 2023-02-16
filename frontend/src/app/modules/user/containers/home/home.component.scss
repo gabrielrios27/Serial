@@ -11,10 +11,16 @@
     flex-direction: column;
     align-items: center;
     width: 77%;
+    height: 100%;
+    max-height: 410px;
     position: relative;
+    padding-bottom: 20px;
+    overflow: hidden;
+    transition: all 0.3s linear;
     .cover__img {
       width: 100%;
-      max-height: 400px;
+      max-height: 390px;
+
       object-fit: cover;
       object-position: center;
     }
@@ -24,7 +30,8 @@
       width: 100px;
       justify-content: space-between;
       position: absolute;
-      bottom: -15px;
+      bottom: 4px;
+      transition: all 0.3s linear;
       .cover__link {
         display: flex;
         justify-content: center;
@@ -36,11 +43,15 @@
         height: 30px;
         background-color: white;
         border-radius: 50%;
+        opacity: 1;
       }
       .cover__link--up {
         padding-bottom: 3px;
       }
     }
+  }
+  .cover--openSearch {
+    max-height: 0;
   }
 }
 
@@ -49,9 +60,12 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 60px;
+  margin-top: 40px;
   margin-bottom: 115px;
   gap: 13px;
+  .gallery__notMatches {
+    color: #9f9f9fc5;
+  }
 }
 
 .pagination {
@@ -120,4 +134,57 @@
   .pagination__arrow {
     padding: 4px 11px;
   }
+}
+// --------LOADER-------------------
+.loader {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  .loaderBalls {
+    width: 27px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__item {
+      // .loaderBalls__wrapper__item
+      $anim-drt: 0.4s;
+      $anim-ease: cubic-bezier(0.6, 0.05, 0.15, 0.95);
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #506cff;
+
+      &:nth-child(1) {
+        animation: bouncing $anim-drt alternate infinite $anim-ease;
+      }
+
+      &:nth-child(2) {
+        animation: bouncing $anim-drt calc($anim-drt / 4) alternate infinite
+          $anim-ease backwards;
+      }
+
+      &:nth-child(3) {
+        animation: bouncing $anim-drt calc($anim-drt / 2) alternate infinite
+          $anim-ease backwards;
+      }
+    }
+  }
+}
+
+@keyframes bouncing {
+  0% {
+    transform: translate3d(0, 7px, 0) scale(1.2, 0.85);
+  }
+
+  100% {
+    transform: translate3d(0, -5px, 0) scale(0.9, 1.1);
+  }
+}
+.show {
+  opacity: 1;
+}
+.hidden {
+  opacity: 0;
 }

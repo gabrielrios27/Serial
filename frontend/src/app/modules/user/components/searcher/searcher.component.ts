@@ -10,6 +10,7 @@ export class SearcherComponent implements OnInit {
   searchOpen: boolean;
 
   @Output() search = new EventEmitter<string>();
+  @Output() openSearch = new EventEmitter<boolean>(false);
 
   constructor() {
     this.searchOpen = false;
@@ -22,5 +23,6 @@ export class SearcherComponent implements OnInit {
   }
   toogleSearchOpen() {
     this.searchOpen = !this.searchOpen;
+    this.openSearch.emit(this.searchOpen);
   }
 }
