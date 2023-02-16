@@ -10,20 +10,6 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  images: any[] = [
-    'image 22',
-    'image 23',
-
-    'image 25',
-    'image 26',
-
-    'image 29',
-
-    'image 31',
-    'image 32',
-    'image 33',
-    'image 34',
-  ];
   tvShowCover: TvShow = {} as TvShow;
   tvShows: TvShow[] = [];
   tvShows_toSearch: TvShow[] = [];
@@ -39,6 +25,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   toSearch: string = '';
   quantity: number = 0;
   genres: Genre[];
+
+  loading = false;
   // suscripciones
   onDestroy$: Subject<boolean> = new Subject();
   constructor(private _UserSvc: UserService) {
@@ -108,6 +96,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         name: 'Action & Adventure',
       },
     ];
+    this.loadMore();
   }
 
   ngOnInit(): void {
@@ -139,7 +128,40 @@ export class HomeComponent implements OnInit, OnDestroy {
         },
       });
   }
-
+  loadMore() {
+    if (this.loading) {
+      return;
+    }
+    this.loading = true;
+    this.pageSelected += 1;
+    this._UserSvc
+      .getTvShow(this.pageSelected)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (data: PageTvShow) => {
+          this.tvShows.push(...data.results);
+          this.tvShows_toShow = this.tvShows;
+          console.log(this.tvShows_toShow);
+          this.loading = false;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+        complete: () => {
+          this.namedGenre(this.genres, this.tvShows_toShow);
+        },
+      });
+    // this.http.get('https://api.example.com/pictures', {
+    //   params: {
+    //     start: this.startIndex,
+    //     count: this.perPage
+    //   }
+    // }).subscribe(data => {
+    //   this.pictures = this.pictures.concat(data);
+    //   this.startIndex += this.perPage;
+    //   this.loading = false;
+    // });
+  }
   namedGenre(genresNames: Genre[], listTvShows: TvShow[]) {
     listTvShows.map((item: TvShow) => {
       let genreSelected: Genre[] = genresNames.filter((gen: Genre) =>

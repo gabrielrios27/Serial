@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './containers/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SearcherComponent } from './components/searcher/searcher.component';
 import { UserRoutingModule } from './user-routing.module';
+
 @NgModule({
   declarations: [HomeComponent, SearcherComponent, CardComponent],
   imports: [
