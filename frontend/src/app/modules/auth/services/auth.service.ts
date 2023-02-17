@@ -18,8 +18,8 @@ export class AuthService {
   private clientId =
     '591408333352-mj91m76m2mufk2r16a15obil0507s6dn.apps.googleusercontent.com';
   private clientSecret = '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';
-  private redirectUri = 'http://localhost:3000';
-
+  // private redirectUri = 'http://localhost:3000';
+  private redirectUri = 'https://serial-ivory.vercel.app/';
   constructor(private _http: HttpClient) {
     this.baseUrl = 'https://serial-backend.onrender.com/';
     this.epSignUp = 'user/signup';
