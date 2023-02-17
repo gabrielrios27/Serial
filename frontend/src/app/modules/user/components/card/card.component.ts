@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Genre, TvShow } from '../../interfaces/user';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import { TvShow } from '../../interfaces/user';
 
 @Component({
   selector: 'app-card',
@@ -8,8 +9,9 @@ import { Genre, TvShow } from '../../interfaces/user';
 })
 export class CardComponent implements OnInit {
   @Input() tvShow: TvShow;
-  @Input() image: any;
-  isFlipped: boolean;
+  @Input() idTvShowSelected: number;
+  @Output() idTvShow = new EventEmitter<number>();
+  isBack: boolean;
 
   cardOpen: boolean;
   shortOverview: string;
@@ -17,14 +19,17 @@ export class CardComponent implements OnInit {
   constructor() {
     this.cardOpen = false;
     this.tvShow = {} as TvShow;
-    this.isFlipped = true;
+    this.isBack = false;
     this.shortOverview = '';
+    this.idTvShowSelected = 0;
   }
 
-  ngOnInit(): void {
-    this.shortOverview = this.tvShow.overview.substr(0, 85);
-  }
+  ngOnInit(): void {}
   toogleFlippCard() {
-    this.isFlipped = !this.isFlipped;
+    if (this.idTvShowSelected !== this.tvShow.id) {
+      this.isBack = false;
+    }
+    this.idTvShow.emit(this.tvShow.id);
+    this.isBack = !this.isBack;
   }
 }

@@ -23,7 +23,12 @@
     (scrolled)="loadMore()"
   >
     <ng-container *ngFor="let item of tvShows_toShow">
-      <app-card *ngIf="item.poster_path" [tvShow]="item"></app-card>
+      <app-card
+        *ngIf="item.poster_path"
+        [tvShow]="item"
+        [idTvShowSelected]="idTvShowSelected"
+        (idTvShow)="getIdTvShowSelected($event)"
+      ></app-card>
     </ng-container>
     <h2 class="gallery__notMatches" *ngIf="notFound">No matches found</h2>
     <div class="loader" *ngIf="loading">

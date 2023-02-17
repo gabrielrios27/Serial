@@ -29,6 +29,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   loading = false;
   openSearch: boolean;
   notFound: boolean;
+  // Id de la card seleccionada -  se usa para voltear la carta si se selecciona otra
+  idTvShowSelected: number;
   // suscripciones
   onDestroy$: Subject<boolean> = new Subject();
   constructor(private _UserSvc: UserService) {
@@ -100,6 +102,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     ];
     this.openSearch = false;
     this.notFound = false;
+    this.idTvShowSelected = 0;
   }
 
   ngOnInit(): void {
@@ -225,52 +228,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         error: (err) => {
           console.log(err);
         },
-        complete: () => {
-          this.CountQuantity();
-          this.createNumbersPagesArray();
-        },
+        complete: () => {},
       });
   }
-
-  createNumbersPagesArray() {
-    this.numbersPages = [];
-    if (this.totalPages > this.pagesToShow) {
-      for (let i = 1; i <= this.pagesToShow; i++) {
-        this.numbersPages.push(i);
-      }
-    } else {
-      for (let i = 1; i <= this.totalPages; i++) {
-        this.numbersPages.push(i);
-      }
-    }
-  }
-  /*CountQuantity: se calcula la cantidad de peliculas o series mostradas*/
-  CountQuantity() {
-    this.quantity = this.tvShows_toShow.length;
+  getIdTvShowSelected(id: number) {
+    this.idTvShowSelected = id;
   }
 
-  onClickPage(page: number) {
-    this.pageSelected = page;
-    if (this.toSearch == '') {
-      this.getTvShow();
-    } else {
-      this.getSearchTvShow();
-    }
-  }
-  onClickRightArrowPagination() {
-    if (this.arrowPagination < 17) {
-      this.translatePaginationNumber = this.arrowPagination * -205;
-      this.translatePaginationString = `${this.translatePaginationNumber}px`;
-      this.arrowPagination++;
-    }
-  }
-  onClickLeftArrowPagination() {
-    if (this.arrowPagination > 0) {
-      this.arrowPagination--;
-      this.translatePaginationNumber = this.translatePaginationNumber + 205;
-      this.translatePaginationString = `${this.translatePaginationNumber}px`;
-    }
-  }
   ngOnDestroy() {
     this.onDestroy$.next(true);
   }
