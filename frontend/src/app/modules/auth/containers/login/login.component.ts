@@ -106,6 +106,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   togglevideoHome() {
     this.videoHome.nativeElement.muted = true;
     this.videoHome.nativeElement.play();
+    this.videoHome.nativeElement.playsinline = true;
   }
   startSpotLight() {
     setTimeout(() => {

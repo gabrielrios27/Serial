@@ -3,7 +3,15 @@
     class="main__videoContainer"
     [ngClass]="backVideo ? 'main__videoContainer--show' : ''"
   >
-    <video #videoHome autoplay loop muted class="main__video">
+    <video
+      #videoHome
+      autoplay
+      playsinline
+      loop
+      muted
+      class="main__video"
+      poster="../../../../../assets/images/cover-1899-2.jpg"
+    >
       <source src="../../../../../assets/videos/1899.mp4" type="video/mp4" />
     </video>
   </div>
