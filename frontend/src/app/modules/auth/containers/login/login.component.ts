@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   passwordValidator(control: FormControl) {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
     if (!passwordRegex.test(control.value)) {
-      return { invalidPassword: true };
+      return { invalidPassword: true }; //g
     }
     return null;
   }
