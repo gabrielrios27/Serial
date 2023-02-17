@@ -52,6 +52,7 @@
   }
   .cover--openSearch {
     max-height: 0;
+    opacity: 0;
   }
 }
 
@@ -68,73 +69,6 @@
   }
 }
 
-.pagination {
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-.pagination__container {
-  padding: 3px;
-  overflow-x: hidden;
-  max-width: 573px;
-  width: 100%;
-}
-.pagination__arrow {
-  padding: 4px;
-
-  cursor: pointer;
-  flex-shrink: 0;
-}
-.pagination__arrow:hover path {
-  fill: #f7ff64;
-}
-.pagination__numbers {
-  position: relative;
-  display: flex;
-  transition: all 0.3s linear;
-}
-.pagination__cell {
-  flex-shrink: 0;
-  font-size: 13px;
-  line-height: 23px;
-  padding: 5px 9px;
-  width: 34px;
-  font-weight: 600;
-
-  letter-spacing: 0.02em;
-  color: grey;
-
-  text-align: center;
-  box-shadow: 0 0 3px #61697f50;
-  border-radius: 3px;
-  cursor: pointer;
-}
-.pagination__cell:hover {
-  color: #f7ff64;
-  box-shadow: 0 0 4px #ffbd6da2;
-}
-.pagination__cellActive {
-  color: #f7ff64;
-  box-shadow: 0 0 4px #ffbd6da2;
-}
-@media (min-width: 576px) {
-  .pagination__cell {
-    width: 37px;
-  }
-}
-@media (min-width: 992px) {
-  .pagination__cell {
-    width: 38px;
-    font-size: 14px;
-    line-height: 24px;
-    padding: 5px 10px;
-  }
-  .pagination__arrow {
-    padding: 4px 11px;
-  }
-}
 // --------LOADER-------------------
 .loader {
   width: 100%;
