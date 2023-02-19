@@ -10,8 +10,8 @@
     transform-style: preserve-3d;
     .card__face {
       position: absolute;
-      backface-visibility: hidden;
 
+      backface-visibility: hidden;
       width: 100px;
       height: 150px;
       .card__img {
@@ -21,37 +21,30 @@
         object-position: center;
       }
     }
-    .card__face--front {
+    // .card__face--front {
+    //   transform: rotateY(180deg);
+    // }
+    // .card__face--back {
+    //   position: relative;
+    // }
+    .card__face--back {
+      top: 0;
+      left: 0;
       transform: rotateY(180deg);
     }
-    .card__face--back {
+    .card__face--front {
       position: relative;
-
-      // .card__img--back {
-      //   position: absolute;
-      //   z-index: -1;
-      //   top: 0;
-      //   right: 0;
-      //   opacity: 0.2;
-      //   filter: blur(1px);
-      //   transform: rotateY(180deg);
-      //   -moz-transform: rotateY(180deg);
-      //   -o-transform: rotateY(180deg);
-      //   -webkit-transform: rotateY(180deg);
-      //   width: 100px;
-      //   height: 150px;
-      //   object-fit: cover;
-      //   object-position: center;
-      // }
     }
   }
   .is-front {
     transform: rotateY(180deg);
   }
+  .rotate {
+    transform: rotateY(180deg);
+  }
 }
 
 .card__container {
-  // box-sizing: border-box;
   width: 100px;
   height: 100%;
 
@@ -60,42 +53,12 @@
   overflow: hidden;
   padding: 20px 10px 0 0;
   position: relative;
-  // .card__close {
-  //   position: absolute;
-  //   top: 0;
-  //   right: 0;
-  //   width: 17px;
-  //   padding: 0 6px;
-  //   box-sizing: content-box;
-  // }
+
   .card__title {
     font-size: 16px;
     font-family: "HelveticaNeue-Bold";
     margin-bottom: 10px;
   }
-  // .card__subtitle {
-  //   font-size: 13px;
-  //   font-family: "HelveticaNeue-Thin";
-  //   margin-bottom: 15px;
-  // }
-  // .card__details {
-  //   align-self: flex-end;
-  //   font-size: 13px;
-  //   margin-top: 5px;
-  //   overflow: hidden;
-
-  //   height: 112px;
-  //   width: 100%;
-  //   text-overflow: ellipsis;
-  // }
-  // .card__details--genres {
-  //   font-size: 13px;
-  //   margin-top: 5px;
-  //   overflow: hidden;
-  //   width: 100%;
-  //   white-space: nowrap;
-  //   text-overflow: ellipsis;
-  // }
 }
 
 .actions {

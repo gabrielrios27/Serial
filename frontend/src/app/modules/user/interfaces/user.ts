@@ -97,14 +97,14 @@ export interface TvShow {
   backdrop_path: string;
   created_by: CreatedBy[];
   episode_run_time: number[];
-  first_air_date: Date;
+  first_air_date: string;
   genres: Genre[];
   genre_ids: Number[];
   homepage: string;
   id: number;
   in_production: boolean;
   languages: string[];
-  last_air_date: Date;
+  last_air_date: string;
   last_episode_to_air: LastEpisodeToAir;
   name: string;
   next_episode_to_air: null;
@@ -164,4 +164,63 @@ export interface Season {
   overview: string;
   poster_path: string;
   season_number: number;
+}
+//Para info de las temporadas de las series
+export interface SeasonData {
+  _id: string;
+  air_date: Date;
+  episodes: Episode[];
+  name: string;
+  overview: string;
+  id: number;
+  poster_path: string;
+  season_number: number;
+}
+
+export interface Episode {
+  air_date: Date;
+  episode_number: number;
+  id: number;
+  name: string;
+  overview: string;
+  production_code: string;
+  runtime: number;
+  season_number: number;
+  show_id: number;
+  still_path: string;
+  vote_average: number;
+  vote_count: number;
+  crew: Crew[];
+  guest_stars: Crew[];
+  director?: string;
+}
+
+export interface Crew {
+  department?: Department;
+  job?: string;
+  credit_id: string;
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: Department;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: null | string;
+  character?: string;
+  order?: number;
+}
+
+export enum Department {
+  Acting = 'Acting',
+  Art = 'Art',
+  Camera = 'Camera',
+  CostumeAmpMakeUp = 'Costume &amp; Make-Up',
+  Crew = 'Crew',
+  Directing = 'Directing',
+  Editing = 'Editing',
+  Production = 'Production',
+  Sound = 'Sound',
+  VisualEffects = 'Visual Effects',
+  Writing = 'Writing',
 }

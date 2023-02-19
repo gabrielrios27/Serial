@@ -1,9 +1,10 @@
 <div class="scene">
   <div
     class="card"
-    (click)="toogleFlippCard()"
-    [ngClass]="isBack && idTvShowSelected === tvShow.id ? '' : 'is-front'"
+    (mousedown)="onMouseDown($event)"
+    [ngClass]="isBack && idTvShowSelected === tvShow.id ? 'rotate' : ''"
   >
+    <!-- [ngClass]="isBack && idTvShowSelected === tvShow.id ? '' : 'is-front'" -->
     <!-- ----------------FRONT FACE OF CARD----------------- -->
     <div class="card__face card__face--front">
       <img

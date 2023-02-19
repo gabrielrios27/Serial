@@ -3,6 +3,7 @@ import { PageTvShow, TvShow } from '../interfaces/user';
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { SeasonData } from './../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ export class UserService {
   baseUrl: string = 'https://api.themoviedb.org/3';
   subUrl: string = '/tv/popular';
   subUrlToSearch: string = '/search/tv';
+
   headers = new HttpHeaders().set(
     'Authorization',
     'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMTY3OTEzYWJlMTU0MTY5ZWE5ZDg1ZTNlOGEzZTdkYSIsInN1YiI6IjYyMTU0ZWRhMGU0ZmM4MDA0NDExNjZlMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.8-i63xqhXGI5bCPXp0dWpPktcxIJt_CUToTH5Sneyc8'
@@ -38,5 +40,24 @@ export class UserService {
       headers: this.headers,
       params: params,
     });
+  }
+  getTvShowById(id: number): Observable<TvShow> {
+    let params = new HttpParams().set('language', 'en');
+
+    return this._http.get<TvShow>(this.baseUrl + '/tv/' + id, {
+      headers: this.headers,
+      params: params,
+    });
+  }
+  getSeasonTvShow(id: number, season: number): Observable<SeasonData> {
+    let params = new HttpParams().set('language', 'en');
+
+    return this._http.get<SeasonData>(
+      this.baseUrl + '/tv/' + id + '/season/' + season,
+      {
+        headers: this.headers,
+        params: params,
+      }
+    );
   }
 }

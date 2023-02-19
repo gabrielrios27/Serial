@@ -4,9 +4,6 @@ import { UserForm, UserLog } from '../interfaces/auth.interface';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-// import axios from 'axios'
-// import qs from 'qs'
-
 @Injectable({
   providedIn: 'root',
 })

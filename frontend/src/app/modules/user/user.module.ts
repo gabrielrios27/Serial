@@ -9,9 +9,10 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { RouterModule } from '@angular/router';
 import { SearcherComponent } from './components/searcher/searcher.component';
 import { UserRoutingModule } from './user-routing.module';
+import { DetailsComponent } from './containers/details/details.component';
 
 @NgModule({
-  declarations: [HomeComponent, SearcherComponent, CardComponent],
+  declarations: [HomeComponent, SearcherComponent, CardComponent, DetailsComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
