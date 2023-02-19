@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { LayoutsModule } from './core/layouts/layouts.module';
 import { UserModule } from './modules/user/user.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { UserModule } from './modules/user/user.module';
     LayoutsModule,
     FormsModule,
     InfiniteScrollModule,
+    BrowserAnimationsModule,
   ],
   providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }],
   bootstrap: [AppComponent],

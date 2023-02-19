@@ -48,7 +48,7 @@ export class CardComponent implements OnInit {
     this.clickTime = event.timeStamp - this.clickTime;
     console.log(`Duración del clic: ${this.clickTime}ms`);
     if (this.clickTime > 300) this.toogleFlippCard();
-    else this._router.navigate(['details/', this.tvShow.id]);
+    else this._router.navigate(['home/details/', this.tvShow.id]);
   }
 
   onMouseDown(event: MouseEvent) {

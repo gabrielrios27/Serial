@@ -1,13 +1,17 @@
 <!-- <p>{{ seasons | json }}</p> -->
 <div class="details">
-  <main>
-    <img
-      src="https://image.tmdb.org/t/p/w500{{ tvShow.poster_path }}"
-      alt="Cover of TvShow {{ tvShow.name }}"
-    />
-    <h1>{{ tvShow.name }}</h1>
-    <div>
+  <main class="main">
+    <div class="main__containerCover">
+      <img
+        class="main__cover"
+        src="https://image.tmdb.org/t/p/w500{{ tvShow.poster_path }}"
+        alt="Cover of TvShow {{ tvShow.name }}"
+      />
+    </div>
+    <h1 class="main__title">{{ tvShow.name }}</h1>
+    <div class="main__containerIcons">
       <svg
+        class="main__icon"
         width="28"
         height="28"
         viewBox="0 0 28 28"
@@ -20,6 +24,7 @@
         />
       </svg>
       <svg
+        class="main__icon"
         width="32"
         height="32"
         viewBox="0 0 32 32"
@@ -34,6 +39,7 @@
         />
       </svg>
       <svg
+        class="main__icon"
         width="32"
         height="32"
         viewBox="0 0 32 32"
@@ -46,6 +52,7 @@
         />
       </svg>
       <svg
+        class="main__icon"
         width="28"
         height="28"
         viewBox="0 0 28 28"
@@ -58,6 +65,7 @@
         />
       </svg>
       <svg
+        class="main__icon"
         width="28"
         height="28"
         viewBox="0 0 28 28"
@@ -70,58 +78,145 @@
         />
       </svg>
     </div>
-    <div>
-      <p>{{ tvShow.number_of_seasons }} Seasons</p>
-      <p *ngIf="tvShow.in_production">In Production</p>
-      <p *ngIf="!tvShow.in_production">Finished</p>
-      <p>
+    <div class="main__containerDetails">
+      <p class="main__detail">{{ tvShow.number_of_seasons }} Seasons</p>
+      <p class="main__detail" *ngIf="tvShow.in_production">In Production</p>
+      <p class="main__detail" *ngIf="!tvShow.in_production">Finished</p>
+      <p class="main__detail">
         {{
           tvShow.last_air_date ? tvShow.last_air_date.substring(0, 4) : "none"
         }}
       </p>
     </div>
   </main>
-  <section>
-    <div>
-      <img
-        src="../../../../../assets/icons/details/arrow-circle-down-outline.svg"
-        alt="Icon Down"
-      />
-      <h2>Description</h2>
-    </div>
-    <p>{{ tvShow.overview }}</p>
-  </section>
-  <section>
-    <div>
-      <img
-        src="../../../../../assets/icons/details/arrow-circle-down-outline.svg"
-        alt="Icon Down"
-      />
-      <h2>Episodes</h2>
-      <!-- Falta searcher - cambiar pos abs del componente para poder usarlo en todos lados -->
-    </div>
-    <div *ngFor="let season of seasons">
-      <div>
-        <h3>Season {{ season.season_number }}</h3>
+  <section class="section">
+    <mat-expansion-panel class="expansionPanel" hideToggle [expanded]="true">
+      <mat-expansion-panel-header class="expansionPanel__header">
         <img
+          class="expansionPanel__headerIcon"
           src="../../../../../assets/icons/details/arrow-circle-down-outline.svg"
           alt="Icon Down"
         />
+        <h2 class="expansionPanel__headerTitle">Description</h2>
+      </mat-expansion-panel-header>
+      <div class="expansionPanel__body">
+        <p class="expansionPanel__overview">{{ tvShow.overview }}</p>
       </div>
-      <div *ngFor="let episode of season.episodes">
+    </mat-expansion-panel>
+  </section>
+  <section class="section">
+    <mat-expansion-panel
+      class="expansionPanel expansionPanel--season"
+      (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false"
+    >
+      <mat-expansion-panel-header class="expansionPanel__header">
         <img
-          src="https://image.tmdb.org/t/p/w500{{ episode.still_path }}"
-          alt="Cover of episode {{ episode.name }}"
+          class="expansionPanel__headerIcon"
+          src="../../../../../assets/icons/details/arrow-circle-down-outline.svg"
+          alt="Icon Down"
         />
-        <div>
-          <h4>{{ episode.name }}</h4>
-          <p>Season: {{ episode.season_number }}</p>
-          <p>
-            Director:
-            <!-- {{ episode.crew[0] }} -->
-          </p>
-        </div>
+        <h2 class="expansionPanel__headerTitle">Episodes</h2>
+      </mat-expansion-panel-header>
+      <div class="expansionPanel__body expansionPanel__body--season">
+        <mat-expansion-panel
+          class="expansionPanel"
+          hideToggle
+          *ngFor="let season of seasons"
+        >
+          <mat-expansion-panel-header class="expansionPanel__header">
+            <div class="expansionPanel__headerContainer">
+              <h3 class="expansionPanel__headerTitle">
+                Season {{ season.season_number }}
+              </h3>
+              <img
+                class="expansionPanel__headerIcon"
+                src="../../../../../assets/icons/details/arrow-circle-down-outline.svg"
+                alt="Icon Down"
+              />
+            </div>
+          </mat-expansion-panel-header>
+          <div class="expansionPanel__body expansionPanel__body--episode">
+            <p
+              class="episode--inProduction"
+              *ngIf="season.episodes.length === 0"
+            >
+              In Production
+            </p>
+            <div class="episode" *ngFor="let episode of season.episodes">
+              <img
+                class="episode__img"
+                src="https://image.tmdb.org/t/p/w500{{
+                  episode.still_path || tvShow.poster_path
+                }}"
+                alt="Cover of episode {{
+                  episode.name || 'Episode ' + episode.episode_number
+                }}"
+              />
+              <div class="episode__containerDetails">
+                <h4 class="episode__name">
+                  {{ episode.name || "Episode " + episode.episode_number }}
+                </h4>
+                <p class="episode__detail">
+                  Season: {{ episode.season_number }}
+                </p>
+                <p class="episode__detail">
+                  Director: {{ episode.director || "..." }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
       </div>
-    </div>
+    </mat-expansion-panel>
+  </section>
+  <section class="section">
+    <mat-expansion-panel
+      class="expansionPanel"
+      (opened)="panelOpenStateReviews = true"
+      (closed)="panelOpenStateReviews = false"
+    >
+      <mat-expansion-panel-header class="expansionPanel__header">
+        <img
+          class="expansionPanel__headerIcon"
+          src="../../../../../assets/icons/details/arrow-circle-down-outline.svg"
+          alt="Icon Down"
+        />
+        <h2 class="expansionPanel__headerTitle">Reviews</h2>
+      </mat-expansion-panel-header>
+      <div class="expansionPanel__body expansionPanel__body--reviews">
+        <article class="review">
+          <div class="review__containerTitle">
+            <div class="review__containerRank">
+              <svg
+                class="review__starIcon"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12.0003 8.89961V14.7996L14.4003 16.6496L13.5003 13.5996L15.7503 11.9996H12.9503L12.0003 8.89961ZM12.0003 17.2996L8.30031 20.1246C8.11697 20.2746 7.91697 20.3453 7.70031 20.3366C7.48364 20.3286 7.29197 20.2663 7.12531 20.1496C6.95864 20.0329 6.82964 19.8746 6.73831 19.6746C6.64631 19.4746 6.64197 19.2579 6.72531 19.0246L8.15031 14.3996L4.52531 11.8246C4.32531 11.6913 4.20031 11.5163 4.15031 11.2996C4.10031 11.0829 4.10864 10.8829 4.17531 10.6996C4.24197 10.5163 4.35864 10.3536 4.52531 10.2116C4.69197 10.0703 4.89197 9.99961 5.12531 9.99961H9.60031L11.0503 5.19961C11.1336 4.96628 11.263 4.78694 11.4383 4.66161C11.613 4.53694 11.8003 4.47461 12.0003 4.47461C12.2003 4.47461 12.3876 4.53694 12.5623 4.66161C12.7376 4.78694 12.867 4.96628 12.9503 5.19961L14.4003 9.99961H18.8753C19.1086 9.99961 19.3086 10.0703 19.4753 10.2116C19.642 10.3536 19.7586 10.5163 19.8253 10.6996C19.892 10.8829 19.9003 11.0829 19.8503 11.2996C19.8003 11.5163 19.6753 11.6913 19.4753 11.8246L15.8503 14.3996L17.2753 19.0246C17.3586 19.2579 17.3546 19.4746 17.2633 19.6746C17.1713 19.8746 17.042 20.0329 16.8753 20.1496C16.7086 20.2663 16.517 20.3286 16.3003 20.3366C16.0836 20.3453 15.8836 20.2746 15.7003 20.1246L12.0003 17.2996Z"
+                  fill="white"
+                />
+              </svg>
+              <p class="review__rank">9/10</p>
+            </div>
+            <h3 class="review__title">Review Title</h3>
+          </div>
+          <div class="review__containerUserData">
+            <p class="review__user">Username</p>
+            <p class="review__date">5/2/23</p>
+          </div>
+          <p class="review__data">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Non tempore
+            accusamus quae nobis obcaecati ullam optio, similique eum magnam
+            nulla soluta earum dolores suscipit harum provident veritatis
+            distinctio. Beatae, repellat!
+          </p>
+        </article>
+      </div>
+    </mat-expansion-panel>
   </section>
 </div>
