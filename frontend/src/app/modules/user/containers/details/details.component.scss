@@ -48,10 +48,17 @@
   .main__containerDetails {
     margin-top: 25px;
     margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
     width: 100%;
     .main__detail {
+      &:nth-child(2) {
+        text-align: center;
+      }
+      &:nth-child(3) {
+        text-align: end;
+      }
     }
   }
 }
@@ -125,6 +132,9 @@
   align-items: center;
   padding: 13px 0;
   border-bottom: solid white 1px;
+  &:last-child {
+    border-bottom: none;
+  }
   .episode__img {
     width: 60px;
     height: 90px;

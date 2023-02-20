@@ -1,12 +1,17 @@
 <div class="scene">
   <div
+    #myImage2
+    [attr.id]="'card-' + tvShow.id.toString()"
     class="card"
-    (mousedown)="onMouseDown($event)"
     [ngClass]="isBack && idTvShowSelected === tvShow.id ? 'rotate' : ''"
   >
     <!-- [ngClass]="isBack && idTvShowSelected === tvShow.id ? '' : 'is-front'" -->
     <!-- ----------------FRONT FACE OF CARD----------------- -->
-    <div class="card__face card__face--front">
+    <div
+      class="card__face card__face--front"
+      #myImage
+      [attr.id]="tvShow.id.toString()"
+    >
       <img
         class="card__img"
         src="https://image.tmdb.org/t/p/w500{{ tvShow.poster_path }}"
@@ -16,27 +21,37 @@
     <!-- ----------------BACK FACE OF CARD----------------- -->
     <div class="card__face card__face--back">
       <div class="card__container">
-        <h4 class="card__title">{{ tvShow.name }}</h4>
-
-        <div class="actions">
+        <div class="card__containerIcon">
           <img
-            class="action__icon"
-            src="../../../../../assets/icons/play-trailer.svg"
-            alt=" icon More Details"
+            class="card__icon card__icon--white"
+            [ngClass]="likeTv ? 'card__icon--down' : 'card__icon--up'"
+            (click)="toogleLikeOrSave('like')"
+            src="../../../../../assets/icons/details/LikeTv.png"
+            alt="Like"
           />
-
-          <div class="actions__container">
-            <img
-              class="action__icon"
-              src="../../../../../assets/icons/more-ico.svg"
-              alt=" icon More Details"
-            />
-            <img
-              class="action__icon"
-              src="../../../../../assets/icons/like.svg"
-              alt=" icon More Details"
-            />
-          </div>
+          <img
+            class="card__icon card__icon--blue"
+            [ngClass]="likeTv ? 'card__icon--up' : 'card__icon--down'"
+            (click)="toogleLikeOrSave('like')"
+            src="../../../../../assets/icons/details/LikeTv-Blue.png"
+            alt="Like"
+          />
+        </div>
+        <div class="card__containerIcon">
+          <img
+            class="card__icon card__icon--white"
+            [ngClass]="saveTv ? 'card__icon--down' : 'card__icon--up'"
+            (click)="toogleLikeOrSave('save')"
+            src="../../../../../assets/icons/details/SaveTv.png"
+            alt="Save"
+          />
+          <img
+            class="card__icon card__icon--blue"
+            [ngClass]="saveTv ? 'card__icon--up' : 'card__icon--down'"
+            (click)="toogleLikeOrSave('save')"
+            src="../../../../../assets/icons/details/SaveTv-Blue.png"
+            alt="Save"
+          />
         </div>
       </div>
     </div>

@@ -89,7 +89,7 @@
       </p>
     </div>
   </main>
-  <section class="section">
+  <section class="section" *ngIf="tvShow.overview !== ''">
     <mat-expansion-panel class="expansionPanel" hideToggle [expanded]="true">
       <mat-expansion-panel-header class="expansionPanel__header">
         <img
