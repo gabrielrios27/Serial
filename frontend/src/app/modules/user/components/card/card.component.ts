@@ -75,7 +75,7 @@ export class CardComponent implements OnInit, AfterViewInit {
       const myElement = this.myElementRef.nativeElement;
       const hammer = new Hammer(myElement);
 
-      hammer.get('press').set({ enable: true, time: 0 });
+      hammer.get('press').set({ enable: true, time: 300 });
       hammer.get('press').recognizeWith([]);
       hammer.get('press').requireFailure('pan');
       hammer.get('press').requireFailure('tap');
