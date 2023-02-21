@@ -53,7 +53,7 @@ export class CardComponent implements OnInit, AfterViewInit {
       const myElement = this.myElementRef.nativeElement;
       const hammer = new Hammer(myElement);
 
-      hammer.get('press').set({ enable: true, time: 0 });
+      hammer.get('press').set({ enable: true, time: 200 });
       hammer.get('press').recognizeWith([]);
       hammer.get('press').requireFailure('pan');
       hammer.get('press').requireFailure('tap');
@@ -71,24 +71,24 @@ export class CardComponent implements OnInit, AfterViewInit {
         event.preventDefault();
       });
     }
-    if (this.myElementRef) {
-      const myElement = this.myElementRef.nativeElement;
-      const hammer = new Hammer(myElement);
+    if (this.myElementRef2) {
+      const myElement = this.myElementRef2.nativeElement;
+      const hammer2 = new Hammer(myElement);
 
-      hammer.get('press').set({ enable: true, time: 300 });
-      hammer.get('press').recognizeWith([]);
-      hammer.get('press').requireFailure('pan');
-      hammer.get('press').requireFailure('tap');
+      hammer2.get('press').set({ enable: true, time: 0 });
+      hammer2.get('press').recognizeWith([]);
+      hammer2.get('press').requireFailure('pan');
+      hammer2.get('press').requireFailure('tap');
 
-      hammer.on('press', (event) => {
+      hammer2.on('press', (event) => {
         event.preventDefault();
       });
 
-      hammer.on('pressup', (event) => {
+      hammer2.on('pressup', (event) => {
         event.preventDefault();
         setTimeout(() => {
           this.cardOpen = true;
-        }, 500);
+        }, 200);
       });
     }
   }
@@ -108,6 +108,8 @@ export class CardComponent implements OnInit, AfterViewInit {
     }, 3000);
   }
   toogleLikeOrSave(value: string) {
+    console.log('toogleLikeOrSave');
+
     if (this.cardOpen) {
       value === 'like'
         ? (this.likeTv = !this.likeTv)
