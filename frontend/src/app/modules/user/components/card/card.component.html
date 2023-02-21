@@ -11,6 +11,7 @@
       <img
         #myImage
         [attr.id]="tvShow.id.toString()"
+        (contextmenu)="onContextMenu($event)"
         class="card__img"
         src="https://image.tmdb.org/t/p/w500{{ tvShow.poster_path }}"
         alt=""
@@ -18,9 +19,10 @@
     </div>
     <!-- ----------------BACK FACE OF CARD----------------- -->
     <div class="card__face card__face--back">
-      <div class="card__container">
+      <div class="card__container" (contextmenu)="onContextMenuBack($event)">
         <div class="card__containerIcon">
           <img
+            (contextmenu)="onContextMenuBack($event)"
             class="card__icon card__icon--white"
             [ngClass]="likeTv ? 'card__icon--down' : 'card__icon--up'"
             (click)="toogleLikeOrSave('like')"
@@ -28,6 +30,7 @@
             alt="Like"
           />
           <img
+            (contextmenu)="onContextMenuBack($event)"
             class="card__icon card__icon--blue"
             [ngClass]="likeTv ? 'card__icon--up' : 'card__icon--down'"
             (click)="toogleLikeOrSave('like')"
@@ -37,6 +40,7 @@
         </div>
         <div class="card__containerIcon">
           <img
+            (contextmenu)="onContextMenuBack($event)"
             class="card__icon card__icon--white"
             [ngClass]="saveTv ? 'card__icon--down' : 'card__icon--up'"
             (click)="toogleLikeOrSave('save')"
@@ -44,6 +48,7 @@
             alt="Save"
           />
           <img
+            (contextmenu)="onContextMenuBack($event)"
             class="card__icon card__icon--blue"
             [ngClass]="saveTv ? 'card__icon--up' : 'card__icon--down'"
             (click)="toogleLikeOrSave('save')"

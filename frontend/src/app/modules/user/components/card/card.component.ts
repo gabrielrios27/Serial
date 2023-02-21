@@ -51,55 +51,48 @@ export class CardComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {}
   ngAfterViewInit() {
-    if (this.myElementRef) {
-      const myElement = this.myElementRef.nativeElement;
-      const hammer = new Hammer(myElement);
-
-      hammer.get('press').set({ enable: true, time: 300 });
-      hammer.get('press').recognizeWith([]);
-      hammer.get('press').requireFailure('pan');
-      hammer.get('press').requireFailure('tap');
-
-      hammer.on('press', (event) => {
-        event.preventDefault();
-        this.toogleFlippCard();
-      });
-
-      hammer.on('tap', (event) => {
-        console.log('tap');
-
-        setTimeout(() => {
-          this._router.navigate(['home/details/', this.tvShow.id]);
-        }, 300);
-      });
-
-      hammer.on('pressup', (event) => {
-        event.preventDefault();
-      });
-    }
-    if (this.myElementRef2) {
-      const myElement = this.myElementRef2.nativeElement;
-      const hammer2 = new Hammer(myElement);
-
-      hammer2.get('press').set({ enable: true, time: 300 });
-      hammer2.get('press').recognizeWith([]);
-      hammer2.get('press').requireFailure('pan');
-      hammer2.get('press').requireFailure('tap');
-
-      hammer2.on('press', (event) => {
-        event.preventDefault();
-      });
-
-      hammer2.on('pressup', (event) => {
-        event.preventDefault();
-        setTimeout(() => {
-          this.cardOpen = true;
-        }, 200);
-      });
-    }
+    // if (this.myElementRef) {
+    //   const myElement = this.myElementRef.nativeElement;
+    //   const hammer = new Hammer(myElement);
+    //   hammer.get('press').set({ enable: true, time: 300 });
+    //   hammer.get('press').recognizeWith([]);
+    //   hammer.get('press').requireFailure('pan');
+    //   hammer.get('press').requireFailure('tap');
+    //   hammer.on('press', (event) => {
+    //     event.preventDefault();
+    //     this.toogleFlippCard();
+    //   });
+    //   hammer.on('tap', (event) => {
+    //     console.log('tap');
+    //     setTimeout(() => {
+    //       this._router.navigate(['home/details/', this.tvShow.id]);
+    //     }, 300);
+    //   });
+    //   hammer.on('pressup', (event) => {
+    //     event.preventDefault();
+    //   });
+    // }
+    // if (this.myElementRef2) {
+    //   const myElement = this.myElementRef2.nativeElement;
+    //   const hammer2 = new Hammer(myElement);
+    //   hammer2.get('press').set({ enable: true, time: 300 });
+    //   hammer2.get('press').recognizeWith([]);
+    //   hammer2.get('press').requireFailure('pan');
+    //   hammer2.get('press').requireFailure('tap');
+    //   hammer2.on('press', (event) => {
+    //     event.preventDefault();
+    //   });
+    //   hammer2.on('pressup', (event) => {
+    //     event.preventDefault();
+    //     setTimeout(() => {
+    //       this.cardOpen = true;
+    //     }, 200);
+    //   });
+    // }
   }
 
   toogleFlippCard() {
+    console.log('toogleFlippCard');
     clearTimeout(this.timeoutId);
     if (this.idTvShowSelected !== this.tvShow.id) {
       this.isBack = false;
@@ -126,9 +119,31 @@ export class CardComponent implements OnInit, AfterViewInit {
   onMouseUp(event: MouseEvent) {
     this.clickTime = event.timeStamp - this.clickTime;
     console.log(`Duración del clic: ${this.clickTime}ms`);
+    if (this.clickTime < 200) {
+      this._router.navigate(['home/details/', this.tvShow.id]);
+    } else {
+      this.toogleFlippCard();
+      setTimeout(() => {
+        this.cardOpen = true;
+      }, 200);
+    }
   }
 
   onMouseDown(event: MouseEvent) {
     this.clickTime = event.timeStamp;
+  }
+  onContextMenu(event: MouseEvent) {
+    console.log('Se previene el default');
+    event.preventDefault();
+    if (!this.cardOpen) {
+      this.toogleFlippCard();
+      setTimeout(() => {
+        this.cardOpen = true;
+      }, 200);
+    }
+  }
+  onContextMenuBack(event: MouseEvent) {
+    console.log('Se previene el default');
+    event.preventDefault();
   }
 }
