@@ -53,7 +53,7 @@ export class CardComponent implements OnInit, AfterViewInit {
       const myElement = this.myElementRef.nativeElement;
       const hammer = new Hammer(myElement);
 
-      hammer.get('press').set({ enable: true, time: 300 });
+      hammer.get('press').set({ enable: true, time: 500 });
       hammer.get('press').recognizeWith([]);
       hammer.get('press').requireFailure('pan');
       hammer.get('press').requireFailure('tap');
@@ -75,7 +75,7 @@ export class CardComponent implements OnInit, AfterViewInit {
       const myElement = this.myElementRef2.nativeElement;
       const hammer2 = new Hammer(myElement);
 
-      hammer2.get('press').set({ enable: true, time: 300 });
+      hammer2.get('press').set({ enable: true, time: 500 });
       hammer2.get('press').recognizeWith([]);
       hammer2.get('press').requireFailure('pan');
       hammer2.get('press').requireFailure('tap');
