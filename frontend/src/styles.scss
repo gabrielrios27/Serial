@@ -5,7 +5,7 @@
   box-sizing: border-box;
   font-family: "HelveticaNeue", sans-serif, "Open Sans";
   color: white;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
 }
 body {
   background-color: black;
@@ -32,5 +32,11 @@ body {
   font-style: normal;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

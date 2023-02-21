@@ -8,11 +8,10 @@ import { HomeComponent } from './containers/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
 import { SearcherComponent } from './components/searcher/searcher.component';
 import { UserRoutingModule } from './user-routing.module';
-
-// modulos de angular material
 
 @NgModule({
   declarations: [
@@ -29,6 +28,7 @@ import { UserRoutingModule } from './user-routing.module';
     HttpClientModule,
     InfiniteScrollModule,
     MatExpansionModule,
+    MatSelectModule,
   ],
   exports: [SearcherComponent, CardComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -16,6 +16,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
   seasons: SeasonData[];
   panelOpenState: boolean;
   panelOpenStateReviews: boolean;
+  seasonSelected: number;
+  selectSea: number;
   // subscripciones
   onDestroy$: Subject<boolean> = new Subject();
   constructor(
@@ -27,6 +29,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.seasons = [];
     this.panelOpenState = false;
     this.panelOpenStateReviews = false;
+    this.seasonSelected = 1;
+    this.selectSea = 1;
   }
   ngOnInit(): void {
     this.getIdFromRoute();
@@ -88,6 +92,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
       });
     });
     console.log(seasonData);
+  }
+  onChangeSeason(seasonSelected: number) {
+    console.log('season: ', seasonSelected);
+    this.selectSea = Number(seasonSelected);
   }
   ngOnDestroy() {
     this.onDestroy$.next(true);
