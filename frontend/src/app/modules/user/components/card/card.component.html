@@ -7,12 +7,10 @@
   >
     <!-- [ngClass]="isBack && idTvShowSelected === tvShow.id ? '' : 'is-front'" -->
     <!-- ----------------FRONT FACE OF CARD----------------- -->
-    <div
-      class="card__face card__face--front"
-      #myImage
-      [attr.id]="tvShow.id.toString()"
-    >
+    <div class="card__face card__face--front" (mousedown)="onMouseDown($event)">
       <img
+        #myImage
+        [attr.id]="tvShow.id.toString()"
         class="card__img"
         src="https://image.tmdb.org/t/p/w500{{ tvShow.poster_path }}"
         alt=""

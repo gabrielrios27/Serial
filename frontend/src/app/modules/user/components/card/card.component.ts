@@ -5,6 +5,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  HostListener,
   Input,
   OnInit,
   Output,
@@ -33,6 +34,7 @@ export class CardComponent implements OnInit, AfterViewInit {
   timeoutId: any;
   @ViewChild('myImage', { static: false }) myElementRef!: ElementRef;
   @ViewChild('myImage2', { static: false }) myElementRef2!: ElementRef;
+
   constructor(private _router: Router) {
     this.cardOpen = false;
     this.tvShow = {} as TvShow;
@@ -109,7 +111,7 @@ export class CardComponent implements OnInit, AfterViewInit {
     this.timeoutId = setTimeout(() => {
       this.isBack = false;
       this.cardOpen = false;
-    }, 3000);
+    }, 2000);
   }
   toogleLikeOrSave(value: string) {
     console.log('toogleLikeOrSave');
@@ -119,5 +121,14 @@ export class CardComponent implements OnInit, AfterViewInit {
         ? (this.likeTv = !this.likeTv)
         : (this.saveTv = !this.saveTv);
     }
+  }
+  @HostListener('mouseup', ['$event'])
+  onMouseUp(event: MouseEvent) {
+    this.clickTime = event.timeStamp - this.clickTime;
+    console.log(`Duración del clic: ${this.clickTime}ms`);
+  }
+
+  onMouseDown(event: MouseEvent) {
+    this.clickTime = event.timeStamp;
   }
 }
