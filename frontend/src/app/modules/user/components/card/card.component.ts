@@ -121,7 +121,7 @@ export class CardComponent implements OnInit, AfterViewInit {
     console.log(`Duración del clic: ${this.clickTime}ms`);
     if (this.clickTime < 200) {
       this._router.navigate(['home/details/', this.tvShow.id]);
-    } else {
+    } else if (!this.cardOpen) {
       this.toogleFlippCard();
       setTimeout(() => {
         this.cardOpen = true;
