@@ -13,12 +13,32 @@ export class UserService {
   baseUrl: string = 'https://api.themoviedb.org/3';
   subUrl: string = '/tv/popular';
   subUrlToSearch: string = '/search/tv';
-
   headers = new HttpHeaders().set(
     'Authorization',
     'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMTY3OTEzYWJlMTU0MTY5ZWE5ZDg1ZTNlOGEzZTdkYSIsInN1YiI6IjYyMTU0ZWRhMGU0ZmM4MDA0NDExNjZlMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.8-i63xqhXGI5bCPXp0dWpPktcxIJt_CUToTH5Sneyc8'
   ); //token para la autorización de la API de TMBD version 4
-  constructor(private _http: HttpClient) {}
+  // BD SEBA BACKEND
+  user: any;
+  baseUrlBack: string;
+  epSavedList: string;
+  epLikedList: string;
+  headersBack = new HttpHeaders().set(
+    'Authorization',
+    'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMTY3OTEzYWJlMTU0MTY5ZWE5ZDg1ZTNlOGEzZTdkYSIsInN1YiI6IjYyMTU0ZWRhMGU0ZmM4MDA0NDExNjZlMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.8-i63xqhXGI5bCPXp0dWpPktcxIJt_CUToTH5Sneyc8'
+  );
+  constructor(private _http: HttpClient) {
+    this.baseUrlBack = 'https://serial-backend.onrender.com/';
+    this.epSavedList = '';
+    this.epLikedList = '';
+  }
+  getUserToken() {
+    let tokenJSON = localStorage.getItem('user');
+
+    if (tokenJSON) {
+      this.user = JSON.parse(tokenJSON);
+      console.log('token: ', this.user);
+    }
+  }
   getTvShow(page: number): Observable<PageTvShow> {
     let params = new HttpParams()
       .set('language', 'en')
@@ -59,7 +79,8 @@ export class UserService {
         params: params,
       }
     );
-  } ///tv/{tv_id}/reviews
+  }
+
   getReviews(page: number, id: number): Observable<ReviewsGral> {
     console.log('svc reviews');
 
@@ -74,5 +95,45 @@ export class UserService {
         params: params,
       }
     );
+  }
+  getLikedList(): Observable<any> {
+    console.log('svc LikedList');
+    let tokenJSON = localStorage.getItem('user');
+
+    if (tokenJSON) {
+      this.user = JSON.parse(tokenJSON);
+    }
+    const token = this.user.token;
+    console.log('token: ', token);
+    const headersBack = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${token}`
+    );
+    let params = new HttpParams().set('language', 'en');
+
+    return this._http.get<any>(this.baseUrlBack + this.epLikedList, {
+      headers: headersBack,
+      params: params,
+    });
+  }
+  getSavedList(): Observable<any> {
+    console.log('svc SavedList');
+    let tokenJSON = localStorage.getItem('user');
+
+    if (tokenJSON) {
+      this.user = JSON.parse(tokenJSON);
+    }
+    const token = this.user.token;
+    console.log('token: ', token);
+    const headersBack = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${token}`
+    );
+    let params = new HttpParams().set('language', 'en');
+
+    return this._http.get<any>(this.baseUrlBack + this.epSavedList, {
+      headers: headersBack,
+      params: params,
+    });
   }
 }

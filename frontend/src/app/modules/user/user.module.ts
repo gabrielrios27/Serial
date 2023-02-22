@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
 import { SearcherComponent } from './components/searcher/searcher.component';
 import { UserRoutingModule } from './user-routing.module';
+import { ListsComponent } from './containers/lists/lists.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { UserRoutingModule } from './user-routing.module';
     SearcherComponent,
     CardComponent,
     DetailsComponent,
+    ListsComponent,
   ],
   imports: [
     CommonModule,

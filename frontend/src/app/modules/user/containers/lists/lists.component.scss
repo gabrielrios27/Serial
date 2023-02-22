@@ -1,0 +1,209 @@
+.mainContainer {
+  width: 100%;
+  height: 100%;
+  padding-top: 53px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .mainContainer__title {
+    font-family: "HelveticaNeue-Bold";
+    text-align: center;
+    font-size: 16px;
+  }
+  .mainContainer__btnContainer {
+    margin: 31px auto;
+    .mainContainer__btn {
+      width: 105px;
+      height: 26px;
+      font-size: 14px;
+      color: black;
+      background-color: white;
+      outline: none;
+
+      border-width: 0.5px 0px 0.5px 0.5px;
+      border-style: solid;
+      border-color: #ffffff;
+      border-radius: 2px;
+    }
+    .mainContainer__btn--active {
+      background: #ddff7c;
+    }
+  }
+}
+
+// ---------------SEARCHER--------------------
+.searcherContainer {
+  width: 100%;
+  height: 32px;
+  border-bottom: solid white 1px;
+  display: flex;
+  justify-content: space-between;
+  .searcherContainer__iconsContainer {
+    width: 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .searcherContainer__icon {
+      height: 31px;
+    }
+    .searcherContainer__icon--block {
+      height: 20px;
+      margin-top: 2px;
+    }
+    .searcherContainer__icon--list {
+      margin-top: 3px;
+    }
+  }
+}
+.searcher {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  width: 100%;
+  max-width: calc(100% - 65px);
+  height: 100%;
+  background: #000;
+  //   border: 1px solid #000000;
+  border-radius: 2px;
+  overflow: hidden;
+  transition: all 0.3s linear;
+}
+
+.searcher__ico {
+  width: 20px;
+  background-color: #000;
+  padding-bottom: 2px; /*se suma 2px al height y se le da un padding bottom de 2px para corregir alineacion, mas centrada con respecto al input*/
+
+  margin-right: 16px;
+  cursor: pointer;
+}
+.searcher__containerInput {
+  position: relative;
+  width: calc(100% - 37px);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.searcher__input {
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  font-size: 16px;
+
+  background-color: transparent;
+  color: white;
+  border: 0;
+  outline: none;
+}
+
+.searcher__input:-webkit-autofill,
+.searcher__input:-webkit-autofill:hover,
+.searcher__input:-webkit-autofill:focus,
+.searcher__input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #0f1627 inset !important;
+  box-shadow: 0 0 0 30px #0f1627 inset !important;
+}
+.searcher__input:-webkit-autofill {
+  -webkit-text-fill-color: #000000 !important;
+}
+@media (max-width: 576px) {
+  .searcher__containerInput {
+    width: 220px;
+  }
+}
+
+// -------------TYPE LIST------------------
+.typeList {
+  width: 100%;
+  .typeList__createContainer {
+    width: 100%;
+    padding: 15px 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: solid white 1px;
+    cursor: pointer;
+    .typeList__iconContainer {
+      width: 56px;
+      height: 88px;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 16px;
+      .typeList__icon {
+        width: 26px;
+      }
+    }
+    .typeList__titleContainer {
+      .typeList__title {
+        font-size: 16px;
+        font-family: "HelveticaNeue-Bold";
+      }
+    }
+  }
+}
+.list {
+  width: 100%;
+  padding: 15px 10px;
+  display: flex;
+  align-items: center;
+  border-bottom: solid white 1px;
+  cursor: pointer;
+  .list__img {
+    width: 56px;
+    height: 88px;
+    margin-right: 16px;
+  }
+  .list__container {
+    display: flex;
+    flex-direction: column;
+
+    .list__title {
+      font-size: 16px;
+      font-family: "HelveticaNeue-Bold";
+    }
+    .list__iconsContainer {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      .list__icon {
+        box-sizing: content-box;
+        padding: 8px 5px;
+        height: 20px;
+      }
+      .list__icon--eye {
+        height: 28px;
+        padding-left: 0;
+      }
+    }
+  }
+}
+
+// -------------TYPE BLOCK-------------------
+
+.typeBlock {
+  width: 100%;
+  display: flex;
+
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 27px;
+  .typeBlock__containerCreate {
+    width: 102px;
+    height: 156px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .typeBlock__iconCreate {
+      width: 35px;
+    }
+  }
+
+  .typeBlock__img {
+    width: 102px;
+    height: 156px;
+  }
+}
