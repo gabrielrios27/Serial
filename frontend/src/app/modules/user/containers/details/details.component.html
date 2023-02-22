@@ -132,13 +132,13 @@
   </main>
   <!-- ----------------DESCRIPTION------------------- -->
   <section class="section" *ngIf="tvShow.overview !== ''">
-    <!-- <div class="header">
+    <div class="header">
       <h2 class="header__headerTitle">Description</h2>
     </div>
     <div class="header__body">
       <p class="header__overview">{{ tvShow.overview }}</p>
-    </div> -->
-    <mat-expansion-panel
+    </div>
+    <!-- <mat-expansion-panel
       disabled
       class="expansionPanel"
       hideToggle
@@ -152,10 +152,10 @@
         />
         <h2 class="expansionPanel__headerTitle">Description</h2>
       </mat-expansion-panel-header>
-      <div class="expansionPanel__body">
+      <div class="expansionPanel__body expansionPanel__body--description">
         <p class="expansionPanel__overview">{{ tvShow.overview }}</p>
       </div>
-    </mat-expansion-panel>
+    </mat-expansion-panel> -->
   </section>
   <!-- ----------------EPISODES------------------- -->
   <section class="section">
@@ -296,8 +296,7 @@
         <h2 class="expansionPanel__headerTitle">Reviews</h2>
       </mat-expansion-panel-header>
       <div class="expansionPanel__body expansionPanel__body--reviews">
-        <article class="review">
-          
+        <article class="review" *ngFor="let review of reviews">
           <div class="review__containerUserData">
             <div class="review__containerRank">
               <svg
@@ -313,16 +312,17 @@
                   fill="white"
                 />
               </svg>
-              <p class="review__rank">9/10</p>
+              <p class="review__rank">{{ review.author_details.rating }}/10</p>
             </div>
-            <p class="review__user">Username</p>
-            <p class="review__date">5/2/23</p>
+            <p class="review__user">{{ review.author_details.username }}</p>
+            <p class="review__date">
+              {{ review.created_at.substring(8, 10) }}/{{
+                review.created_at.substring(5, 7)
+              }}/{{ review.created_at.substring(0, 4) }}
+            </p>
           </div>
           <p class="review__data">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Non tempore
-            accusamus quae nobis obcaecati ullam optio, similique eum magnam
-            nulla soluta earum dolores suscipit harum provident veritatis
-            distinctio. Beatae, repellat!
+            {{ review.content }}
           </p>
         </article>
       </div>

@@ -1,6 +1,12 @@
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Episode, SeasonData, TvShow } from './../../interfaces/user';
+import {
+  Episode,
+  Review,
+  ReviewsGral,
+  SeasonData,
+  TvShow,
+} from './../../interfaces/user';
 import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 
 import { UserService } from '../../services/user.service';
@@ -14,10 +20,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
   idFilm: number;
   tvShow: TvShow;
   seasons: SeasonData[];
+  reviews: Review[];
   panelOpenState: boolean;
   panelOpenStateReviews: boolean;
   seasonSelected: number;
   selectSea: number;
+  page: number;
   // subscripciones
   onDestroy$: Subject<boolean> = new Subject();
   constructor(
@@ -27,10 +35,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.idFilm = 0;
     this.tvShow = {} as TvShow;
     this.seasons = [];
+    this.reviews = [];
     this.panelOpenState = false;
     this.panelOpenStateReviews = false;
     this.seasonSelected = 1;
     this.selectSea = 1;
+    this.page = 1;
   }
   ngOnInit(): void {
     this.getIdFromRoute();
@@ -44,6 +54,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       });
     this.idFilm = Number(idToShow);
     this.getTvShowById(this.idFilm);
+    this.getReviews(this.page, this.idFilm);
   }
   getTvShowById(id: number) {
     this._userSvc
@@ -96,6 +107,20 @@ export class DetailsComponent implements OnInit, OnDestroy {
   onChangeSeason(seasonSelected: number) {
     console.log('season: ', seasonSelected);
     this.selectSea = Number(seasonSelected);
+  }
+  getReviews(page: number, id: number) {
+    this._userSvc
+      .getReviews(page, id)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (data: ReviewsGral) => {
+          console.log(data);
+          this.reviews = data.results.reverse();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
   ngOnDestroy() {
     this.onDestroy$.next(true);

@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { PageTvShow, TvShow } from '../interfaces/user';
+import { ReviewsGral, SeasonData } from './../interfaces/user';
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SeasonData } from './../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -54,6 +54,21 @@ export class UserService {
 
     return this._http.get<SeasonData>(
       this.baseUrl + '/tv/' + id + '/season/' + season,
+      {
+        headers: this.headers,
+        params: params,
+      }
+    );
+  } ///tv/{tv_id}/reviews
+  getReviews(page: number, id: number): Observable<ReviewsGral> {
+    console.log('svc reviews');
+
+    let params = new HttpParams()
+      .set('language', 'en')
+      .set('page', page.toString());
+
+    return this._http.get<ReviewsGral>(
+      this.baseUrl + '/tv/' + id + '/reviews',
       {
         headers: this.headers,
         params: params,
