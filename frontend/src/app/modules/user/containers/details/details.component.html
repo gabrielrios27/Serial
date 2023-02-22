@@ -132,18 +132,13 @@
   </main>
   <!-- ----------------DESCRIPTION------------------- -->
   <section class="section" *ngIf="tvShow.overview !== ''">
-    <div class="header">
+    <!-- <div class="header">
       <h2 class="header__headerTitle">Description</h2>
     </div>
     <div class="header__body">
       <p class="header__overview">{{ tvShow.overview }}</p>
-    </div>
-    <!-- <mat-expansion-panel
-      disabled
-      class="expansionPanel"
-      hideToggle
-      [expanded]="true"
-    >
+    </div> -->
+    <mat-expansion-panel class="expansionPanel" hideToggle [expanded]="true">
       <mat-expansion-panel-header class="expansionPanel__header">
         <img
           class="expansionPanel__headerIcon"
@@ -155,7 +150,7 @@
       <div class="expansionPanel__body expansionPanel__body--description">
         <p class="expansionPanel__overview">{{ tvShow.overview }}</p>
       </div>
-    </mat-expansion-panel> -->
+    </mat-expansion-panel>
   </section>
   <!-- ----------------EPISODES------------------- -->
   <section class="section">
@@ -202,6 +197,12 @@
         </div>
         <div *ngFor="let season of seasons">
           <ng-container *ngIf="season.season_number === selectSea">
+            <p
+              *ngIf="season.episodes.length === 0"
+              class="episode--inProduction"
+            >
+              Season in production
+            </p>
             <div class="episode" *ngFor="let episode of season.episodes">
               <img
                 class="episode__img"
@@ -296,6 +297,9 @@
         <h2 class="expansionPanel__headerTitle">Reviews</h2>
       </mat-expansion-panel-header>
       <div class="expansionPanel__body expansionPanel__body--reviews">
+        <p *ngIf="reviews.length === 0" class="episode--inProduction">
+          No review avaible yet.
+        </p>
         <article class="review" *ngFor="let review of reviews">
           <div class="review__containerUserData">
             <div class="review__containerRank">
