@@ -26,7 +26,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   seasonSelected: number;
   selectSea: number;
   page: number;
-  trailers: any;
+  trailer: string | undefined;
   // subscripciones
   onDestroy$: Subject<boolean> = new Subject();
   constructor(
@@ -42,6 +42,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.seasonSelected = 1;
     this.selectSea = 1;
     this.page = 1;
+    this.trailer = undefined;
   }
   ngOnInit(): void {
     this.getIdFromRoute();
@@ -80,11 +81,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (trailersbd: any) => {
           console.log(trailersbd);
+          this.trailer = '';
           for (let trailer of trailersbd.results) {
             trailer.type === 'Trailer'
-              ? (this.trailers = trailer.key)
-              : (this.trailers = '');
-            console.log(this.trailers);
+              ? (this.trailer = trailer.key)
+              : (this.trailer = '');
+            console.log(this.trailer);
           }
         },
         error: (err) => {

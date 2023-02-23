@@ -12,9 +12,9 @@
     align-items: center;
     width: 77%;
     height: 100%;
-    max-height: 410px;
+    max-height: 420px;
     position: relative;
-    padding-bottom: 20px;
+    padding-bottom: 30px;
     overflow: hidden;
     transition: all 0.3s linear;
     .cover__img {
@@ -55,7 +55,54 @@
     opacity: 0;
   }
 }
-
+.main__containerIcons {
+  width: 100%;
+  position: absolute;
+  bottom: 5px;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 11px;
+  .main__wrapperIcon {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    .main__icon {
+      height: 12px;
+    }
+    .main__icon--play {
+      margin-left: 5px;
+    }
+    &:active {
+      background-color: #506cff;
+      .main__icon {
+        g {
+          fill: white;
+        }
+        path {
+          fill: white;
+        }
+      }
+    }
+  }
+  .main__wrapperIcon--active {
+    background-color: #506cff;
+    .main__icon {
+      g {
+        fill: white;
+      }
+      path {
+        fill: white;
+      }
+    }
+  }
+}
 .gallery {
   width: 100%;
   display: flex;

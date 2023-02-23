@@ -39,14 +39,16 @@
           />
         </div>
         <div class="card__containerIcon">
-          <img
-            (contextmenu)="onContextMenuBack($event)"
-            class="card__icon card__icon--white"
-            [ngClass]="saveTv ? 'card__icon--down' : 'card__icon--up'"
-            (click)="toogleLikeOrSave('save')"
-            src="../../../../../assets/icons/details/SaveTv.png"
-            alt="Save"
-          />
+          <a routerLink="./../lists/{{ tvShow.id }}">
+            <img
+              (contextmenu)="onContextMenuBack($event)"
+              class="card__icon card__icon--white"
+              [ngClass]="saveTv ? 'card__icon--down' : 'card__icon--up'"
+              (click)="toogleLikeOrSave('save')"
+              src="../../../../../assets/icons/details/SaveTv.png"
+              alt="Save"
+            />
+          </a>
           <img
             (contextmenu)="onContextMenuBack($event)"
             class="card__icon card__icon--blue"

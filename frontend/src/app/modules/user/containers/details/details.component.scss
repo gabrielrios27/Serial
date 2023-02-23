@@ -32,12 +32,13 @@
     margin-bottom: 19px;
   }
   .main__containerIcons {
-    width: 300px;
-    margin: auto;
+    width: 100%;
+
     margin-top: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 11px;
     .main__wrapperIcon {
       width: 46px;
       height: 46px;
@@ -51,6 +52,17 @@
       }
       .main__icon--play {
         margin-left: 5px;
+      }
+    }
+    &:active {
+      background-color: #506cff;
+      .main__icon {
+        g {
+          fill: white;
+        }
+        path {
+          fill: white;
+        }
       }
     }
   }

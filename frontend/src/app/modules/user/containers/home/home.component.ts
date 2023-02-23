@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   notFound: boolean;
   // Id de la card seleccionada -  se usa para voltear la carta si se selecciona otra
   idTvShowSelected: number;
+  trailer: string | undefined;
   // suscripciones
   onDestroy$: Subject<boolean> = new Subject();
   constructor(private _UserSvc: UserService) {
@@ -103,6 +104,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.openSearch = false;
     this.notFound = false;
     this.idTvShowSelected = 0;
+    this.trailer = undefined;
   }
 
   ngOnInit(): void {
@@ -119,9 +121,11 @@ export class HomeComponent implements OnInit, OnDestroy {
             ? (this.notFound = true)
             : (this.notFound = false);
           this.tvShows = data.results;
+          this.checkSavedLiked(this.tvShows);
           let firstElement = this.tvShows.shift();
           if (firstElement) {
             this.tvShowCover = firstElement;
+            this.getTvShowTrailer(firstElement.id);
           }
           this.totalPages = data.total_pages;
           this.tvShows_toShow = this.tvShows;
@@ -134,6 +138,22 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.namedGenre(this.genres, this.tvShows_toShow);
         },
       });
+  }
+  checkSavedLiked(tvs: TvShow[]) {
+    tvs.map((tv: TvShow) => {
+      tv.isLiked = false;
+      tv.isSaved = false;
+    });
+  }
+  onSavedOrLikedCover(type: string) {
+    type === 'saved'
+      ? (this.tvShowCover.isSaved = !this.tvShowCover.isSaved)
+      : (this.tvShowCover.isLiked = !this.tvShowCover.isLiked);
+  }
+  onSavedOrLiked(type: string, id: number) {
+    type === 'saved'
+      ? (this.tvShowCover.isSaved = !this.tvShowCover.isSaved)
+      : (this.tvShowCover.isLiked = !this.tvShowCover.isLiked);
   }
   loadMore() {
     if (this.loading) {
@@ -233,6 +253,26 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   getIdTvShowSelected(id: number) {
     this.idTvShowSelected = id;
+  }
+  getTvShowTrailer(id: number) {
+    this._UserSvc
+      .getTvShowTrailer(id)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (trailersbd: any) => {
+          console.log(trailersbd);
+          this.trailer = '';
+          for (let trailer of trailersbd.results) {
+            trailer.type === 'Trailer'
+              ? (this.trailer = trailer.key)
+              : (this.trailer = '');
+            console.log(this.trailer);
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
   ngOnDestroy() {

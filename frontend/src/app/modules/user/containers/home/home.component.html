@@ -10,9 +10,121 @@
       src="https://image.tmdb.org/t/p/w500{{ tvShowCover.poster_path }}"
       alt="Cover of tv show random"
     />
-    <div class="cover__linksContainer" [ngClass]="openSearch ? 'hidden' : ''">
+    <!-- <div class="cover__linksContainer" [ngClass]="openSearch ? 'hidden' : ''">
       <a class="cover__link">i</a>
       <a class="cover__link cover__link--up">+</a>
+    </div> -->
+    <div class="main__containerIcons" [ngClass]="openSearch ? 'hidden' : ''">
+      <!-- LIKED ICON -->
+      <a
+        class="main__wrapperIcon"
+        (click)="onSavedOrLikedCover('liked')"
+        [ngClass]="tvShowCover.isLiked ? 'main__wrapperIcon--active' : ''"
+      >
+        <svg
+          class="main__icon"
+          version="1.0"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20.000000pt"
+          height="20.000000pt"
+          viewBox="0 0 20.000000 20.000000"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <g
+            transform="translate(0.000000,20.000000) scale(0.100000,-0.100000)"
+            fill="#000000"
+            stroke="none"
+          >
+            <path
+              d="M10 159 c-17 -31 -6 -59 45 -109 l46 -45 50 52 c27 28 49 61 49 72 0
+  41 -59 68 -88 39 -9 -9 -15 -9 -24 0 -20 20 -66 15 -78 -9z"
+            />
+          </g>
+        </svg>
+      </a>
+      <!-- SAVED ICON -->
+      <a
+        class="main__wrapperIcon"
+        routerLink="./../lists/{{ tvShowCover.id }}"
+        [ngClass]="tvShowCover.isSaved ? 'main__wrapperIcon--active' : ''"
+      >
+        <svg
+          class="main__icon"
+          version="1.0"
+          xmlns="http://www.w3.org/2000/svg"
+          width="15.000000pt"
+          height="19.000000pt"
+          viewBox="0 0 15.000000 19.000000"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <g
+            transform="translate(0.000000,19.000000) scale(0.100000,-0.100000)"
+            fill="#000000"
+            stroke="none"
+          >
+            <path
+              d="M0 95 c0 -90 1 -95 18 -86 10 5 24 17 32 25 17 22 26 20 66 -10 l34
+  -26 0 96 0 96 -75 0 -75 0 0 -95z"
+            />
+          </g>
+        </svg>
+      </a>
+      <!-- PLAY ICON -->
+      <div class="main__wrapperIcon" *ngIf="trailer !== ''">
+        <a href="https://www.youtube.com/watch?v={{ trailer }}" target="_blank">
+          <svg
+            class="main__icon main__icon--play"
+            version="1.0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16.000000pt"
+            height="18.000000pt"
+            viewBox="0 0 16.000000 18.000000"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            <g
+              transform="translate(0.000000,18.000000) scale(0.100000,-0.100000)"
+              fill="#000000"
+              stroke="none"
+            >
+              <path
+                d="M10 90 c0 -56 4 -90 11 -90 15 0 129 79 129 90 0 11 -114 90 -129 90
+  -7 0 -11 -34 -11 -90z"
+              />
+            </g>
+          </svg>
+        </a>
+      </div>
+      <!-- INFO ICON -->
+      <a class="main__wrapperIcon" routerLink="../details/{{ tvShowCover.id }}">
+        <svg
+          class="main__icon"
+          width="4"
+          height="17"
+          viewBox="0 0 4 17"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0 0V3.19048H4V0H0ZM0 4.11905V17H4V4.11905H0Z"
+            fill="black"
+          />
+        </svg>
+      </a>
+      <!-- <div class="main__wrapperIcon">
+        <svg
+          class="main__icon"
+          width="19"
+          height="22"
+          viewBox="0 0 19 22"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15.8333 15.5502C15.0311 15.5502 14.3133 15.8815 13.7644 16.4006L6.23833 11.8173C6.29111 11.5633 6.33333 11.3092 6.33333 11.0442C6.33333 10.7791 6.29111 10.5251 6.23833 10.2711L13.68 5.73193C14.25 6.28414 14.9994 6.62651 15.8333 6.62651C17.5856 6.62651 19 5.14659 19 3.31325C19 1.47992 17.5856 0 15.8333 0C14.0811 0 12.6667 1.47992 12.6667 3.31325C12.6667 3.57831 12.7089 3.83233 12.7617 4.08635L5.32 8.6255C4.75 8.07329 4.00056 7.73092 3.16667 7.73092C1.41444 7.73092 0 9.21084 0 11.0442C0 12.8775 1.41444 14.3574 3.16667 14.3574C4.00056 14.3574 4.75 14.0151 5.32 13.4629L12.8356 18.0572C12.7828 18.2892 12.7511 18.5321 12.7511 18.7751C12.7511 20.5532 14.1339 22 15.8333 22C17.5328 22 18.9156 20.5532 18.9156 18.7751C18.9156 16.997 17.5328 15.5502 15.8333 15.5502Z"
+            fill="black"
+          />
+        </svg>
+      </div> -->
     </div>
   </main>
   <div

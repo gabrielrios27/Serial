@@ -5,71 +5,6 @@ export interface PageTvShow {
   total_results: number;
 }
 
-export interface MoviesSeriesActors extends MoviesSeriesActorsBase {
-  original_language: OriginalLanguage;
-  original_title?: string;
-  overview: string;
-  vote_count: number;
-  adult?: boolean;
-  backdrop_path: string;
-  genre_ids: number[];
-  video?: boolean;
-  popularity: number;
-  media_type: MediaType;
-  original_name?: string;
-  origin_country?: string[];
-  first_air_date?: Date;
-  added?: boolean;
-}
-export interface MoviesSeriesActorsBase {
-  poster_path: string;
-  title?: string;
-  id: number;
-  vote_average: number;
-  name?: string;
-  idGlobal?: string;
-}
-export interface MoviesSeriesActorsUser extends MoviesSeriesActorsBase {
-  idGlobal: string;
-}
-export enum MediaType {
-  Movie = 'movie',
-  Tv = 'tv',
-  Person = 'person',
-}
-
-export enum OriginalLanguage {
-  En = 'en',
-  Ja = 'ja',
-}
-export interface Movie {
-  adult: boolean;
-  backdrop_path: string;
-  belongs_to_collection: null;
-  budget: number;
-  genres: Genre[];
-  homepage: string;
-  id: number;
-  imdb_id: string;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: null;
-  production_companies: ProductionCompany[];
-  production_countries: ProductionCountry[];
-  release_date: Date;
-  revenue: number;
-  runtime: number;
-  spoken_languages: SpokenLanguage[];
-  status: string;
-  tagline: string;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-}
-
 export interface Genre {
   id: number;
   name: string;
@@ -126,6 +61,8 @@ export interface TvShow {
   type: string;
   vote_average: number;
   vote_count: number;
+  isSaved?: boolean;
+  isLiked?: boolean;
 }
 
 export interface CreatedBy {

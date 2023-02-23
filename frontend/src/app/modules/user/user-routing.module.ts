@@ -42,10 +42,10 @@ const routes: Routes = [
         component: ListsComponent,
       },
       {
-        path: 'lists/mylist/:id',
+        path: 'lists/:id',
         pathMatch: 'full',
         // canActivate: [],
-        component: MyListComponent,
+        component: ListsComponent,
       },
       {
         path: 'lists/mylist/:type/:id',

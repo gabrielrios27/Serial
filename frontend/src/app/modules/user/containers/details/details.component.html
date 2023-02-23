@@ -10,7 +10,8 @@
     </div>
     <!-- <h1 class="main__title">{{ tvShow.name }}</h1> -->
     <div class="main__containerIcons">
-      <div class="main__wrapperIcon">
+      <!-- LIKED -->
+      <a class="main__wrapperIcon">
         <svg
           class="main__icon"
           version="1.0"
@@ -31,8 +32,9 @@
             />
           </g>
         </svg>
-      </div>
-      <div class="main__wrapperIcon">
+      </a>
+      <!-- SAVED -->
+      <a class="main__wrapperIcon" routerLink="./../../lists/{{ tvShow.id }}">
         <svg
           class="main__icon"
           version="1.0"
@@ -53,12 +55,10 @@
             />
           </g>
         </svg>
-      </div>
-      <div class="main__wrapperIcon" *ngIf="trailers !== ''">
-        <a
-          href="https://www.youtube.com/watch?v={{ trailers }}"
-          target="_blank"
-        >
+      </a>
+      <!-- PLAY -->
+      <div class="main__wrapperIcon" *ngIf="trailer !== ''">
+        <a href="https://www.youtube.com/watch?v={{ trailer }}" target="_blank">
           <svg
             class="main__icon main__icon--play"
             version="1.0"
@@ -81,6 +81,7 @@
           </svg>
         </a>
       </div>
+      <!-- INFO -->
       <div class="main__wrapperIcon">
         <svg
           class="main__icon"
@@ -96,6 +97,7 @@
           />
         </svg>
       </div>
+      <!-- SHARED -->
       <div class="main__wrapperIcon">
         <svg
           class="main__icon"
