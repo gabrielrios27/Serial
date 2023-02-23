@@ -17,6 +17,42 @@ export class ListsComponent implements OnInit {
   likedList: any;
   likedTvShows: any;
   listToShow: any;
+  imgLikedList: any = [
+    {
+      id: 102567,
+      poster_path: '/6wrUL1boBJIRlgwdmFKOlbhllDh.jpg',
+    },
+    {
+      id: 62560,
+      poster_path: '/oKIBhzZzDX07SoE2bOLhq2EE8rf.jpg',
+    },
+    {
+      id: 37680,
+      poster_path: '/vQiryp6LioFxQThywxbC6TuoDjy.jpg',
+    },
+    {
+      id: 1399,
+      poster_path: '/7WUHnWGx5OO145IRxPDUkQSh4C7.jpg',
+    },
+  ];
+  imgSavedList: any = [
+    {
+      id: 1402,
+      poster_path: '/xf9wuDcqlUPWABZNeDKPbZUjWx0.jpg',
+    },
+    {
+      id: 1418,
+      poster_path: '/ooBGRQBdbGzBxAVfExiO8r7kloA.jpg',
+    },
+    {
+      id: 57243,
+      poster_path: '/sz4zF5z9zyFh8Z6g5IQPNq91cI7.jpg',
+    },
+    {
+      id: 1396,
+      poster_path: '/ggFHVNu6YYI5L9pCfOacjizRGt.jpg',
+    },
+  ];
   // suscripciones
   onDestroy$: Subject<boolean> = new Subject();
   constructor(private _UserSvc: UserService) {

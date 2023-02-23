@@ -21,12 +21,16 @@ export class UserService {
   user: any;
   baseUrlBack: string;
   epSavedList: string;
+  epSavedList2: string;
   epLikedList: string;
+  epLikedList2: string;
 
   constructor(private _http: HttpClient) {
     this.baseUrlBack = 'https://serial-backend.onrender.com/';
     this.epSavedList = 'list/client/1';
+    this.epSavedList2 = 'list/client';
     this.epLikedList = 'list/client/like/1';
+    this.epLikedList2 = 'list/client/like';
   }
   getUserToken() {
     let tokenJSON = localStorage.getItem('user');
@@ -101,14 +105,19 @@ export class UserService {
       this.user = JSON.parse(tokenJSON);
     }
     const token = this.user.token;
-    console.log('token: ', token);
+    console.log('USER: ', this.user);
     const headersBack = new HttpHeaders().set(
       'Authorization',
       `Bearer ${token}`
     );
     let params = new HttpParams().set('language', 'en');
 
-    return this._http.get<any>(this.baseUrlBack + this.epLikedList, {
+    let epSub;
+    this.user.dataValues.email === 'user@serial.com'
+      ? (epSub = this.epLikedList)
+      : (epSub = this.epLikedList2);
+
+    return this._http.get<any>(this.baseUrlBack + epSub, {
       headers: headersBack,
       params: params,
     });
@@ -121,14 +130,20 @@ export class UserService {
       this.user = JSON.parse(tokenJSON);
     }
     const token = this.user.token;
-    console.log('token: ', token);
+    console.log('USER: ', this.user);
     const headersBack = new HttpHeaders().set(
       'Authorization',
       `Bearer ${token}`
     );
     let params = new HttpParams().set('language', 'en');
+    let epSub;
+    this.user.dataValues.email === 'user@serial.com'
+      ? (epSub = this.epSavedList)
+      : (epSub = this.epSavedList2);
+    console.log('email: ', this.user.email);
+    console.log('epSub:', epSub);
 
-    return this._http.get<any>(this.baseUrlBack + this.epSavedList, {
+    return this._http.get<any>(this.baseUrlBack + epSub, {
       headers: headersBack,
       params: params,
     });

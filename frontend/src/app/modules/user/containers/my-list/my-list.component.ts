@@ -1,6 +1,7 @@
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 
-import { Subject } from 'rxjs';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -13,16 +14,37 @@ export class MyListComponent implements OnInit {
   isTypeList: boolean;
 
   listToShow: any;
+  idTvShow: number;
+  type: string;
+  isTypeSaved: boolean;
   // suscripciones
   onDestroy$: Subject<boolean> = new Subject();
-  constructor(private _UserSvc: UserService) {
+  constructor(
+    private _UserSvc: UserService,
+    private _rutaActiva: ActivatedRoute
+  ) {
     this.toSearch = '';
 
     this.isTypeList = false;
+    this.idTvShow = 0;
+    this.type = 'saved';
+    this.isTypeSaved = true;
   }
 
   ngOnInit(): void {
     this.isTypeList = this.getFromLclStg('isTypeList');
+  }
+  getFromRoute() {
+    let idToShow;
+    let type;
+    this._rutaActiva.paramMap
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((params: ParamMap) => {
+        idToShow = params.get('id');
+        type = params.get('type');
+      });
+    this.idTvShow = Number(idToShow);
+    type === 'saved' ? (this.isTypeSaved = true) : (this.isTypeSaved = false);
   }
   getFromLclStg(key: string): any {
     let value = localStorage.getItem(key);

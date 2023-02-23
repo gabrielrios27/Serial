@@ -13,18 +13,46 @@
 }
 
 .details {
+  display: flex;
+  align-items: center;
+  margin-top: 56px;
+  margin-bottom: 45px;
   .details__imgContainer {
+    position: relative;
+    margin-right: 20px;
     .details__img {
+      width: 102px;
+      height: 155px;
     }
     .details__iconsContainer {
-      .details__imgIcons {
+      position: absolute;
+      top: -13px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      column-gap: 26px;
+      .details__iconWrapper {
+        width: 26px;
+        height: 26px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .details__imgIcons {
+          width: 10px;
+        }
       }
     }
   }
   .details__infoContainer {
     .details__infoTitle {
+      font-size: 16px;
+      font-family: "HelveticaNeue-Bold";
+      margin-bottom: 10px;
     }
     .details__infoDescription {
+      font-size: 14px;
     }
   }
 }

@@ -78,34 +78,16 @@
       </svg>
     </div>
   </div>
+  <!-- -----------LIKED LIST------------- -->
   <ng-container *ngIf="!btnSaved">
     <div class="typeList" *ngIf="isTypeList">
-      <div class="typeList__createContainer">
-        <div class="typeList__iconContainer">
-          <svg
-            class="typeList__icon"
-            width="26"
-            height="26"
-            viewBox="0 0 26 26"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14.3 6.5H11.7V11.7H6.5V14.3H11.7V19.5H14.3V14.3H19.5V11.7H14.3V6.5ZM13 0C5.824 0 0 5.824 0 13C0 20.176 5.824 26 13 26C20.176 26 26 20.176 26 13C26 5.824 20.176 0 13 0ZM13 23.4C7.267 23.4 2.6 18.733 2.6 13C2.6 7.267 7.267 2.6 13 2.6C18.733 2.6 23.4 7.267 23.4 13C23.4 18.733 18.733 23.4 13 23.4Z"
-              fill="white"
-            />
-          </svg>
-        </div>
-        <div class="typeList__titleContainer">
-          <h3 class="typeList__title">Create new list</h3>
-        </div>
-      </div>
       <div class="list" *ngFor="let list of likedList">
-        <a class="list__containerImg" routerLink="./mylist/{{ 27 }}">
+        <a class="list__containerImg" routerLink="./mylist/liked/{{ 27 }}">
+          <!-- en img --- *ngFor="let tvShow of list.list.list_movies.slice(0, 4)" -->
           <img
-            *ngFor="let tvShow of list.list.list_movies.slice(0, 4)"
+            *ngFor="let tvShow of imgLikedList"
             class="list__img"
-            src="https://image.tmdb.org/t/p/w500{{ tvShow.film.poster_path }}"
+            src="https://image.tmdb.org/t/p/w500{{ tvShow.poster_path }}"
             alt="Cover de lista"
           />
         </a>
@@ -150,33 +132,23 @@
       </div>
     </div>
     <div class="typeBlock" *ngIf="!isTypeList">
-      <div class="typeBlock__containerCreate">
-        <svg
-          class="typeBlock__iconCreate"
-          viewBox="0 0 26 26"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M14.3 6.5H11.7V11.7H6.5V14.3H11.7V19.5H14.3V14.3H19.5V11.7H14.3V6.5ZM13 0C5.824 0 0 5.824 0 13C0 20.176 5.824 26 13 26C20.176 26 26 20.176 26 13C26 5.824 20.176 0 13 0ZM13 23.4C7.267 23.4 2.6 18.733 2.6 13C2.6 7.267 7.267 2.6 13 2.6C18.733 2.6 23.4 7.267 23.4 13C23.4 18.733 18.733 23.4 13 23.4Z"
-            fill="white"
-          />
-        </svg>
-      </div>
       <a
         class="typeBlock__imgContainer"
-        routerLink="./mylist/{{ 27 }}"
+        routerLink="./mylist/liked/{{ 27 }}"
         *ngFor="let list of likedList"
       >
+        <!-- en img --- *ngFor="let tvShow of list.list.list_movies.slice(0, 4)" -->
+
         <img
-          *ngFor="let tvShow of list.list.list_movies.slice(0, 4)"
+          *ngFor="let tvShow of imgLikedList"
           class="typeBlock__img"
-          src="https://image.tmdb.org/t/p/w500{{ tvShow.film.poster_path }}"
+          src="https://image.tmdb.org/t/p/w500{{ tvShow.poster_path }}"
           alt="Cover de lista"
         />
       </a>
     </div>
   </ng-container>
+  <!-- --------------SAVED---------------- -->
   <ng-container *ngIf="btnSaved">
     <div class="typeList" *ngIf="isTypeList">
       <div class="typeList__createContainer">
@@ -200,11 +172,12 @@
         </div>
       </div>
       <div class="list" *ngFor="let list of savedList">
-        <a class="list__containerImg" routerLink="./mylist/{{ 27 }}">
+        <a class="list__containerImg" routerLink="./mylist/saved/{{ 27 }}">
+          <!-- en img --- *ngFor="let tvShow of list.list_movies.slice(0, 4)" -->
           <img
-            *ngFor="let tvShow of list.list_movies.slice(0, 4)"
+            *ngFor="let tvShow of imgSavedList"
             class="list__img"
-            src="https://image.tmdb.org/t/p/w500{{ tvShow.film.poster_path }}"
+            src="https://image.tmdb.org/t/p/w500{{ tvShow.poster_path }}"
             alt="Cover de lista"
           />
         </a>
@@ -264,13 +237,15 @@
       </div>
       <a
         class="typeBlock__imgContainer"
-        routerLink="./mylist/{{ 27 }}"
+        routerLink="./mylist/saved/{{ 27 }}"
         *ngFor="let list of savedList"
       >
+        <!-- en img --- *ngFor="let tvShow of list.list_movies.slice(0, 4)" -->
+
         <img
-          *ngFor="let tvShow of list.list_movies.slice(0, 4)"
+          *ngFor="let tvShow of imgSavedList"
           class="typeBlock__img"
-          src="https://image.tmdb.org/t/p/w500{{ tvShow.film.poster_path }}"
+          src="https://image.tmdb.org/t/p/w500{{ tvShow.poster_path }}"
           alt="Cover de lista"
         />
       </a></div
