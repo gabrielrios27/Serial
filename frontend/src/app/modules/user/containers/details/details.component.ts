@@ -26,6 +26,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   seasonSelected: number;
   selectSea: number;
   page: number;
+  trailers: any;
   // subscripciones
   onDestroy$: Subject<boolean> = new Subject();
   constructor(
@@ -55,6 +56,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.idFilm = Number(idToShow);
     this.getTvShowById(this.idFilm);
     this.getReviews(this.page, this.idFilm);
+    this.getTvShowTrailer(this.idFilm);
   }
   getTvShowById(id: number) {
     this._userSvc
@@ -65,6 +67,25 @@ export class DetailsComponent implements OnInit, OnDestroy {
           console.log(tvShow);
           this.tvShow = tvShow;
           this.getAllDataSeason();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+  getTvShowTrailer(id: number) {
+    this._userSvc
+      .getTvShowTrailer(id)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (trailersbd: any) => {
+          console.log(trailersbd);
+          for (let trailer of trailersbd.results) {
+            trailer.type === 'Trailer'
+              ? (this.trailers = trailer.key)
+              : (this.trailers = '');
+            console.log(this.trailers);
+          }
         },
         error: (err) => {
           console.log(err);

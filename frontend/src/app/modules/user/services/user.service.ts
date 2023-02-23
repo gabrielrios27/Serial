@@ -147,5 +147,13 @@ export class UserService {
       headers: headersBack,
       params: params,
     });
+  } ///tv/{tv_id}/videos
+  getTvShowTrailer(id: number): Observable<any> {
+    let params = new HttpParams().set('language', 'en');
+
+    return this._http.get<any>(this.baseUrl + '/tv/' + id + '/videos', {
+      headers: this.headers,
+      params: params,
+    });
   }
 }

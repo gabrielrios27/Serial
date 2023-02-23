@@ -54,27 +54,32 @@
           </g>
         </svg>
       </div>
-      <div class="main__wrapperIcon">
-        <svg
-          class="main__icon main__icon--play"
-          version="1.0"
-          xmlns="http://www.w3.org/2000/svg"
-          width="16.000000pt"
-          height="18.000000pt"
-          viewBox="0 0 16.000000 18.000000"
-          preserveAspectRatio="xMidYMid meet"
+      <div class="main__wrapperIcon" *ngIf="trailers !== ''">
+        <a
+          href="https://www.youtube.com/watch?v={{ trailers }}"
+          target="_blank"
         >
-          <g
-            transform="translate(0.000000,18.000000) scale(0.100000,-0.100000)"
-            fill="#000000"
-            stroke="none"
+          <svg
+            class="main__icon main__icon--play"
+            version="1.0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16.000000pt"
+            height="18.000000pt"
+            viewBox="0 0 16.000000 18.000000"
+            preserveAspectRatio="xMidYMid meet"
           >
-            <path
-              d="M10 90 c0 -56 4 -90 11 -90 15 0 129 79 129 90 0 11 -114 90 -129 90
+            <g
+              transform="translate(0.000000,18.000000) scale(0.100000,-0.100000)"
+              fill="#000000"
+              stroke="none"
+            >
+              <path
+                d="M10 90 c0 -56 4 -90 11 -90 15 0 129 79 129 90 0 11 -114 90 -129 90
   -7 0 -11 -34 -11 -90z"
-            />
-          </g>
-        </svg>
+              />
+            </g>
+          </svg>
+        </a>
       </div>
       <div class="main__wrapperIcon">
         <svg
