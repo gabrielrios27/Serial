@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
 import { SearcherComponent } from './components/searcher/searcher.component';
 import { UserRoutingModule } from './user-routing.module';
 import { ListsComponent } from './containers/lists/lists.component';
+import { MyListComponent } from './containers/my-list/my-list.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ListsComponent } from './containers/lists/lists.component';
     CardComponent,
     DetailsComponent,
     ListsComponent,
+    MyListComponent,
   ],
   imports: [
     CommonModule,

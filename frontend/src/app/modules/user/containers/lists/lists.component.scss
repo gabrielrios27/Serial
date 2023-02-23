@@ -118,6 +118,7 @@
 .typeList {
   width: 100%;
   .typeList__createContainer {
+    cursor: pointer;
     width: 100%;
     padding: 15px 10px;
     display: flex;
@@ -150,11 +151,17 @@
   display: flex;
   align-items: center;
   border-bottom: solid white 1px;
-  cursor: pointer;
-  .list__img {
+  .list__containerImg {
     width: 56px;
     height: 88px;
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
     margin-right: 16px;
+    .list__img {
+      width: 28px;
+      height: 44px;
+    }
   }
   .list__container {
     display: flex;
@@ -191,6 +198,7 @@
   gap: 5px;
   margin-top: 27px;
   .typeBlock__containerCreate {
+    cursor: pointer;
     width: 102px;
     height: 156px;
     background-color: black;
@@ -201,9 +209,15 @@
       width: 35px;
     }
   }
-
-  .typeBlock__img {
+  .typeBlock__imgContainer {
     width: 102px;
     height: 156px;
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    .typeBlock__img {
+      width: 51px;
+      height: 78px;
+    }
   }
 }

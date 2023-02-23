@@ -22,14 +22,11 @@ export class UserService {
   baseUrlBack: string;
   epSavedList: string;
   epLikedList: string;
-  headersBack = new HttpHeaders().set(
-    'Authorization',
-    'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMTY3OTEzYWJlMTU0MTY5ZWE5ZDg1ZTNlOGEzZTdkYSIsInN1YiI6IjYyMTU0ZWRhMGU0ZmM4MDA0NDExNjZlMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.8-i63xqhXGI5bCPXp0dWpPktcxIJt_CUToTH5Sneyc8'
-  );
+
   constructor(private _http: HttpClient) {
     this.baseUrlBack = 'https://serial-backend.onrender.com/';
-    this.epSavedList = '';
-    this.epLikedList = '';
+    this.epSavedList = 'list/client/1';
+    this.epLikedList = 'list/client/like/1';
   }
   getUserToken() {
     let tokenJSON = localStorage.getItem('user');

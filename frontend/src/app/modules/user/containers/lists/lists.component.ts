@@ -15,6 +15,7 @@ export class ListsComponent implements OnInit {
   user: any;
   savedList: any;
   likedList: any;
+  likedTvShows: any;
   listToShow: any;
   // suscripciones
   onDestroy$: Subject<boolean> = new Subject();
@@ -26,6 +27,10 @@ export class ListsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLikedList();
+    this.getSavedList();
+
+    this.isTypeList = this.getFromLclStg('isTypeList');
+    this.btnSaved = this.getFromLclStg('btnSaved');
   }
   getLikedList() {
     this._UserSvc
@@ -33,8 +38,10 @@ export class ListsComponent implements OnInit {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe({
         next: (data: any) => {
-          this.likedList = data;
+          this.likedList = data.lists;
+          this.likedTvShows = data.series;
           console.log('this.likedList: ', this.likedList);
+          console.log('this.likedTvShows: ', this.likedTvShows);
         },
         error: (err) => {
           console.log(err);
@@ -49,18 +56,17 @@ export class ListsComponent implements OnInit {
         next: (data: any) => {
           this.savedList = data;
           console.log('this.savedList: ', this.savedList);
+          this.listToShow = this.savedList;
         },
         error: (err) => {
           console.log(err);
         },
       });
   }
-  getUserToken() {
-    let tokenJSON = localStorage.getItem('user');
-
-    if (tokenJSON) {
-      this.user = JSON.parse(tokenJSON);
-      console.log('token: ', this.user);
+  getFromLclStg(key: string): any {
+    let value = localStorage.getItem(key);
+    if (value) {
+      return JSON.parse(value);
     }
   }
   Search(toSearch: string) {
@@ -68,6 +74,7 @@ export class ListsComponent implements OnInit {
   }
   toogleLikedOrSaved(value: boolean) {
     this.btnSaved = value;
+    this.saveInLclStg('btnSaved', this.btnSaved);
     if (value) {
       this.listToShow = this.savedList;
     } else {
@@ -76,6 +83,10 @@ export class ListsComponent implements OnInit {
   }
   toogleType() {
     this.isTypeList = !this.isTypeList;
+    this.saveInLclStg('isTypeList', this.isTypeList);
+  }
+  saveInLclStg(key: string, data: any) {
+    localStorage.setItem(key, JSON.stringify(data));
   }
   ngOnDestroy() {
     this.onDestroy$.next(true);
