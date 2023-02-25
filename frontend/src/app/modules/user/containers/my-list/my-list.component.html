@@ -8,7 +8,8 @@
         src="../../../../../assets/images/listDemo.png"
         alt="cover de lista"
       />
-      <div class="details__iconsContainer">
+      <div class="details__iconsContainer" *ngIf="isTypeSaved">
+        <!-- icono de Likear lista -->
         <div class="details__iconWrapper">
           <svg
             class="details__imgIcons"
@@ -29,8 +30,12 @@
             </g>
           </svg>
         </div>
-
-        <div class="details__iconWrapper">
+        <!-- Icono de guardar lista -->
+        <div
+          class="details__iconWrapper"
+          [ngClass]="isTypeSaved ? 'details__iconWrapper--blue ' : ''"
+          (click)="toogleModalDelete(true)"
+        >
           <svg
             class="details__imgIcons"
             version="1.0"
@@ -159,33 +164,27 @@
     </div>
   </div>
   <div class="gallery">
-    <a class="gallery__link">
-      <img
-        class="gallery__img"
-        src="../../../../../assets/images/cover-1899.jpg"
-        alt="Cover de tv show"
-      />
-    </a>
-    <a class="gallery__link">
-      <img
-        class="gallery__img"
-        src="../../../../../assets/images/cover-1899.jpg"
-        alt="Cover de tv show"
-      />
-    </a>
-    <a class="gallery__link">
-      <img
-        class="gallery__img"
-        src="../../../../../assets/images/cover-1899.jpg"
-        alt="Cover de tv show"
-      />
-    </a>
-    <a class="gallery__link">
-      <img
-        class="gallery__img"
-        src="../../../../../assets/images/cover-1899.jpg"
-        alt="Cover de tv show"
-      />
-    </a>
+    <ng-container *ngFor="let item of listToShow">
+      <a class="gallery__link" *ngIf="!isTypeList">
+        <app-card
+          *ngIf="item.film.poster_path"
+          [tvShow]="item.film"
+          [idTvShowSelected]="idTvShowSelected"
+          (idTvShow)="getIdTvShowSelected($event)"
+          (tvShowToDelete)="getTvShowToDelete($event)"
+          [idList]="idList"
+          [nameList]="nameList"
+        ></app-card>
+      </a>
+
+      <div *ngIf="isTypeList"></div>
+    </ng-container>
   </div>
 </div>
+<app-modal-delete
+  *ngIf="isDeleteItem"
+  [idList]="idList"
+  [listName]="nameList"
+  (isDeleteItem)="isDelete($event)"
+>
+</app-modal-delete>

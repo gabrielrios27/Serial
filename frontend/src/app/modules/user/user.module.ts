@@ -14,6 +14,7 @@ import { SearcherComponent } from './components/searcher/searcher.component';
 import { UserRoutingModule } from './user-routing.module';
 import { ListsComponent } from './containers/lists/lists.component';
 import { MyListComponent } from './containers/my-list/my-list.component';
+import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MyListComponent } from './containers/my-list/my-list.component';
     DetailsComponent,
     ListsComponent,
     MyListComponent,
+    ModalDeleteComponent,
   ],
   imports: [
     CommonModule,

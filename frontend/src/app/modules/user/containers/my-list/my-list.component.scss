@@ -43,6 +43,15 @@
           width: 10px;
         }
       }
+      .details__iconWrapper--blue {
+        background-color: #506cff;
+        .details__imgIcons {
+          g,
+          path {
+            fill: white;
+          }
+        }
+      }
     }
   }
   .details__infoContainer {

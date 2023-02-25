@@ -23,7 +23,13 @@ import { TvShow } from './../../interfaces/user';
 export class CardComponent implements OnInit, AfterViewInit {
   @Input() tvShow: TvShow;
   @Input() idTvShowSelected: number;
-  @Output() idTvShow = new EventEmitter<number>();
+  @Input() idList: number;
+  @Input() nameList: string;
+  // @Input() isDeleteItem: boolean;
+  @Output() idTvShow = new EventEmitter<number>(); //tvShowToDelete
+  @Output() tvShowToDelete = new EventEmitter<TvShow>();
+  @Output() clickCard = new EventEmitter<boolean>();
+
   isBack: boolean;
 
   cardOpen: boolean;
@@ -47,49 +53,12 @@ export class CardComponent implements OnInit, AfterViewInit {
     this.likeTv = false;
     this.saveTv = false;
     this.timeoutId = 0;
+    this.idList = 0;
+    this.nameList = 'lista 2';
   }
 
   ngOnInit(): void {}
-  ngAfterViewInit() {
-    // if (this.myElementRef) {
-    //   const myElement = this.myElementRef.nativeElement;
-    //   const hammer = new Hammer(myElement);
-    //   hammer.get('press').set({ enable: true, time: 300 });
-    //   hammer.get('press').recognizeWith([]);
-    //   hammer.get('press').requireFailure('pan');
-    //   hammer.get('press').requireFailure('tap');
-    //   hammer.on('press', (event) => {
-    //     event.preventDefault();
-    //     this.toogleFlippCard();
-    //   });
-    //   hammer.on('tap', (event) => {
-    //     console.log('tap');
-    //     setTimeout(() => {
-    //       this._router.navigate(['home/details/', this.tvShow.id]);
-    //     }, 300);
-    //   });
-    //   hammer.on('pressup', (event) => {
-    //     event.preventDefault();
-    //   });
-    // }
-    // if (this.myElementRef2) {
-    //   const myElement = this.myElementRef2.nativeElement;
-    //   const hammer2 = new Hammer(myElement);
-    //   hammer2.get('press').set({ enable: true, time: 300 });
-    //   hammer2.get('press').recognizeWith([]);
-    //   hammer2.get('press').requireFailure('pan');
-    //   hammer2.get('press').requireFailure('tap');
-    //   hammer2.on('press', (event) => {
-    //     event.preventDefault();
-    //   });
-    //   hammer2.on('pressup', (event) => {
-    //     event.preventDefault();
-    //     setTimeout(() => {
-    //       this.cardOpen = true;
-    //     }, 200);
-    //   });
-    // }
-  }
+  ngAfterViewInit() {}
 
   toogleFlippCard() {
     console.log('toogleFlippCard');
@@ -104,22 +73,36 @@ export class CardComponent implements OnInit, AfterViewInit {
     this.timeoutId = setTimeout(() => {
       this.isBack = false;
       this.cardOpen = false;
-    }, 2000);
+    }, 3000);
   }
   toogleLikeOrSave(value: string) {
-    console.log('toogleLikeOrSave');
-
+    //card open se usa para que el usuario no clickee por error like o save justo cuando esta abriendo la
     if (this.cardOpen) {
-      value === 'like'
-        ? (this.likeTv = !this.likeTv)
-        : (this.saveTv = !this.saveTv);
+      if (value === 'like') {
+        if (this.likeTv) {
+          console.log('Aqui endpoint de eliminar de liked');
+        } else {
+          console.log('Aqui endpoint de guardar en favoritos');
+        }
+        this.likeTv = !this.likeTv;
+      } else {
+        if (this.saveTv) {
+          console.log('Aqui endpoint de eliminar de saved');
+          this.saveTv = !this.saveTv;
+        } else {
+          this.saveTv = !this.saveTv;
+          this.saveTv
+            ? this._router.navigate(['./lists/', this.tvShow.id])
+            : null;
+        }
+      }
     }
   }
   @HostListener('mouseup', ['$event'])
   onMouseUp(event: MouseEvent) {
     this.clickTime = event.timeStamp - this.clickTime;
-    console.log(`Duración del clic: ${this.clickTime}ms`);
     if (this.clickTime < 200) {
+      this.clickCard.emit(true);
       this._router.navigate(['./details/', this.tvShow.id]);
     } else if (!this.cardOpen) {
       this.toogleFlippCard();
@@ -133,7 +116,6 @@ export class CardComponent implements OnInit, AfterViewInit {
     this.clickTime = event.timeStamp;
   }
   onContextMenu(event: MouseEvent) {
-    console.log('Se previene el default');
     event.preventDefault();
     if (!this.cardOpen) {
       this.toogleFlippCard();
@@ -143,7 +125,6 @@ export class CardComponent implements OnInit, AfterViewInit {
     }
   }
   onContextMenuBack(event: MouseEvent) {
-    console.log('Se previene el default');
     event.preventDefault();
   }
 }

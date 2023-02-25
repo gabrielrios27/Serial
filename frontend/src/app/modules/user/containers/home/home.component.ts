@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Genre, PageTvShow, TvShow } from '../../interfaces/user';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -9,7 +9,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   tvShowCover: TvShow = {} as TvShow;
   tvShows: TvShow[] = [];
   tvShows_toSearch: TvShow[] = [];
@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   // Id de la card seleccionada -  se usa para voltear la carta si se selecciona otra
   idTvShowSelected: number;
   trailer: string | undefined;
+  scrollPosition: number; //Para scroll to last position
   // suscripciones
   onDestroy$: Subject<boolean> = new Subject();
   constructor(private _UserSvc: UserService) {
@@ -105,12 +106,42 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.notFound = false;
     this.idTvShowSelected = 0;
     this.trailer = undefined;
+    this.scrollPosition = 0;
   }
 
   ngOnInit(): void {
     this.getTvShow();
-  }
 
+    // window.addEventListener('scroll', this.onScroll.bind(this));
+  }
+  ngAfterViewInit() {
+    this.scrollPosition = this.getFromLclStg('homePosition');
+    console.log('this.scrollPosition: ', this.scrollPosition);
+
+    // Establece la posición del scroll en la página de inicio
+    setTimeout(() => {
+      window.scrollTo(0, this.scrollPosition);
+      console.log('va al scroll');
+    }, 200);
+  }
+  // Para scroll to last position
+  // private onScroll() {
+  //   this.scrollPosition = window.pageYOffset;
+  // }
+  onClickCard(value: any) {
+    this.scrollPosition = window.pageYOffset;
+    this.saveInLclStg('homePosition', this.scrollPosition);
+  }
+  getFromLclStg(key: string): any {
+    let value = localStorage.getItem(key);
+    if (value) {
+      return JSON.parse(value);
+    }
+  }
+  saveInLclStg(key: string, data: any) {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+  // ----------------------
   getTvShow() {
     this._UserSvc
       .getTvShow(this.pageSelected)
@@ -277,5 +308,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.onDestroy$.next(true);
+    // window.removeEventListener('scroll', this.onScroll.bind(this));
   }
 }

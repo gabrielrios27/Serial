@@ -82,7 +82,7 @@
   <ng-container *ngIf="!btnSaved">
     <div class="typeList" *ngIf="isTypeList">
       <div class="list" *ngFor="let list of likedList">
-        <a class="list__containerImg" routerLink="./mylist/liked/{{ 27 }}">
+        <a class="list__containerImg" routerLink="./mylist/liked/{{ list.id }}">
           <!-- en img --- *ngFor="let tvShow of list.list.list_movies.slice(0, 4)" -->
           <img
             *ngFor="let tvShow of imgLikedList"
@@ -134,7 +134,7 @@
     <div class="typeBlock" *ngIf="!isTypeList">
       <a
         class="typeBlock__imgContainer"
-        routerLink="./mylist/liked/{{ 27 }}"
+        routerLink="./mylist/liked/{{ list.id }}"
         *ngFor="let list of likedList"
       >
         <!-- en img --- *ngFor="let tvShow of list.list.list_movies.slice(0, 4)" -->
@@ -172,7 +172,7 @@
         </div>
       </div>
       <div class="list" *ngFor="let list of savedList">
-        <a class="list__containerImg" routerLink="./mylist/saved/{{ 27 }}">
+        <a class="list__containerImg" routerLink="./mylist/saved/{{ list.id }}">
           <!-- en img --- *ngFor="let tvShow of list.list_movies.slice(0, 4)" -->
           <img
             *ngFor="let tvShow of imgSavedList"
@@ -237,7 +237,7 @@
       </div>
       <a
         class="typeBlock__imgContainer"
-        routerLink="./mylist/saved/{{ 27 }}"
+        routerLink="./mylist/saved/{{ list.id }}"
         *ngFor="let list of savedList"
       >
         <!-- en img --- *ngFor="let tvShow of list.list_movies.slice(0, 4)" -->

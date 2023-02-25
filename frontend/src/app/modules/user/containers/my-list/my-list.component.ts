@@ -1,7 +1,8 @@
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
+import { TvShow } from './../../interfaces/user';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -12,6 +13,9 @@ import { UserService } from '../../services/user.service';
 export class MyListComponent implements OnInit {
   toSearch: string;
   isTypeList: boolean;
+
+  idList: number;
+  nameList: string;
 
   idTvShow: number;
   type: string;
@@ -56,22 +60,32 @@ export class MyListComponent implements OnInit {
       poster_path: '/ggFHVNu6YYI5L9pCfOacjizRGt.jpg',
     },
   ];
+  idTvShowSelected: number;
+  isDeleteItem: boolean;
+  tvShowToDelete: TvShow;
   // suscripciones
   onDestroy$: Subject<boolean> = new Subject();
   constructor(
     private _UserSvc: UserService,
-    private _rutaActiva: ActivatedRoute
+    private _rutaActiva: ActivatedRoute,
+    private _route: Router
   ) {
     this.toSearch = '';
-
+    this.idList = 0;
+    this.nameList = 'Lista n2';
+    this.idTvShowSelected = 0;
     this.isTypeList = false;
     this.idTvShow = 0;
     this.type = 'saved';
     this.isTypeSaved = true;
+    this.isDeleteItem = false; //Para modal de eliminar item
+    this.tvShowToDelete = {} as TvShow;
   }
 
   ngOnInit(): void {
-    this.isTypeList = this.getFromLclStg('isTypeList');
+    this.isTypeList = this.getFromLclStg('isTypeListInsideList');
+    console.log('this.isTypeList', this.isTypeList);
+    this.getFromRoute();
   }
   getFromRoute() {
     let idToShow;
@@ -85,7 +99,6 @@ export class MyListComponent implements OnInit {
     this.idTvShow = Number(idToShow);
     if (type === 'saved') {
       this.isTypeSaved = true;
-
       this.getSavedList();
     } else {
       this.isTypeSaved = false;
@@ -101,6 +114,10 @@ export class MyListComponent implements OnInit {
           this.likedList = data.lists;
           this.likedTvShows = data.series;
           this.listToShow = this.likedTvShows;
+          //Para modal-delete
+          // this.idList = this.listToShow.id;
+          // this.nameList = this.listToShow.description;
+
           console.log('this.likedList: ', this.likedList);
           console.log('this.likedTvShows: ', this.likedTvShows);
         },
@@ -109,6 +126,7 @@ export class MyListComponent implements OnInit {
         },
       });
   }
+
   getSavedList() {
     this._UserSvc
       .getSavedList()
@@ -118,6 +136,9 @@ export class MyListComponent implements OnInit {
           this.savedList = data;
           console.log('this.savedList: ', this.savedList);
           this.listToShow = this.savedList;
+          //Para modal-delete
+          // this.idList = this.listToShow.id;
+          // this.nameList = this.listToShow.description
         },
         error: (err) => {
           console.log(err);
@@ -136,10 +157,33 @@ export class MyListComponent implements OnInit {
 
   toogleType() {
     this.isTypeList = !this.isTypeList;
-    this.saveInLclStg('isTypeList', this.isTypeList);
+    console.log('this.isTypeList: ', this.isTypeList);
+    this.saveInLclStg('isTypeListInsideList', this.isTypeList);
   }
   saveInLclStg(key: string, data: any) {
     localStorage.setItem(key, JSON.stringify(data));
+  }
+  getIdTvShowSelected(id: number) {
+    this.idTvShowSelected = id;
+  }
+  getTvShowToDelete(tv: TvShow) {
+    this.tvShowToDelete = tv;
+  }
+  toogleModalDelete(value: boolean) {
+    this.isDeleteItem = value;
+  }
+  isDelete(event: boolean) {
+    if (event) {
+      console.log('Aqui endp. eliminar lista'); //-------------------------------
+      // Al terminar navegar a list
+      this._route.navigate(['./lists']);
+    } else {
+      console.log('Lista eliminada');
+      this.isDeleteItem = false;
+    }
+  }
+  onDeleteItem() {
+    this.isDeleteItem = true;
   }
   ngOnDestroy() {
     this.onDestroy$.next(true);

@@ -140,6 +140,7 @@
         [tvShow]="item"
         [idTvShowSelected]="idTvShowSelected"
         (idTvShow)="getIdTvShowSelected($event)"
+        (clickCard)="onClickCard($event)"
       ></app-card>
     </ng-container>
     <h2 class="gallery__notMatches" *ngIf="notFound">No matches found</h2>

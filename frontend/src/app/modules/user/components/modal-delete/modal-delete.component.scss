@@ -1,0 +1,42 @@
+.containerModal {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.479);
+  .modal {
+    width: 300px;
+    padding: 50px 30px;
+    background-color: rgba(221, 255, 124, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 3px;
+    .question {
+      color: black;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .modal__btnContainer {
+      display: flex;
+      gap: 20px;
+      .modal__btn {
+        padding: 20px 30px;
+        background-color: black;
+        border: black;
+        color: white;
+        border-radius: 3px;
+        &:hover {
+          background-color: #506cff;
+          border: black;
+          color: white;
+        }
+      }
+    }
+  }
+}

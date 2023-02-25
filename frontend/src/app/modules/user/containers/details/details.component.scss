@@ -53,15 +53,15 @@
       .main__icon--play {
         margin-left: 5px;
       }
-    }
-    &:active {
-      background-color: #506cff;
-      .main__icon {
-        g {
-          fill: white;
-        }
-        path {
-          fill: white;
+      &:active {
+        background-color: #506cff;
+        .main__icon {
+          g {
+            fill: white;
+          }
+          path {
+            fill: white;
+          }
         }
       }
     }

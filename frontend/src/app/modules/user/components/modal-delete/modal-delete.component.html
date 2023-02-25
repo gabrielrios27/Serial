@@ -1,0 +1,13 @@
+<div class="containerModal">
+  <div class="modal">
+    <p class="question" *ngIf="isTvShow">
+      ¿Delete {{ tvShow.name }} from {{ listName }}?
+    </p>
+    <p class="question" *ngIf="!isTvShow">¿Delete {{ listName }}?</p>
+
+    <div class="modal__btnContainer">
+      <button class="modal__btn" (click)="onYesOrNo(true)">Yes</button>
+      <button class="modal__btn" (click)="onYesOrNo(false)">No</button>
+    </div>
+  </div>
+</div>
