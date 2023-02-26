@@ -86,7 +86,7 @@ export class CardComponent implements OnInit, AfterViewInit {
         if (this.likeTv) {
           console.log('Aqui endpoint de eliminar de liked');
         } else {
-          console.log('Aqui endpoint de guardar en favoritos');
+          console.log('Listo endpoint de guardar en favoritos');
           this.onLikeTvShow(this.tvShow);
         }
         this.likeTv = !this.likeTv;

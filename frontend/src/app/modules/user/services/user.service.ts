@@ -192,4 +192,32 @@ export class UserService {
       headers: headersBack,
     });
   }
+  addTvShowToSaved(tvShow: TvShow, idLista: number): Observable<any> {
+    console.log('svc saveLikeTvShow');
+    let userJson = localStorage.getItem('user');
+
+    if (userJson) {
+      this.user = JSON.parse(userJson);
+    }
+    const token = this.user.token;
+
+    const headersBack = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${token}`
+    );
+    let body = {
+      userId: this.user.dataValues.id,
+      film: {
+        id: tvShow.id,
+        title: tvShow.name,
+        year: tvShow.first_air_date.substring(0, 4),
+        poster_path: tvShow.poster_path,
+        backdrop_path: tvShow.backdrop_path,
+      },
+    };
+
+    return this._http.post<any>(this.baseUrlBack + this.epAddTvShow, body, {
+      headers: headersBack,
+    });
+  }
 }

@@ -2,6 +2,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
+import { TvShow } from './../../interfaces/user';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -55,7 +56,8 @@ export class ListsComponent implements OnInit {
     },
   ];
   idToSave: number; // Para cuando el usuario dio click a guardar serie
-  isSavedInThisList: boolean;
+  isSavedInThisList: number | null;
+  tvShow: TvShow;
   // suscripciones
   onDestroy$: Subject<boolean> = new Subject();
   constructor(
@@ -67,7 +69,8 @@ export class ListsComponent implements OnInit {
     this.btnSaved = true;
     this.isTypeList = false;
     this.idToSave = 0;
-    this.isSavedInThisList = false;
+    this.isSavedInThisList = null;
+    this.tvShow = {} as TvShow;
   }
 
   ngOnInit(): void {
@@ -86,8 +89,22 @@ export class ListsComponent implements OnInit {
         idToSaveRoute = params.get('id');
         if (idToSaveRoute) {
           this.idToSave = Number(idToSaveRoute);
+          this.getTvShowById(this.idToSave);
           this.btnSaved = true;
         }
+      });
+  }
+  getTvShowById(id: number) {
+    this._UserSvc
+      .getTvShowById(id)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (tvShow: TvShow) => {
+          this.tvShow = tvShow;
+        },
+        error: (err) => {
+          console.log(err);
+        },
       });
   }
   getLikedList() {
@@ -151,14 +168,28 @@ export class ListsComponent implements OnInit {
     event.stopPropagation();
     event.preventDefault();
     //AQUI USAR ENDPOINT DE GUARDAR EN LISTA CON IDLISTA Y IDTOSAVE
-    this.isSavedInThisList = true;
+    this.isSavedInThisList = idLista;
+    this.onAddTvShowToSaved(this.tvShow, idLista);
     setTimeout(() => {
-      this.isSavedInThisList = false;
+      this.isSavedInThisList = null;
       this.saveInLclStg('isTypeList', this.isTypeList);
       this.saveInLclStg('btnSaved', this.btnSaved);
       this.idToSave = 0;
-      // this._route.navigate(['./lists']);
     }, 1500);
+  }
+  onAddTvShowToSaved(tv: TvShow, idList: number) {
+    this._UserSvc
+      .addTvShowToSaved(tv, idList)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (data: any) => {
+          console.log('onAddTvShowToSaved: ', data);
+          this._route.navigate(['./lists']);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
   ngOnDestroy() {
     this.onDestroy$.next(true);

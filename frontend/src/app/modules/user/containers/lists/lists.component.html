@@ -182,12 +182,12 @@
           />
           <div
             class="saveCover"
-            [ngClass]="isSavedInThisList ? 'saveCover--added' : ''"
+            [ngClass]="isSavedInThisList === list.id ? 'saveCover--added' : ''"
             *ngIf="idToSave !== 0"
             (click)="onSaveInList(list.id, $event)"
           >
             <svg
-              *ngIf="!isSavedInThisList"
+              *ngIf="isSavedInThisList !== list.id"
               class="saveCover__icon"
               width="26"
               height="26"
@@ -200,7 +200,10 @@
                 fill="white"
               />
             </svg>
-            <div class="saveCover__success" *ngIf="isSavedInThisList">
+            <div
+              class="saveCover__success"
+              *ngIf="isSavedInThisList === list.id"
+            >
               <img
                 class="saveCover__successIco"
                 src="../../../../../assets/icons/lists/success.svg"
@@ -280,12 +283,12 @@
         />
         <div
           class="saveCover"
-          [ngClass]="isSavedInThisList ? 'saveCover--added' : ''"
+          [ngClass]="isSavedInThisList === list.id ? 'saveCover--added' : ''"
           *ngIf="idToSave !== 0"
           (click)="onSaveInList(list.id, $event)"
         >
           <svg
-            *ngIf="!isSavedInThisList"
+            *ngIf="isSavedInThisList !== list.id"
             class="saveCover__icon"
             width="26"
             height="26"
@@ -298,7 +301,7 @@
               fill="white"
             />
           </svg>
-          <div class="saveCover__success" *ngIf="isSavedInThisList">
+          <div class="saveCover__success" *ngIf="isSavedInThisList === list.id">
             <img
               class="saveCover__successIco"
               src="../../../../../assets/icons/lists/success.svg"
