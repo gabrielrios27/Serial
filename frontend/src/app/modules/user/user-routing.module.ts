@@ -53,6 +53,12 @@ const routes: Routes = [
         // canActivate: [],
         component: MyListComponent,
       },
+      {
+        path: 'lists/:idSaved/mylist/:type/:id',
+        pathMatch: 'full',
+        // canActivate: [],
+        component: MyListComponent,
+      },
     ],
   },
 ];

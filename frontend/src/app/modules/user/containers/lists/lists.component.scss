@@ -152,6 +152,7 @@
   align-items: center;
   border-bottom: solid white 1px;
   .list__containerImg {
+    position: relative;
     width: 56px;
     height: 88px;
     cursor: pointer;
@@ -161,6 +162,44 @@
     .list__img {
       width: 28px;
       height: 44px;
+    }
+    .saveCover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: transparent;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: solid #1045ff 1px;
+      z-index: 10;
+      .saveCover__icon {
+        width: 25px;
+        &:hover {
+          path {
+            fill: #1045ff;
+          }
+        }
+      }
+      .saveCover__success {
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        .saveCover__successIco {
+          width: 25px;
+          margin-bottom: 10px;
+        }
+        .saveCover__successText {
+          text-align: center;
+          font-size: 14px;
+        }
+      }
+    }
+    .saveCover--added {
+      background-color: rgba(0, 0, 0, 0.8);
     }
   }
   .list__container {
@@ -210,6 +249,7 @@
     }
   }
   .typeBlock__imgContainer {
+    position: relative;
     width: 102px;
     height: 156px;
     cursor: pointer;
@@ -218,6 +258,44 @@
     .typeBlock__img {
       width: 51px;
       height: 78px;
+    }
+    .saveCover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: transparent;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: solid #1045ff 1px;
+      z-index: 10;
+      .saveCover__icon {
+        width: 34px;
+        &:hover {
+          path {
+            fill: #1045ff;
+          }
+        }
+      }
+      .saveCover__success {
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        .saveCover__successIco {
+          width: 34px;
+          margin-bottom: 10px;
+        }
+        .saveCover__successText {
+          text-align: center;
+          font-size: 14px;
+        }
+      }
+    }
+    .saveCover--added {
+      background-color: rgba(0, 0, 0, 0.8);
     }
   }
 }

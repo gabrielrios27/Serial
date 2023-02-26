@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Genre, PageTvShow, TvShow } from '../../interfaces/user';
 import { Subject, takeUntil } from 'rxjs';
 
+import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
   tvShowCover: TvShow = {} as TvShow;
   tvShows: TvShow[] = [];
   tvShows_toSearch: TvShow[] = [];
@@ -32,10 +33,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   // Id de la card seleccionada -  se usa para voltear la carta si se selecciona otra
   idTvShowSelected: number;
   trailer: string | undefined;
-  scrollPosition: number; //Para scroll to last position
+
   // suscripciones
   onDestroy$: Subject<boolean> = new Subject();
-  constructor(private _UserSvc: UserService) {
+  constructor(private _UserSvc: UserService, private _route: Router) {
     this.genres = [
       {
         id: 37,
@@ -106,32 +107,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.notFound = false;
     this.idTvShowSelected = 0;
     this.trailer = undefined;
-    this.scrollPosition = 0;
   }
 
   ngOnInit(): void {
     this.getTvShow();
+  }
 
-    // window.addEventListener('scroll', this.onScroll.bind(this));
-  }
-  ngAfterViewInit() {
-    this.scrollPosition = this.getFromLclStg('homePosition');
-    console.log('this.scrollPosition: ', this.scrollPosition);
-
-    // Establece la posición del scroll en la página de inicio
-    setTimeout(() => {
-      window.scrollTo(0, this.scrollPosition);
-      console.log('va al scroll');
-    }, 200);
-  }
-  // Para scroll to last position
-  // private onScroll() {
-  //   this.scrollPosition = window.pageYOffset;
-  // }
-  onClickCard(value: any) {
-    this.scrollPosition = window.pageYOffset;
-    this.saveInLclStg('homePosition', this.scrollPosition);
-  }
   getFromLclStg(key: string): any {
     let value = localStorage.getItem(key);
     if (value) {
@@ -177,14 +158,46 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
   onSavedOrLikedCover(type: string) {
-    type === 'saved'
-      ? (this.tvShowCover.isSaved = !this.tvShowCover.isSaved)
-      : (this.tvShowCover.isLiked = !this.tvShowCover.isLiked);
+    // type === 'saved'
+    //   ? (this.tvShowCover.isSaved = !this.tvShowCover.isSaved)
+    //   : (this.tvShowCover.isLiked = !this.tvShowCover.isLiked);
+    if (type === 'like') {
+      if (this.tvShowCover.isLiked) {
+        console.log('Aqui endpoint de eliminar de liked');
+      } else {
+        console.log('Listo endpoint de guardar en favoritos');
+        this.onLikeTvShow(this.tvShowCover);
+      }
+      this.tvShowCover.isLiked = !this.tvShowCover.isLiked;
+    } else {
+      if (this.tvShowCover.isSaved) {
+        console.log('Aqui endpoint de eliminar de saved');
+        this.tvShowCover.isSaved = !this.tvShowCover.isSaved;
+      } else {
+        this.tvShowCover.isSaved = !this.tvShowCover.isSaved;
+        this.tvShowCover.isSaved
+          ? this._route.navigate(['./lists/', this.tvShowCover.id])
+          : null;
+      }
+    }
   }
   onSavedOrLiked(type: string, id: number) {
     type === 'saved'
       ? (this.tvShowCover.isSaved = !this.tvShowCover.isSaved)
       : (this.tvShowCover.isLiked = !this.tvShowCover.isLiked);
+  }
+  onLikeTvShow(tv: TvShow) {
+    this._UserSvc
+      .likeTvShow(tv)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (data: any) => {
+          console.log('onLikeTvShow: ', data);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
   loadMore() {
     if (this.loading) {

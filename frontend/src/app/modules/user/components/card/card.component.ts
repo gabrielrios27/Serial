@@ -11,9 +11,11 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 
 import { Router } from '@angular/router';
 import { TvShow } from './../../interfaces/user';
+import { UserService } from './../../services/user.service';
 
 @Component({
   selector: 'app-card',
@@ -41,7 +43,9 @@ export class CardComponent implements OnInit, AfterViewInit {
   @ViewChild('myImage', { static: false }) myElementRef!: ElementRef;
   @ViewChild('myImage2', { static: false }) myElementRef2!: ElementRef;
 
-  constructor(private _router: Router) {
+  // suscripciones
+  onDestroy$: Subject<boolean> = new Subject();
+  constructor(private _router: Router, private _userSvc: UserService) {
     this.cardOpen = false;
     this.tvShow = {} as TvShow;
 
@@ -83,6 +87,7 @@ export class CardComponent implements OnInit, AfterViewInit {
           console.log('Aqui endpoint de eliminar de liked');
         } else {
           console.log('Aqui endpoint de guardar en favoritos');
+          this.onLikeTvShow(this.tvShow);
         }
         this.likeTv = !this.likeTv;
       } else {
@@ -126,5 +131,22 @@ export class CardComponent implements OnInit, AfterViewInit {
   }
   onContextMenuBack(event: MouseEvent) {
     event.preventDefault();
+  }
+
+  onLikeTvShow(tv: TvShow) {
+    this._userSvc
+      .likeTvShow(tv)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (data: any) => {
+          console.log('onLikeTvShow: ', data);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+  ngOnDestroy() {
+    this.onDestroy$.next(true);
   }
 }

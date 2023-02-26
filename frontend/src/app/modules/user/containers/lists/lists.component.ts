@@ -1,3 +1,4 @@
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -53,12 +54,20 @@ export class ListsComponent implements OnInit {
       poster_path: '/ggFHVNu6YYI5L9pCfOacjizRGt.jpg',
     },
   ];
+  idToSave: number; // Para cuando el usuario dio click a guardar serie
+  isSavedInThisList: boolean;
   // suscripciones
   onDestroy$: Subject<boolean> = new Subject();
-  constructor(private _UserSvc: UserService) {
+  constructor(
+    private _UserSvc: UserService,
+    private _rutaActiva: ActivatedRoute,
+    private _route: Router
+  ) {
     this.toSearch = '';
     this.btnSaved = true;
     this.isTypeList = false;
+    this.idToSave = 0;
+    this.isSavedInThisList = false;
   }
 
   ngOnInit(): void {
@@ -67,6 +76,19 @@ export class ListsComponent implements OnInit {
 
     this.isTypeList = this.getFromLclStg('isTypeList');
     this.btnSaved = this.getFromLclStg('btnSaved');
+    this.getFromRoute();
+  }
+  getFromRoute() {
+    let idToSaveRoute;
+    this._rutaActiva.paramMap
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((params: ParamMap) => {
+        idToSaveRoute = params.get('id');
+        if (idToSaveRoute) {
+          this.idToSave = Number(idToSaveRoute);
+          this.btnSaved = true;
+        }
+      });
   }
   getLikedList() {
     this._UserSvc
@@ -123,6 +145,20 @@ export class ListsComponent implements OnInit {
   }
   saveInLclStg(key: string, data: any) {
     localStorage.setItem(key, JSON.stringify(data));
+  }
+  //Para guardar en lista
+  onSaveInList(idLista: number, event: Event) {
+    event.stopPropagation();
+    event.preventDefault();
+    //AQUI USAR ENDPOINT DE GUARDAR EN LISTA CON IDLISTA Y IDTOSAVE
+    this.isSavedInThisList = true;
+    setTimeout(() => {
+      this.isSavedInThisList = false;
+      this.saveInLclStg('isTypeList', this.isTypeList);
+      this.saveInLclStg('btnSaved', this.btnSaved);
+      this.idToSave = 0;
+      // this._route.navigate(['./lists']);
+    }, 1500);
   }
   ngOnDestroy() {
     this.onDestroy$.next(true);

@@ -24,6 +24,10 @@ export class UserService {
   epSavedList2: string;
   epLikedList: string;
   epLikedList2: string;
+  // epListLiked: string;
+  epCreateList: string;
+  epLikeTvShow: string;
+  epAddTvShow: string;
 
   constructor(private _http: HttpClient) {
     this.baseUrlBack = 'https://serial-backend.onrender.com/';
@@ -31,6 +35,10 @@ export class UserService {
     this.epSavedList2 = 'list/client';
     this.epLikedList = 'list/client/like/1';
     this.epLikedList2 = 'list/client/like';
+    // this.epListLiked='/like/client' // /:id   --no funciona
+    this.epCreateList = 'list/create';
+    this.epLikeTvShow = 'like';
+    this.epAddTvShow = 'list/add';
   }
   getUserToken() {
     let tokenJSON = localStorage.getItem('user');
@@ -154,6 +162,34 @@ export class UserService {
     return this._http.get<any>(this.baseUrl + '/tv/' + id + '/videos', {
       headers: this.headers,
       params: params,
+    });
+  }
+  likeTvShow(tvShow: TvShow): Observable<any> {
+    console.log('svc saveLikeTvShow');
+    let userJson = localStorage.getItem('user');
+
+    if (userJson) {
+      this.user = JSON.parse(userJson);
+    }
+    const token = this.user.token;
+
+    const headersBack = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${token}`
+    );
+    let body = {
+      userId: this.user.dataValues.id,
+      film: {
+        id: tvShow.id,
+        title: tvShow.name,
+        year: tvShow.first_air_date.substring(0, 4),
+        poster_path: tvShow.poster_path,
+        backdrop_path: tvShow.backdrop_path,
+      },
+    };
+
+    return this._http.post<any>(this.baseUrlBack + this.epLikeTvShow, body, {
+      headers: headersBack,
     });
   }
 }

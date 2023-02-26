@@ -18,7 +18,7 @@
       <!-- LIKED ICON -->
       <a
         class="main__wrapperIcon"
-        (click)="onSavedOrLikedCover('liked')"
+        (click)="onSavedOrLikedCover('like')"
         [ngClass]="tvShowCover.isLiked ? 'main__wrapperIcon--active' : ''"
       >
         <svg
@@ -140,7 +140,6 @@
         [tvShow]="item"
         [idTvShowSelected]="idTvShowSelected"
         (idTvShow)="getIdTvShowSelected($event)"
-        (clickCard)="onClickCard($event)"
       ></app-card>
     </ng-container>
     <h2 class="gallery__notMatches" *ngIf="notFound">No matches found</h2>
