@@ -118,7 +118,6 @@ export class UserService {
       'Authorization',
       `Bearer ${token}`
     );
-    let params = new HttpParams().set('language', 'en');
 
     let epSub;
     this.user.dataValues.email === 'user@serial.com'
@@ -127,7 +126,6 @@ export class UserService {
 
     return this._http.get<any>(this.baseUrlBack + epSub, {
       headers: headersBack,
-      params: params,
     });
   }
   getSavedList(): Observable<any> {
@@ -143,7 +141,7 @@ export class UserService {
       'Authorization',
       `Bearer ${token}`
     );
-    let params = new HttpParams().set('language', 'en');
+
     let epSub;
     this.user.dataValues.email === 'user@serial.com'
       ? (epSub = this.epSavedList)
@@ -153,7 +151,6 @@ export class UserService {
 
     return this._http.get<any>(this.baseUrlBack + epSub, {
       headers: headersBack,
-      params: params,
     });
   } ///tv/{tv_id}/videos
   getTvShowTrailer(id: number): Observable<any> {

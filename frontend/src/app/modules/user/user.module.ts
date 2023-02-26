@@ -15,6 +15,9 @@ import { UserRoutingModule } from './user-routing.module';
 import { ListsComponent } from './containers/lists/lists.component';
 import { MyListComponent } from './containers/my-list/my-list.component';
 import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
+import { SettingsComponent } from './containers/settings/settings.component';
+import { ActivityComponent } from './containers/activity/activity.component';
+import { ProfileComponent } from './containers/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,9 @@ import { ModalDeleteComponent } from './components/modal-delete/modal-delete.com
     ListsComponent,
     MyListComponent,
     ModalDeleteComponent,
+    SettingsComponent,
+    ActivityComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
