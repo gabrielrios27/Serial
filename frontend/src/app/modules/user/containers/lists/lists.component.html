@@ -84,15 +84,33 @@
       <div class="list" *ngFor="let list of likedList">
         <a class="list__containerImg" routerLink="./mylist/liked/{{ list.id }}">
           <!-- en img --- *ngFor="let tvShow of list.list.list_movies.slice(0, 4)" -->
-          <img
-            *ngFor="let tvShow of imgLikedList"
-            class="list__img"
-            src="https://image.tmdb.org/t/p/w500{{ tvShow.poster_path }}"
-            alt="Cover de lista"
-          />
+          <ng-container *ngIf="imgLikedList.length >= 4">
+            <img
+              *ngFor="let img of imgLikedList"
+              class="list__img"
+              src="https://image.tmdb.org/t/p/w500{{ img }}"
+              alt="Cover de lista"
+            />
+          </ng-container>
+          <ng-container *ngIf="imgLikedList.length === 0">
+            <img
+              class="list__img list__img--alone"
+              src="{{ list.cover }}"
+              alt="Cover de lista"
+            />
+          </ng-container>
+          <ng-container
+            *ngIf="imgLikedList.length < 4 && imgLikedList.length >= 1"
+          >
+            <img
+              class="list__img list__img--alone"
+              src="https://image.tmdb.org/t/p/w500{{ imgLikedList[0] }}"
+              alt="Cover de lista"
+            />
+          </ng-container>
         </a>
         <div class="list__container">
-          <h3 class="list__title">{{ list.list.description }}</h3>
+          <h3 class="list__title">{{ list.description }}</h3>
           <div class="list__iconsContainer">
             <svg
               class="list__icon list__icon--eye"
@@ -138,13 +156,30 @@
         *ngFor="let list of likedList"
       >
         <!-- en img --- *ngFor="let tvShow of list.list.list_movies.slice(0, 4)" -->
-
-        <img
-          *ngFor="let tvShow of imgLikedList"
-          class="typeBlock__img"
-          src="https://image.tmdb.org/t/p/w500{{ tvShow.poster_path }}"
-          alt="Cover de lista"
-        />
+        <ng-container *ngIf="imgLikedList.length >= 4">
+          <img
+            *ngFor="let img of imgLikedList"
+            class="typeBlock__img"
+            src="https://image.tmdb.org/t/p/w500{{ img }}"
+            alt="Cover de lista"
+          />
+        </ng-container>
+        <ng-container *ngIf="imgLikedList.length === 0">
+          <img
+            class="typeBlock__img list__img--alone"
+            src="{{ list.cover }}"
+            alt="Cover de lista"
+          />
+        </ng-container>
+        <ng-container
+          *ngIf="imgLikedList.length < 4 && imgLikedList.length >= 1"
+        >
+          <img
+            class="typeBlock__img list__img--alone"
+            src="https://image.tmdb.org/t/p/w500{{ imgLikedList[0] }}"
+            alt="Cover de lista"
+          />
+        </ng-container>
       </a>
     </div>
   </ng-container>
@@ -174,10 +209,24 @@
       <div class="list" *ngFor="let list of savedList">
         <a class="list__containerImg" routerLink="./mylist/saved/{{ list.id }}">
           <!-- en img --- *ngFor="let tvShow of list.list_movies.slice(0, 4)" -->
+          <ng-container *ngIf="list.list_movies.length >= 4">
+            <img
+              *ngFor="let imgs of list.cover"
+              class="list__img"
+              src="https://image.tmdb.org/t/p/w500{{ imgs[0] }}"
+              alt="Cover de lista"
+            />
+          </ng-container>
           <img
-            *ngFor="let tvShow of imgSavedList"
-            class="list__img"
-            src="https://image.tmdb.org/t/p/w500{{ tvShow.poster_path }}"
+            *ngIf="list.list_movies.length === 0"
+            class="list__img list__img--alone"
+            src="../../../../../assets/images/listDemo.png"
+            alt="Cover de lista"
+          />
+          <img
+            *ngIf="list.list_movies.length < 4 && list.list_movies.length >= 1"
+            src="https://image.tmdb.org/t/p/w500{{ list.cover[0][0] }}"
+            class="list__img list__img--alone"
             alt="Cover de lista"
           />
           <div
@@ -274,13 +323,27 @@
         *ngFor="let list of savedList"
       >
         <!-- en img --- *ngFor="let tvShow of list.list_movies.slice(0, 4)" -->
-
+        <ng-container *ngIf="list.list_movies.length >= 4">
+          <img
+            *ngFor="let imgs of list.cover"
+            class="typeBlock__img"
+            src="https://image.tmdb.org/t/p/w500{{ imgs[0] }}"
+            alt="Cover de lista"
+          />
+        </ng-container>
         <img
-          *ngFor="let tvShow of imgSavedList"
-          class="typeBlock__img"
-          src="https://image.tmdb.org/t/p/w500{{ tvShow.poster_path }}"
+          *ngIf="list.list_movies.length === 0"
+          class="typeBlock__img list__img--alone"
+          src="../../../../../assets/images/listDemo.png"
           alt="Cover de lista"
         />
+        <img
+          *ngIf="list.list_movies.length < 4 && list.list_movies.length >= 1"
+          src="https://image.tmdb.org/t/p/w500{{ list.cover[0][0] }}"
+          class="typeBlock__img list__img--alone"
+          alt="Cover de lista"
+        />
+
         <div
           class="saveCover"
           [ngClass]="isSavedInThisList === list.id ? 'saveCover--added' : ''"

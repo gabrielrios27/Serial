@@ -21,9 +21,9 @@ export class UserService {
   user: any;
   baseUrlBack: string;
   epSavedList: string;
-  epSavedList2: string;
+
   epLikedList: string;
-  epLikedList2: string;
+
   // epListLiked: string;
   epCreateList: string;
   epLikeTvShow: string;
@@ -31,10 +31,10 @@ export class UserService {
 
   constructor(private _http: HttpClient) {
     this.baseUrlBack = 'https://serial-backend.onrender.com/';
-    this.epSavedList = 'list/client/1';
-    this.epSavedList2 = 'list/client';
-    this.epLikedList = 'list/client/like/1';
-    this.epLikedList2 = 'list/client/like';
+    this.epSavedList = 'list/client/all';
+
+    this.epLikedList = 'like/client';
+
     // this.epListLiked='/like/client' // /:id   --no funciona
     this.epCreateList = 'list/create';
     this.epLikeTvShow = 'like';
@@ -114,17 +114,13 @@ export class UserService {
     }
     const token = this.user.token;
     console.log('USER: ', this.user);
+    console.log('token: ', token);
     const headersBack = new HttpHeaders().set(
       'Authorization',
       `Bearer ${token}`
     );
 
-    let epSub;
-    this.user.dataValues.email === 'user@serial.com'
-      ? (epSub = this.epLikedList)
-      : (epSub = this.epLikedList2);
-
-    return this._http.get<any>(this.baseUrlBack + epSub, {
+    return this._http.get<any>(this.baseUrlBack + this.epLikedList, {
       headers: headersBack,
     });
   }
@@ -137,19 +133,13 @@ export class UserService {
     }
     const token = this.user.token;
     console.log('USER: ', this.user);
+    console.log('token: ', token);
     const headersBack = new HttpHeaders().set(
       'Authorization',
       `Bearer ${token}`
     );
 
-    let epSub;
-    this.user.dataValues.email === 'user@serial.com'
-      ? (epSub = this.epSavedList)
-      : (epSub = this.epSavedList2);
-    console.log('email: ', this.user.email);
-    console.log('epSub:', epSub);
-
-    return this._http.get<any>(this.baseUrlBack + epSub, {
+    return this._http.get<any>(this.baseUrlBack + this.epSavedList, {
       headers: headersBack,
     });
   } ///tv/{tv_id}/videos
@@ -162,7 +152,7 @@ export class UserService {
     });
   }
   likeTvShow(tvShow: TvShow): Observable<any> {
-    console.log('svc saveLikeTvShow');
+    console.log('svc likeTvShow', tvShow);
     let userJson = localStorage.getItem('user');
 
     if (userJson) {
@@ -175,22 +165,22 @@ export class UserService {
       `Bearer ${token}`
     );
     let body = {
-      userId: this.user.dataValues.id,
       film: {
         id: tvShow.id,
-        title: tvShow.name,
+        name: tvShow.name,
         year: tvShow.first_air_date.substring(0, 4),
         poster_path: tvShow.poster_path,
         backdrop_path: tvShow.backdrop_path,
       },
     };
+    console.log('body : ', body);
 
     return this._http.post<any>(this.baseUrlBack + this.epLikeTvShow, body, {
       headers: headersBack,
     });
   }
-  addTvShowToSaved(tvShow: TvShow, idLista: number): Observable<any> {
-    console.log('svc saveLikeTvShow');
+  addTvShowToSaved(tvShow: TvShow, idList: number): Observable<any> {
+    console.log('svc addTvShow', tvShow);
     let userJson = localStorage.getItem('user');
 
     if (userJson) {
@@ -203,15 +193,18 @@ export class UserService {
       `Bearer ${token}`
     );
     let body = {
-      userId: this.user.dataValues.id,
-      film: {
-        id: tvShow.id,
-        title: tvShow.name,
-        year: tvShow.first_air_date.substring(0, 4),
-        poster_path: tvShow.poster_path,
-        backdrop_path: tvShow.backdrop_path,
-      },
+      listId: idList,
+      films: [
+        {
+          id: tvShow.id,
+          title: tvShow.name,
+          year: Number(tvShow.first_air_date.substring(0, 4)),
+          poster_path: tvShow.poster_path,
+          backdrop_path: tvShow.backdrop_path,
+        },
+      ],
     };
+    console.log('body to save: ', body);
 
     return this._http.post<any>(this.baseUrlBack + this.epAddTvShow, body, {
       headers: headersBack,

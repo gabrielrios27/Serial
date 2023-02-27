@@ -175,6 +175,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
     this.invalidForm = false;
     const { email, password } = this.form.value;
+    console.log('email: ', email);
+    console.log('password: ', password);
+
     this._authSvc.logIn(email, password).subscribe({
       next: (resp: UserLog) => {
         console.log('resp: ', resp);

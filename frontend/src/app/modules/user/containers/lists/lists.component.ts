@@ -71,6 +71,13 @@ export class ListsComponent implements OnInit {
     this.idToSave = 0;
     this.isSavedInThisList = null;
     this.tvShow = {} as TvShow;
+    this.likedList = [
+      {
+        id: 1,
+        description: 'My Favourites',
+        cover: '../../../../../assets/images/listDemo.png',
+      },
+    ];
   }
 
   ngOnInit(): void {
@@ -113,9 +120,9 @@ export class ListsComponent implements OnInit {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe({
         next: (data: any) => {
-          this.likedList = data.lists;
+          // this.likedList = data.lists; //Cuando se escale esto traera las listas de otros usuarios likeadas
           this.likedTvShows = data.series;
-          console.log('this.likedList: ', this.likedList);
+          this.createImgCover(this.likedTvShows);
           console.log('this.likedTvShows: ', this.likedTvShows);
         },
         error: (err) => {
@@ -130,6 +137,7 @@ export class ListsComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           this.savedList = data;
+          this.sortListTvShowSaved(this.savedList);
           console.log('this.savedList: ', this.savedList);
           this.listToShow = this.savedList;
         },
@@ -143,6 +151,19 @@ export class ListsComponent implements OnInit {
     if (value) {
       return JSON.parse(value);
     }
+  }
+  createImgCover(tvs: any) {
+    const imgs: string[] = [];
+    for (let tv of tvs) {
+      imgs.push(tv.film.poster_path);
+    }
+    imgs.sort(() => Math.random() - 0.5);
+    this.imgLikedList = imgs;
+  }
+  sortListTvShowSaved(arrayLists: any) {
+    arrayLists.map((list: any) => {
+      list.cover.sort(() => Math.random() - 0.5);
+    });
   }
   Search(toSearch: string) {
     console.log(toSearch);
@@ -163,11 +184,10 @@ export class ListsComponent implements OnInit {
   saveInLclStg(key: string, data: any) {
     localStorage.setItem(key, JSON.stringify(data));
   }
-  //Para guardar en lista
+  //Para guardar serie en lista
   onSaveInList(idLista: number, event: Event) {
     event.stopPropagation();
     event.preventDefault();
-    //AQUI USAR ENDPOINT DE GUARDAR EN LISTA CON IDLISTA Y IDTOSAVE
     this.isSavedInThisList = idLista;
     this.onAddTvShowToSaved(this.tvShow, idLista);
     setTimeout(() => {
