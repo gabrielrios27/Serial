@@ -158,7 +158,7 @@ export class ListsComponent implements OnInit {
       imgs.push(tv.film.poster_path);
     }
     imgs.sort(() => Math.random() - 0.5);
-    this.imgLikedList = imgs;
+    this.imgLikedList = imgs.slice(0, 4);
   }
   sortListTvShowSaved(arrayLists: any) {
     arrayLists.map((list: any) => {

@@ -1,0 +1,54 @@
+.profile {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  padding-top: 53px;
+  .profile__title {
+    font-family: "HelveticaNeue-Bold";
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 96px;
+    align-self: center;
+  }
+  .profile__dataUser {
+    margin-bottom: 40px;
+    width: 100%;
+    .profile__name {
+      font-family: "HelveticaNeue-Bold";
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .profile__email {
+      font-family: "HelveticaNeue-Bold";
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .profile__data {
+      font-size: 16px;
+    }
+  }
+}
+.tvShows {
+  width: 100%;
+  .tvShows__title {
+    padding-left: 15px;
+    font-size: 16px;
+    padding: 7px;
+    border-bottom: solid 1px white;
+  }
+  .tvShows__coversContainer {
+    margin-top: 38px;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    .tvShows__covers {
+      cursor: pointer;
+      width: 100px;
+      height: 150px;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+}

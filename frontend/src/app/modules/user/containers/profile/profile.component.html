@@ -1,1 +1,37 @@
-<p>profile works!</p>
+<div class="profile">
+  <h1 class="profile__title">PROFILE</h1>
+  <div class="profile__dataUser" *ngIf="user.result">
+    <h5 class="profile__name">
+      {{ user.result.name || "" }}
+    </h5>
+
+    <p class="profile__email">
+      {{ user.result.email || "" }}
+    </p>
+    <p class="profile__data">
+      Member since
+      {{ user.result.created_at.slice(0, 4) || "" }}
+    </p>
+  </div>
+  <div class="profile__dataUser" *ngIf="user.dataValues">
+    <p class="profile__email">
+      {{ user.dataValues.email || "" }}
+    </p>
+    <p class="profile__data">
+      Member since
+      {{ user.dataValues.created_at.slice(0, 4) || "" }}
+    </p>
+  </div>
+  <div class="tvShows">
+    <h4 class="tvShows__title">Favourite Tv Shows</h4>
+    <div class="tvShows__coversContainer">
+      <img
+        *ngFor="let tvShow of likedTvShows"
+        (click)="onCover(tvShow.film.id)"
+        class="tvShows__covers"
+        src="https://image.tmdb.org/t/p/w500{{ tvShow.film.poster_path }}"
+        alt="Cover of tv show"
+      />
+    </div>
+  </div>
+</div>
