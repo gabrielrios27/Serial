@@ -4,10 +4,29 @@
   <div class="details">
     <div class="details__imgContainer">
       <img
+        *ngIf="listToShowComplete.length === 0"
         class="details__img"
         src="../../../../../assets/images/listDemo.png"
         alt="cover de lista"
       />
+      <img
+        *ngIf="listToShowComplete.length > 0 && listToShowComplete.length < 4"
+        class="details__img"
+        src="https://image.tmdb.org/t/p/w500{{
+          listToShowComplete[0].film.poster_path
+        }}"
+        alt="cover de lista"
+      />
+      <ng-container *ngIf="listToShowComplete.length >= 4">
+        <div class="details__warapperImgs">
+          <img
+            *ngFor="let item of listToShowComplete.slice(0, 4)"
+            class="details__img--multiple"
+            src="https://image.tmdb.org/t/p/w500{{ item.film.poster_path }}"
+            alt="cover de lista"
+          />
+        </div>
+      </ng-container>
       <div class="details__iconsContainer" *ngIf="isTypeSaved">
         <!-- icono de Likear lista -->
         <div class="details__iconWrapper">
@@ -58,12 +77,23 @@
       </div>
     </div>
     <div class="details__infoContainer">
-      <h3 class="details__infoTitle">List Name</h3>
-      <p class="details__infoDescription">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi amet
-        repellat
-      </p>
-      <div class="list__iconsContainer">
+      <ng-container *ngIf="isTypeSaved">
+        <h3 class="details__infoTitle" *ngIf="isTypeSaved">List Name</h3>
+
+        <p class="details__infoDescription">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi amet
+          repellat
+        </p>
+      </ng-container>
+      <ng-container *ngIf="!isTypeSaved">
+        <h3 class="details__infoTitle">My Favourites</h3>
+        <p class="details__infoDescription">
+          List of my favorite TV shows - mix of drama, comedy, and sci-fi. Some
+          with captivating storylines, others light-hearted.
+        </p>
+      </ng-container>
+
+      <div class="list__iconsContainer" *ngIf="isTypeSaved">
         <!-- Icono de privacidad -->
         <!-- <svg
           class="list__icon list__icon--eye"
@@ -191,7 +221,7 @@
           <div class="galleryList__iconsContainer">
             <!-- Icono de Like -->
             <div
-              (click)="onLike(item.film.id, item.film.isLiked)"
+              (click)="onLike(item, item.film.isLiked)"
               class="galleryList__iconWrapper"
               [ngClass]="
                 item.film.isLiked ? 'galleryList__iconWrapper--selected' : ''
@@ -219,7 +249,7 @@
 
             <!-- Icono de Guardar -->
             <div
-              (click)="onSave(item.film.id, item.film.isSaved)"
+              (click)="onSave(item, item.film.idListSaved, item.film.isSaved)"
               class="galleryList__iconWrapper"
               [ngClass]="
                 item.film.isSaved ? 'galleryList__iconWrapper--selected' : ''

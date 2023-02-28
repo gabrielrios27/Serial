@@ -20,22 +20,10 @@ export class ListsComponent implements OnInit {
   likedTvShows: any;
   listToShow: any;
   imgLikedList: any = [
-    {
-      id: 102567,
-      poster_path: '/6wrUL1boBJIRlgwdmFKOlbhllDh.jpg',
-    },
-    {
-      id: 62560,
-      poster_path: '/oKIBhzZzDX07SoE2bOLhq2EE8rf.jpg',
-    },
-    {
-      id: 37680,
-      poster_path: '/vQiryp6LioFxQThywxbC6TuoDjy.jpg',
-    },
-    {
-      id: 1399,
-      poster_path: '/7WUHnWGx5OO145IRxPDUkQSh4C7.jpg',
-    },
+    '/6wrUL1boBJIRlgwdmFKOlbhllDh.jpg',
+    '/4AyYGYGbHXDcsJaXK9rrSUpCYPe.jpg',
+    '/vQiryp6LioFxQThywxbC6TuoDjy.jpg',
+    '/7WUHnWGx5OO145IRxPDUkQSh4C7.jpg',
   ];
   imgSavedList: any = [
     {

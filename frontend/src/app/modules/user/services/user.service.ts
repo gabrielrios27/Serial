@@ -28,7 +28,8 @@ export class UserService {
   epCreateList: string;
   epLikeTvShow: string;
   epAddTvShow: string;
-
+  epDeleteLike: string;
+  epDeleteSaved: string;
   constructor(private _http: HttpClient) {
     this.baseUrlBack = 'https://serial-backend.onrender.com/';
     this.epSavedList = 'list/client/all';
@@ -39,6 +40,8 @@ export class UserService {
     this.epCreateList = 'list/create';
     this.epLikeTvShow = 'like';
     this.epAddTvShow = 'list/add';
+    this.epDeleteLike = 'like/remove';
+    this.epDeleteSaved = 'list/remove';
   }
   getUserToken() {
     let tokenJSON = localStorage.getItem('user');
@@ -179,6 +182,28 @@ export class UserService {
       headers: headersBack,
     });
   }
+  delteLikeTvShow(id: number): Observable<any> {
+    console.log('svc delteLikeTvShow', id);
+    let userJson = localStorage.getItem('user');
+
+    if (userJson) {
+      this.user = JSON.parse(userJson);
+    }
+    const token = this.user.token;
+
+    const headersBack = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${token}`
+    );
+    let body = {
+      likeId: id,
+    };
+    console.log('body : ', body);
+
+    return this._http.post<any>(this.baseUrlBack + this.epDeleteLike, body, {
+      headers: headersBack,
+    });
+  }
   addTvShowToSaved(tvShow: TvShow, idList: number): Observable<any> {
     console.log('svc addTvShow', tvShow);
     let userJson = localStorage.getItem('user');
@@ -207,6 +232,30 @@ export class UserService {
     console.log('body to save: ', body);
 
     return this._http.post<any>(this.baseUrlBack + this.epAddTvShow, body, {
+      headers: headersBack,
+    });
+  }
+  deleteTvShowSaved(idTv: number, idListSaved: number): Observable<any> {
+    console.log('svc delteLikeTvShow idTv: ', idTv);
+    console.log('svc delteLikeTvShow idListSaved: ', idListSaved);
+    let userJson = localStorage.getItem('user');
+
+    if (userJson) {
+      this.user = JSON.parse(userJson);
+    }
+    const token = this.user.token;
+
+    const headersBack = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${token}`
+    );
+    let body = {
+      listId: idListSaved,
+      films: [idTv],
+    };
+    console.log('body : ', body);
+
+    return this._http.post<any>(this.baseUrlBack + this.epDeleteSaved, body, {
       headers: headersBack,
     });
   }

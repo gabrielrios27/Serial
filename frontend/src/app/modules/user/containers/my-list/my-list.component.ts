@@ -20,10 +20,12 @@ export class MyListComponent implements OnInit {
   idTvShow: number;
   type: string;
   isTypeSaved: boolean;
+  selectedSavedLists: any;
   savedList: any;
   likedList: any;
   likedTvShows: any;
   listToShow: any;
+  listToShowComplete: any[];
   imgLikedList: any = [
     {
       id: 102567,
@@ -70,6 +72,7 @@ export class MyListComponent implements OnInit {
     private _rutaActiva: ActivatedRoute,
     private _route: Router
   ) {
+    this.listToShow = [];
     this.toSearch = '';
     this.idList = 0;
     this.nameList = 'Lista n2';
@@ -80,6 +83,7 @@ export class MyListComponent implements OnInit {
     this.isTypeSaved = true;
     this.isDeleteItem = false; //Para modal de eliminar item
     this.tvShowToDelete = {} as TvShow;
+    this.listToShowComplete = [];
   }
 
   ngOnInit(): void {
@@ -96,7 +100,7 @@ export class MyListComponent implements OnInit {
         idToShow = params.get('id');
         type = params.get('type');
       });
-    this.idTvShow = Number(idToShow);
+    this.idList = Number(idToShow);
     if (type === 'saved') {
       this.isTypeSaved = true;
       this.getSavedList();
@@ -116,12 +120,14 @@ export class MyListComponent implements OnInit {
           this.likedTvShows.map((tv: any) => {
             tv.film.isLiked = true;
             tv.film.isSaved = false;
+            tv.film.idListSaved = 0;
           });
           if (this.isTypeSaved) {
             // chekear coincidencias
             this.checkMatches();
           } else {
             this.listToShow = this.likedTvShows;
+            this.listToShowComplete = this.listToShow;
             this.getSavedList();
           }
 
@@ -145,16 +151,24 @@ export class MyListComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           this.savedList = data;
+
           for (let list of this.savedList) {
             list.list_movies.map((tv: any) => {
               tv.film.isLiked = false;
               tv.film.isSaved = true;
+              tv.film.idListSaved = list.id;
             });
           }
+          this.selectedSavedLists = this.savedList.find(
+            (list: any) => list.id === this.idList
+          );
+          console.log('this.selectedSavedLists: ', this.selectedSavedLists);
+
           console.log('this.savedList: ', this.savedList);
           if (this.isTypeSaved) {
-            this.listToShow = this.savedList;
-            this.getSavedList();
+            this.listToShow = this.selectedSavedLists.list_movies;
+            this.listToShowComplete = this.listToShow;
+            this.getLikedList();
           } else {
             // chekear coincidencias
             this.checkMatches();
@@ -176,6 +190,7 @@ export class MyListComponent implements OnInit {
           if (tvLiked.film.id === tvSaved.film.id) {
             tvSaved.film.isLiked = true;
             tvLiked.film.isSaved = true;
+            tvLiked.film.idListSaved = list.id;
           }
         });
       });
@@ -191,22 +206,101 @@ export class MyListComponent implements OnInit {
       return JSON.parse(value);
     }
   }
-  Search(toSearch: string) {
-    console.log(toSearch);
+  Search(toSearchVal: string) {
+    console.log(toSearchVal);
+    if (toSearchVal === '') {
+      this.listToShow = this.listToShowComplete;
+    } else {
+      this.listToShow = this.listToShowComplete.filter((item) =>
+        item.film.title.toLowerCase().includes(toSearchVal.toLowerCase())
+      );
+    }
   }
-  onLike(id: number, isLiked: boolean) {
+  onLike(tv: any, isLiked: boolean) {
     if (isLiked) {
       //endp. eliminar like
+      this.onDeleteLikeTvShow(tv.id);
+      if (!this.isTypeSaved) {
+        this.listToShowComplete = this.listToShowComplete.filter(
+          (item) => item.id !== tv.id
+        );
+        this.listToShow = this.listToShowComplete;
+      } else {
+        this.listToShowComplete = this.listToShowComplete.map((item) => {
+          if (item.id === tv.id) item.film.isLiked = false;
+          return item;
+        });
+        this.listToShow = this.listToShowComplete;
+      }
     } else {
       //endp. guardar en favoritos - like
+      this.onLikeTvShow(tv.film);
+      this.listToShowComplete = this.listToShowComplete.map((item) => {
+        if (item.id === tv.id) item.film.isLiked = true;
+        return item;
+      });
+      this.listToShow = this.listToShowComplete;
     }
   }
-  onSave(id: number, isSaved: boolean) {
+  onLikeTvShow(tv: TvShow) {
+    this._UserSvc
+      .likeTvShow(tv)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (data: any) => {
+          console.log('onLikeTvShow: ', data);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+  onDeleteLikeTvShow(id: number) {
+    this._UserSvc
+      .delteLikeTvShow(id)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (data: any) => {
+          console.log('delteLikeTvShow data: ', data);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+  onSave(tvShow: any, idListSaved: number, isSaved: boolean) {
     if (isSaved) {
       //endp. eliminar de guardados con id y id-list
+      this.onDeleteSavedTvShow(tvShow.id, idListSaved);
+      if (!this.isTypeSaved) {
+        this.listToShowComplete = this.listToShowComplete.map((item) => {
+          if (item.id === tvShow.id) item.film.isSaved = false;
+          return item;
+        });
+        this.listToShow = this.listToShowComplete;
+      } else {
+        this.listToShowComplete = this.listToShowComplete.filter(
+          (item) => item.id !== tvShow.id
+        );
+        this.listToShow = this.listToShowComplete;
+      }
     } else {
+      this._route.navigate(['./lists/' + tvShow.film.id]);
       //navegar a /lists/:id
     }
+  }
+  onDeleteSavedTvShow(idTv: number, idListSaved: number) {
+    this._UserSvc
+      .deleteTvShowSaved(idTv, idListSaved)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (data: any) => {
+          console.log('deleteTvShowSaved data: ', data);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
   toogleType() {
     this.isTypeList = !this.isTypeList;
