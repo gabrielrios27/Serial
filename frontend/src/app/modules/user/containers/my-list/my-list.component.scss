@@ -55,6 +55,12 @@
     }
   }
   .details__infoContainer {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     .details__infoTitle {
       font-size: 16px;
       font-family: "HelveticaNeue-Bold";
@@ -66,8 +72,12 @@
   }
 }
 .list__iconsContainer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
   display: flex;
-  gap: 10px;
+  margin-top: 15px;
+  justify-content: flex-end;
   align-items: center;
   .list__icon {
     box-sizing: content-box;
@@ -90,7 +100,7 @@
   .searcherContainer__iconsContainer {
     width: 65px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     .searcherContainer__icon {
       height: 31px;
@@ -168,6 +178,48 @@
     .gallery__img {
       width: 100px;
       height: 155px;
+    }
+  }
+}
+.galleryList__link {
+  width: 100%;
+  height: 120px;
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+  border-bottom: solid 1px white;
+  .galleryList__img {
+    height: 90px;
+    width: 60px;
+  }
+  .galleryList__dataContainer {
+    margin-left: 20px;
+    .galleryList__title {
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+    .galleryList__iconsContainer {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      .galleryList__iconWrapper {
+        width: 30px;
+        height: 30px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .galleryList__icon {
+          height: 18px;
+        }
+      }
+      .galleryList__iconWrapper--selected {
+        background-color: #506cff;
+        path {
+          fill: white;
+        }
+      }
     }
   }
 }

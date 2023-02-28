@@ -41,7 +41,8 @@
   .searcherContainer__iconsContainer {
     width: 65px;
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between; //Para cuando se incorpore icono de opciones de busqueda
+    justify-content: flex-end;
     align-items: center;
     .searcherContainer__icon {
       height: 31px;

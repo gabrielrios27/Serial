@@ -111,9 +111,20 @@ export class MyListComponent implements OnInit {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe({
         next: (data: any) => {
-          this.likedList = data.lists;
+          // this.likedList = data.lists;
           this.likedTvShows = data.series;
-          this.listToShow = this.likedTvShows;
+          this.likedTvShows.map((tv: any) => {
+            tv.film.isLiked = true;
+            tv.film.isSaved = false;
+          });
+          if (this.isTypeSaved) {
+            // chekear coincidencias
+            this.checkMatches();
+          } else {
+            this.listToShow = this.likedTvShows;
+            this.getSavedList();
+          }
+
           //Para modal-delete
           // this.idList = this.listToShow.id;
           // this.nameList = this.listToShow.description;
@@ -134,8 +145,21 @@ export class MyListComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           this.savedList = data;
+          for (let list of this.savedList) {
+            list.list_movies.map((tv: any) => {
+              tv.film.isLiked = false;
+              tv.film.isSaved = true;
+            });
+          }
           console.log('this.savedList: ', this.savedList);
-          this.listToShow = this.savedList;
+          if (this.isTypeSaved) {
+            this.listToShow = this.savedList;
+            this.getSavedList();
+          } else {
+            // chekear coincidencias
+            this.checkMatches();
+          }
+
           //Para modal-delete
           // this.idList = this.listToShow.id;
           // this.nameList = this.listToShow.description
@@ -144,6 +168,22 @@ export class MyListComponent implements OnInit {
           console.log(err);
         },
       });
+  }
+  checkMatches() {
+    for (let list of this.savedList) {
+      list.list_movies.map((tvSaved: any) => {
+        this.likedTvShows.map((tvLiked: any) => {
+          if (tvLiked.film.id === tvSaved.film.id) {
+            tvSaved.film.isLiked = true;
+            tvLiked.film.isSaved = true;
+          }
+        });
+      });
+    }
+    this.isTypeSaved
+      ? (this.listToShow = this.savedList)
+      : (this.listToShow = this.likedTvShows);
+    console.log('listToShow: ', this.listToShow);
   }
   getFromLclStg(key: string): any {
     let value = localStorage.getItem(key);
@@ -154,7 +194,20 @@ export class MyListComponent implements OnInit {
   Search(toSearch: string) {
     console.log(toSearch);
   }
-
+  onLike(id: number, isLiked: boolean) {
+    if (isLiked) {
+      //endp. eliminar like
+    } else {
+      //endp. guardar en favoritos - like
+    }
+  }
+  onSave(id: number, isSaved: boolean) {
+    if (isSaved) {
+      //endp. eliminar de guardados con id y id-list
+    } else {
+      //navegar a /lists/:id
+    }
+  }
   toogleType() {
     this.isTypeList = !this.isTypeList;
     console.log('this.isTypeList: ', this.isTypeList);
