@@ -116,8 +116,7 @@ export class UserService {
       this.user = JSON.parse(tokenJSON);
     }
     const token = this.user.token;
-    console.log('USER: ', this.user);
-    console.log('token: ', token);
+
     const headersBack = new HttpHeaders().set(
       'Authorization',
       `Bearer ${token}`
@@ -135,8 +134,7 @@ export class UserService {
       this.user = JSON.parse(tokenJSON);
     }
     const token = this.user.token;
-    console.log('USER: ', this.user);
-    console.log('token: ', token);
+
     const headersBack = new HttpHeaders().set(
       'Authorization',
       `Bearer ${token}`
@@ -154,7 +152,7 @@ export class UserService {
       params: params,
     });
   }
-  likeTvShow(tvShow: TvShow): Observable<any> {
+  likeTvShow(tvShow: any): Observable<any> {
     console.log('svc likeTvShow', tvShow);
     let userJson = localStorage.getItem('user');
 
@@ -167,15 +165,29 @@ export class UserService {
       'Authorization',
       `Bearer ${token}`
     );
-    let body = {
-      film: {
-        id: tvShow.id,
-        name: tvShow.name,
-        year: tvShow.first_air_date.substring(0, 4),
-        poster_path: tvShow.poster_path,
-        backdrop_path: tvShow.backdrop_path,
-      },
-    };
+    let body;
+    if (tvShow.year) {
+      body = {
+        film: {
+          id: tvShow.id,
+          name: tvShow.title,
+          year: tvShow.year,
+          poster_path: tvShow.poster_path,
+          backdrop_path: tvShow.backdrop_path,
+        },
+      };
+    } else {
+      body = {
+        film: {
+          id: tvShow.id,
+          name: tvShow.name,
+          year: tvShow.first_air_date.substring(0, 4),
+          poster_path: tvShow.poster_path,
+          backdrop_path: tvShow.backdrop_path,
+        },
+      };
+    }
+
     console.log('body : ', body);
 
     return this._http.post<any>(this.baseUrlBack + this.epLikeTvShow, body, {

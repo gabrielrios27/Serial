@@ -84,6 +84,9 @@ export class MyListComponent implements OnInit {
     this.isDeleteItem = false; //Para modal de eliminar item
     this.tvShowToDelete = {} as TvShow;
     this.listToShowComplete = [];
+    this.selectedSavedLists = {};
+    this.selectedSavedLists.name = '';
+    this.selectedSavedLists.description = '';
   }
 
   ngOnInit(): void {
@@ -162,12 +165,22 @@ export class MyListComponent implements OnInit {
           this.selectedSavedLists = this.savedList.find(
             (list: any) => list.id === this.idList
           );
+          const descriptionParts =
+            this.selectedSavedLists.description.split(' / ');
+          descriptionParts[0]
+            ? (this.selectedSavedLists.name = descriptionParts[0])
+            : (this.selectedSavedLists.name = 'List');
+          descriptionParts[1]
+            ? (this.selectedSavedLists.description = descriptionParts[1])
+            : (this.selectedSavedLists.description = '');
           console.log('this.selectedSavedLists: ', this.selectedSavedLists);
 
           console.log('this.savedList: ', this.savedList);
           if (this.isTypeSaved) {
             this.listToShow = this.selectedSavedLists.list_movies;
             this.listToShowComplete = this.listToShow;
+            console.log('SAved - this.listToShow: ', this.listToShow);
+
             this.getLikedList();
           } else {
             // chekear coincidencias
@@ -196,9 +209,12 @@ export class MyListComponent implements OnInit {
       });
     }
     this.isTypeSaved
-      ? (this.listToShow = this.savedList)
+      ? (this.listToShow = this.savedList.find(
+          (list: any) => list.id === this.idList
+        ).list_movies)
       : (this.listToShow = this.likedTvShows);
     console.log('listToShow: ', this.listToShow);
+    this.listToShowComplete = this.listToShow;
   }
   getFromLclStg(key: string): any {
     let value = localStorage.getItem(key);
