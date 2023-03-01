@@ -64,7 +64,7 @@ export class MyListComponent implements OnInit {
   ];
   idTvShowSelected: number;
   isDeleteItem: boolean;
-  tvShowToDelete: TvShow;
+  tvShowToLikeFromCard: TvShow;
   isNewList: boolean;
   // Para cuando se crea una lista
   newNameList: string;
@@ -88,11 +88,11 @@ export class MyListComponent implements OnInit {
     this.type = 'saved';
     this.isTypeSaved = true;
     this.isDeleteItem = false; //Para modal de eliminar item
-    this.tvShowToDelete = {} as TvShow;
+    this.tvShowToLikeFromCard = {} as TvShow;
     this.listToShowComplete = [];
     this.selectedSavedLists = {};
     this.selectedSavedLists.name = '';
-    this.selectedSavedLists.description = '';
+    this.selectedSavedLists.description = ' / ';
     this.isNewList = false;
     this.newNameList = '';
     this.newDescriptionList = '';
@@ -194,6 +194,8 @@ export class MyListComponent implements OnInit {
             tv.film.isLiked = true;
             tv.film.isSaved = false;
             tv.film.idListSaved = 0;
+            tv.film.idGeneral = tv.id;
+            tv.film.idListSaved = 0;
           });
           if (this.isTypeSaved) {
             // chekear coincidencias
@@ -208,7 +210,6 @@ export class MyListComponent implements OnInit {
           // this.idList = this.listToShow.id;
           // this.nameList = this.listToShow.description;
 
-          console.log('this.likedList: ', this.likedList);
           console.log('this.likedTvShows: ', this.likedTvShows);
         },
         error: (err) => {
@@ -224,29 +225,30 @@ export class MyListComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           this.savedList = data;
-
           for (let list of this.savedList) {
             list.list_movies.map((tv: any) => {
               tv.film.isLiked = false;
               tv.film.isSaved = true;
               tv.film.idListSaved = list.id;
+              tv.film.idGeneral = tv.id;
             });
           }
-          this.selectedSavedLists = this.savedList.find(
-            (list: any) => list.id === this.idList
-          );
-          const descriptionParts =
-            this.selectedSavedLists.description.split(' / ');
-          descriptionParts[0]
-            ? (this.selectedSavedLists.name = descriptionParts[0])
-            : (this.selectedSavedLists.name = 'List');
-          descriptionParts[1]
-            ? (this.selectedSavedLists.description = descriptionParts[1])
-            : (this.selectedSavedLists.description = '');
-          console.log('this.selectedSavedLists: ', this.selectedSavedLists);
 
           console.log('this.savedList: ', this.savedList);
           if (this.isTypeSaved) {
+            this.selectedSavedLists = this.savedList.find(
+              (list: any) => list.id === this.idList
+            );
+            console.log('this.selectedSavedLists ', this.selectedSavedLists);
+
+            const descriptionParts =
+              this.selectedSavedLists.description.split(' / ');
+            descriptionParts[0]
+              ? (this.selectedSavedLists.name = descriptionParts[0])
+              : (this.selectedSavedLists.name = 'List');
+            descriptionParts[1]
+              ? (this.selectedSavedLists.description = descriptionParts[1])
+              : (this.selectedSavedLists.description = '');
             this.listToShow = this.selectedSavedLists.list_movies;
             this.listToShowComplete = this.listToShow;
             console.log('SAved - this.listToShow: ', this.listToShow);
@@ -285,6 +287,7 @@ export class MyListComponent implements OnInit {
       : (this.listToShow = this.likedTvShows);
     console.log('listToShow: ', this.listToShow);
     this.listToShowComplete = this.listToShow;
+    console.log('this.listToShowComplete: ', this.listToShowComplete);
   }
   getFromLclStg(key: string): any {
     let value = localStorage.getItem(key);
@@ -303,17 +306,19 @@ export class MyListComponent implements OnInit {
     }
   }
   onLike(tv: any, isLiked: boolean) {
+    console.log(tv);
+
     if (isLiked) {
       //endp. eliminar like
-      this.onDeleteLikeTvShow(tv.id);
+      this.onDeleteLikeTvShow(tv.film.id);
       if (!this.isTypeSaved) {
         this.listToShowComplete = this.listToShowComplete.filter(
-          (item) => item.id !== tv.id
+          (item) => item.film.id !== tv.film.id
         );
         this.listToShow = this.listToShowComplete;
       } else {
         this.listToShowComplete = this.listToShowComplete.map((item) => {
-          if (item.id === tv.id) item.film.isLiked = false;
+          if (item.film.id === tv.film.id) item.film.isLiked = false;
           return item;
         });
         this.listToShow = this.listToShowComplete;
@@ -322,7 +327,7 @@ export class MyListComponent implements OnInit {
       //endp. guardar en favoritos - like
       this.onLikeTvShow(tv.film);
       this.listToShowComplete = this.listToShowComplete.map((item) => {
-        if (item.id === tv.id) item.film.isLiked = true;
+        if (item.film.id === tv.film.id) item.film.isLiked = true;
         return item;
       });
       this.listToShow = this.listToShowComplete;
@@ -357,16 +362,18 @@ export class MyListComponent implements OnInit {
   onSave(tvShow: any, idListSaved: number, isSaved: boolean) {
     if (isSaved) {
       //endp. eliminar de guardados con id y id-list
-      this.onDeleteSavedTvShow(tvShow.id, idListSaved);
+      this.onDeleteSavedTvShow(tvShow.film.id, idListSaved);
       if (!this.isTypeSaved) {
+        //Dentro de lista liked
         this.listToShowComplete = this.listToShowComplete.map((item) => {
-          if (item.id === tvShow.id) item.film.isSaved = false;
+          if (item.film.id === tvShow.film.id) item.film.isSaved = false;
           return item;
         });
         this.listToShow = this.listToShowComplete;
       } else {
+        //Dentro de una lista Saved
         this.listToShowComplete = this.listToShowComplete.filter(
-          (item) => item.id !== tvShow.id
+          (item) => item.film.id !== tvShow.film.id
         );
         this.listToShow = this.listToShowComplete;
       }
@@ -399,8 +406,13 @@ export class MyListComponent implements OnInit {
   getIdTvShowSelected(id: number) {
     this.idTvShowSelected = id;
   }
-  getTvShowToDelete(tv: TvShow) {
-    this.tvShowToDelete = tv;
+  getTvShowToLikeFromCard(tv: TvShow) {
+    console.log('tvShowToLikeFromCardFromCard: ', tv);
+    this.tvShowToLikeFromCard = tv;
+    this.onLikeFromCard(tv, tv.isLiked);
+  }
+  getTvShowToSaveFromCard(tv: TvShow) {
+    this.onSaveFromCard(tv, this.idList, tv.isSaved);
   }
   toogleModalDelete(value: boolean) {
     this.isDeleteItem = value;
@@ -417,6 +429,58 @@ export class MyListComponent implements OnInit {
   }
   onDeleteItem() {
     this.isDeleteItem = true;
+  }
+  onLikeFromCard(tv: any, isLiked: boolean) {
+    console.log(tv);
+    if (isLiked) {
+      if (!this.isTypeSaved) {
+        this.onDeleteLikeTvShow(tv.id);
+        this.listToShowComplete = this.listToShowComplete.filter(
+          (item) => item.film.id !== tv.id
+        );
+        this.listToShow = this.listToShowComplete;
+      } else {
+        this.onDeleteLikeTvShow(tv.id);
+        this.listToShowComplete = this.listToShowComplete.map((item) => {
+          if (item.film.id === tv.id) item.film.isLiked = false;
+          return item;
+        });
+        this.listToShow = this.listToShowComplete;
+      }
+    } else {
+      //endp. guardar en favoritos - like
+      this.listToShowComplete = this.listToShowComplete.map((item) => {
+        if (item.film.id === tv.id) item.film.isLiked = true;
+        return item;
+      });
+      this.listToShow = this.listToShowComplete;
+    }
+  }
+  onSaveFromCard(tvShow: any, idListSaved: number, isSaved: boolean) {
+    if (isSaved) {
+      //endp. eliminar de guardados con id y id-list
+      if (!this.isTypeSaved) {
+        //Dentro de lista liked
+        this.onDeleteSavedTvShow(tvShow.id, tvShow.idListSaved);
+        this.listToShowComplete = this.listToShowComplete.map((item) => {
+          if (item.film.id === tvShow.id) item.film.isSaved = false;
+          return item;
+        });
+        this.listToShow = this.listToShowComplete;
+      } else {
+        //Dentro de una lista Saved
+        console.log('tvShow.id: ', tvShow.id);
+
+        this.onDeleteSavedTvShow(tvShow.id, idListSaved);
+        this.listToShowComplete = this.listToShowComplete.filter(
+          (item) => item.film.id !== tvShow.id
+        );
+        this.listToShow = this.listToShowComplete;
+      }
+    } else {
+      this._route.navigate(['./lists/' + tvShow.id]);
+      //navegar a /lists/:id
+    }
   }
   ngOnDestroy() {
     this.onDestroy$.next(true);

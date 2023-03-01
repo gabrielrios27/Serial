@@ -61,8 +61,10 @@ export interface TvShow {
   type: string;
   vote_average: number;
   vote_count: number;
-  isSaved?: boolean;
-  isLiked?: boolean;
+  isSaved: boolean;
+  isLiked: boolean;
+  idListSaved?: number;
+  idGeneral: number;
 }
 
 export interface CreatedBy {

@@ -154,6 +154,13 @@ export class ListsComponent implements OnInit {
   sortListTvShowSaved(arrayLists: any) {
     arrayLists.map((list: any) => {
       list.cover.sort(() => Math.random() - 0.5);
+      const descriptionParts = list.description.split(' / ');
+      descriptionParts[0]
+        ? (list.name = descriptionParts[0])
+        : (list.name = 'List');
+      descriptionParts[1]
+        ? (list.description = descriptionParts[1])
+        : (list.description = '');
     });
   }
   Search(toSearch: string) {
@@ -195,6 +202,8 @@ export class ListsComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           console.log('onAddTvShowToSaved: ', data);
+          this.saveInLclStg('isTypeList', this.isTypeList);
+          this.saveInLclStg('btnSaved', true);
           this._route.navigate(['./lists']);
         },
         error: (err) => {

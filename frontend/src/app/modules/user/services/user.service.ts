@@ -139,6 +139,7 @@ export class UserService {
       'Authorization',
       `Bearer ${token}`
     );
+    console.log(this.user);
 
     return this._http.get<any>(this.baseUrlBack + this.epSavedList, {
       headers: headersBack,
@@ -208,7 +209,7 @@ export class UserService {
       `Bearer ${token}`
     );
     let body = {
-      likeId: id,
+      serieId: id,
     };
     console.log('body : ', body);
 

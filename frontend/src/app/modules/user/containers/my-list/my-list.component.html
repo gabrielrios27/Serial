@@ -9,7 +9,7 @@
       <img
         *ngIf="listToShowComplete.length === 0"
         class="details__img"
-        src="../../../../../assets/images/listDemo.png"
+        src="../../../../../assets/images/listDemoBlue.png"
         alt="cover de lista"
       />
       <img
@@ -229,7 +229,8 @@
           [tvShow]="item.film"
           [idTvShowSelected]="idTvShowSelected"
           (idTvShow)="getIdTvShowSelected($event)"
-          (tvShowToDelete)="getTvShowToDelete($event)"
+          (tvShowToLike)="getTvShowToLikeFromCard($event)"
+          (tvShowToSave)="getTvShowToSaveFromCard($event)"
           [idList]="idList"
           [nameList]="nameList"
         ></app-card>

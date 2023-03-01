@@ -28,8 +28,9 @@ export class CardComponent implements OnInit, AfterViewInit {
   @Input() idList: number;
   @Input() nameList: string;
   // @Input() isDeleteItem: boolean;
-  @Output() idTvShow = new EventEmitter<number>(); //tvShowToDelete
-  @Output() tvShowToDelete = new EventEmitter<TvShow>();
+  @Output() idTvShow = new EventEmitter<number>();
+  @Output() tvShowToLike = new EventEmitter<any>();
+  @Output() tvShowToSave = new EventEmitter<any>();
   @Output() clickCard = new EventEmitter<boolean>();
 
   isBack: boolean;
@@ -45,7 +46,7 @@ export class CardComponent implements OnInit, AfterViewInit {
 
   // suscripciones
   onDestroy$: Subject<boolean> = new Subject();
-  constructor(private _router: Router, private _userSvc: UserService) {
+  constructor(private _router: Router, private _UserSvc: UserService) {
     this.cardOpen = false;
     this.tvShow = {} as TvShow;
 
@@ -62,10 +63,18 @@ export class CardComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {}
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+    setTimeout(() => {
+      if (this.tvShow.isLiked) {
+        this.likeTv = true;
+      }
+      if (this.tvShow.isSaved) {
+        this.saveTv = true;
+      }
+    }, 1500);
+  }
 
   toogleFlippCard() {
-    console.log('toogleFlippCard');
     clearTimeout(this.timeoutId);
     if (this.idTvShowSelected !== this.tvShow.id) {
       this.isBack = false;
@@ -83,17 +92,27 @@ export class CardComponent implements OnInit, AfterViewInit {
     //card open se usa para que el usuario no clickee por error like o save justo cuando esta abriendo la
     if (this.cardOpen) {
       if (value === 'like') {
+        //click a like
         if (this.likeTv) {
-          console.log('Aqui endpoint de eliminar de liked');
+          console.log('eliminar liked');
+          this.tvShowToLike.emit(this.tvShow);
+          // this.tvShow.isLiked=false
+          // this.onDeleteLikeTvShow(this.tvShow.id);
         } else {
+          this.tvShowToLike.emit(this.tvShow);
           this.onLikeTvShow(this.tvShow);
         }
         this.likeTv = !this.likeTv;
       } else {
+        //click a save
         if (this.saveTv) {
+          //eliminar de guardado
           console.log('Aqui endpoint de eliminar de saved');
+          this.tvShowToSave.emit(this.tvShow);
           this.saveTv = !this.saveTv;
         } else {
+          // guardadar serie
+
           this.saveTv = !this.saveTv;
           this.saveTv
             ? this._router.navigate(['./lists/', this.tvShow.id])
@@ -133,12 +152,25 @@ export class CardComponent implements OnInit, AfterViewInit {
   }
 
   onLikeTvShow(tv: TvShow) {
-    this._userSvc
+    this._UserSvc
       .likeTvShow(tv)
       .pipe(takeUntil(this.onDestroy$))
       .subscribe({
         next: (data: any) => {
           console.log('onLikeTvShow: ', data);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+  onDeleteLikeTvShow(id: number) {
+    this._UserSvc
+      .delteLikeTvShow(id)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (data: any) => {
+          console.log('delteLikeTvShow data: ', data);
         },
         error: (err) => {
           console.log(err);
