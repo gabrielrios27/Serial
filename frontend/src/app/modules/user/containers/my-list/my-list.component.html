@@ -2,6 +2,9 @@
   <h1 class="mainContainer__title">LISTS</h1>
 
   <div class="details">
+    <p class="details__saveNew" *ngIf="isNewList" (click)="onSaveNewList()">
+      Save
+    </p>
     <div class="details__imgContainer">
       <img
         *ngIf="listToShowComplete.length === 0"
@@ -29,7 +32,7 @@
       </ng-container>
       <div class="details__iconsContainer" *ngIf="isTypeSaved">
         <!-- icono de Likear lista -->
-        <div class="details__iconWrapper">
+        <!-- <div class="details__iconWrapper">
           <svg
             class="details__imgIcons"
             version="1.0"
@@ -48,9 +51,9 @@
               />
             </g>
           </svg>
-        </div>
+        </div> -->
         <!-- Icono de guardar lista -->
-        <div
+        <!-- <div
           class="details__iconWrapper"
           [ngClass]="isTypeSaved ? 'details__iconWrapper--blue ' : ''"
           (click)="toogleModalDelete(true)"
@@ -73,11 +76,34 @@
               />
             </g>
           </svg>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="details__infoContainer">
-      <ng-container *ngIf="isTypeSaved">
+      <ng-container *ngIf="isNewList">
+        <div class="newList">
+          <input
+            class="newList__name"
+            type="text"
+            [(ngModel)]="newNameList"
+            placeholder="List name"
+            autocomplete="off"
+            maxlength="20"
+          />
+          <input
+            class="newList__description"
+            type="text"
+            [(ngModel)]="newDescriptionList"
+            placeholder="Description"
+            autocomplete="off"
+            maxlength="100"
+          />
+          <p *ngIf="emptyInputs" class="newList__alert">
+            Please complete all the fields.
+          </p>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="isTypeSaved && !isNewList">
         <h3 class="details__infoTitle">{{ selectedSavedLists.name }}</h3>
 
         <p class="details__infoDescription">
@@ -106,7 +132,7 @@
         />
       </svg> -->
       <!-- Icono de Editar lista -->
-      <svg
+      <!-- <svg
         class="list__icon"
         viewBox="0 0 15 15"
         fill="none"
@@ -116,7 +142,7 @@
           d="M12.9042 4.88854L9.53958 1.56354L10.6479 0.455208C10.9514 0.151736 11.3243 0 11.7665 0C12.2083 0 12.5809 0.151736 12.8844 0.455208L13.9927 1.56354C14.2962 1.86701 14.4545 2.23329 14.4677 2.66237C14.4809 3.09093 14.3358 3.45694 14.0323 3.76042L12.9042 4.88854ZM11.7563 6.05625L3.36458 14.4479H0V11.0833L8.39167 2.69167L11.7563 6.05625Z"
           fill="white"
         />
-      </svg>
+      </svg> -->
       <!-- Icono de compartir lista -->
       <!-- <svg
         class="list__icon"

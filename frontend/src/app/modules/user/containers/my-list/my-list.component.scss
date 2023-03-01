@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
   .mainContainer__title {
     font-family: "HelveticaNeue-Bold";
     text-align: center;
@@ -20,6 +21,15 @@
   margin-top: 56px;
   margin-bottom: 45px;
   width: 100%;
+  .details__saveNew {
+    cursor: pointer;
+    position: absolute;
+    top: -84px;
+    right: 0;
+    color: #ddff7c;
+    font-size: 16px;
+    padding: 10px 0 10px 10px;
+  }
   .details__imgContainer {
     position: relative;
     margin-right: 20px;
@@ -84,6 +94,39 @@
       font-size: 14px;
       margin-bottom: 10px;
     }
+  }
+}
+.newList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .newList__name,
+  .newList__description {
+    height: 32px;
+    background-color: transparent;
+    border: dotted 1px white;
+    &:focus-visible {
+      border-color: #ddff7c;
+    }
+    &:active {
+      border-color: #ddff7c;
+    }
+  }
+  .newList__name {
+    max-width: 130px;
+    padding: 0 10px;
+    margin-bottom: 10px;
+  }
+  .newList__description {
+    max-width: 180px;
+    padding: 0 15px;
+  }
+  .newList__alert {
+    margin-top: 10px;
+    font-size: 14px;
+    font-family: "HelveticaNeue-Thin";
+    color: rgb(253, 81, 81);
+    letter-spacing: 0.8px;
   }
 }
 .list__iconsContainer {

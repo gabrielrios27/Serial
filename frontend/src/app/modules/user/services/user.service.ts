@@ -271,4 +271,26 @@ export class UserService {
       headers: headersBack,
     });
   }
+  createNewList(description: string): Observable<any> {
+    console.log('svc createNewList description', description);
+    let userJson = localStorage.getItem('user');
+
+    if (userJson) {
+      this.user = JSON.parse(userJson);
+    }
+    const token = this.user.token;
+
+    const headersBack = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${token}`
+    );
+    let body = {
+      description: description,
+    };
+    console.log('body to create: ', body);
+
+    return this._http.post<any>(this.baseUrlBack + this.epCreateList, body, {
+      headers: headersBack,
+    });
+  }
 }

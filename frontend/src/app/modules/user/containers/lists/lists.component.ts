@@ -89,6 +89,9 @@ export class ListsComponent implements OnInit {
         }
       });
   }
+  onCreateList() {
+    this._route.navigate(['./lists/mylist/new/' + this.idToSave]);
+  }
   getTvShowById(id: number) {
     this._UserSvc
       .getTvShowById(id)

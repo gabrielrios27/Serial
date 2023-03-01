@@ -65,6 +65,12 @@ export class MyListComponent implements OnInit {
   idTvShowSelected: number;
   isDeleteItem: boolean;
   tvShowToDelete: TvShow;
+  isNewList: boolean;
+  // Para cuando se crea una lista
+  newNameList: string;
+  newDescriptionList: string;
+  emptyInputs: boolean;
+  tvShowToSaveInNewList: TvShow;
   // suscripciones
   onDestroy$: Subject<boolean> = new Subject();
   constructor(
@@ -87,6 +93,11 @@ export class MyListComponent implements OnInit {
     this.selectedSavedLists = {};
     this.selectedSavedLists.name = '';
     this.selectedSavedLists.description = '';
+    this.isNewList = false;
+    this.newNameList = '';
+    this.newDescriptionList = '';
+    this.emptyInputs = false;
+    this.tvShowToSaveInNewList = {} as TvShow;
   }
 
   ngOnInit(): void {
@@ -107,10 +118,69 @@ export class MyListComponent implements OnInit {
     if (type === 'saved') {
       this.isTypeSaved = true;
       this.getSavedList();
-    } else {
+    } else if (type === 'liked') {
       this.isTypeSaved = false;
       this.getLikedList();
+    } else {
+      this.isNewList = true;
+      this.getTvShowById(this.idList);
     }
+  }
+  onSaveNewList() {
+    console.log('this.newNameList: ', this.newNameList);
+    console.log('this.newDescriptionList: ', this.newDescriptionList);
+    if (this.newNameList && this.newDescriptionList) {
+      let description = this.newNameList + ' / ' + this.newDescriptionList;
+      this.createNewList(description);
+    } else {
+      this.emptyInputs = true;
+    }
+  }
+  createNewList(description: string) {
+    this._UserSvc
+      .createNewList(description)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (data: any) => {
+          console.log('created Ok: ', data);
+          if (this.idList === 0) {
+            this._route.navigate(['./lists']);
+          } else {
+            this.onAddTvShowToSaved(this.tvShowToSaveInNewList, data.id);
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+  getTvShowById(id: number) {
+    this._UserSvc
+      .getTvShowById(id)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (tvShow: TvShow) => {
+          console.log(tvShow);
+          this.tvShowToSaveInNewList = tvShow;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+  onAddTvShowToSaved(tv: TvShow, idList: number) {
+    this._UserSvc
+      .addTvShowToSaved(tv, idList)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (data: any) => {
+          console.log('onAddTvShowToSaved: ', data);
+          this._route.navigate(['./lists']);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
   getLikedList() {
     this._UserSvc

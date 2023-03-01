@@ -187,7 +187,7 @@
   <!-- --------------SAVED---------------- -->
   <ng-container *ngIf="btnSaved">
     <div class="typeList" *ngIf="isTypeList">
-      <div class="typeList__createContainer">
+      <div class="typeList__createContainer" (click)="onCreateList()">
         <div class="typeList__iconContainer">
           <svg
             class="typeList__icon"
@@ -305,7 +305,7 @@
       </div>
     </div>
     <div class="typeBlock" *ngIf="!isTypeList">
-      <div class="typeBlock__containerCreate">
+      <div class="typeBlock__containerCreate" (click)="onCreateList()">
         <svg
           class="typeBlock__iconCreate"
           viewBox="0 0 26 26"
