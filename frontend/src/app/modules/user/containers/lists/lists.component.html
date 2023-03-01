@@ -82,8 +82,12 @@
   <!-- -----------LIKED LIST------------- -->
   <ng-container *ngIf="!btnSaved">
     <div class="typeList" *ngIf="isTypeList">
-      <div class="list" *ngFor="let list of likedList">
-        <a class="list__containerImg" routerLink="./mylist/liked/{{ list.id }}">
+      <div
+        class="list"
+        *ngFor="let list of likedList"
+        routerLink="./mylist/liked/{{ list.id }}"
+      >
+        <a class="list__containerImg">
           <!-- en img --- *ngFor="let tvShow of list.list.list_movies.slice(0, 4)" -->
           <ng-container *ngIf="imgLikedList.length >= 4">
             <img
@@ -207,8 +211,12 @@
           <h3 class="typeList__title">Create new list</h3>
         </div>
       </div>
-      <div class="list" *ngFor="let list of savedList">
-        <a class="list__containerImg" routerLink="./mylist/saved/{{ list.id }}">
+      <div
+        class="list"
+        *ngFor="let list of savedList"
+        routerLink="./mylist/saved/{{ list.id }}"
+      >
+        <a class="list__containerImg">
           <!-- en img --- *ngFor="let tvShow of list.list_movies.slice(0, 4)" -->
           <ng-container *ngIf="list.list_movies.length >= 4">
             <img
