@@ -33,6 +33,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   idTvShowSelected: number;
   trailer: string | undefined;
 
+  savedList: any;
+  likedTvShows: any;
+  getListEnd: boolean;
+  allMyTvShows: any[];
   // suscripciones
   onDestroy$: Subject<boolean> = new Subject();
   constructor(private _UserSvc: UserService, private _route: Router) {
@@ -40,10 +44,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.notFound = false;
     this.idTvShowSelected = 0;
     this.trailer = undefined;
+    this.getListEnd = false;
+    this.allMyTvShows = [];
   }
 
   ngOnInit(): void {
     this.getTvShow();
+    this.getLikedList();
+    this.getSavedList();
   }
 
   getFromLclStg(key: string): any {
@@ -67,11 +75,13 @@ export class HomeComponent implements OnInit, OnDestroy {
             : (this.notFound = false);
           this.tvShows = data.results;
           this.checkSavedLiked(this.tvShows);
+
           let firstElement = this.tvShows.shift();
           if (firstElement) {
             this.tvShowCover = firstElement;
             this.getTvShowTrailer(firstElement.id);
           }
+
           this.totalPages = data.total_pages;
           this.tvShows_toShow = this.tvShows;
           console.log(this.tvShows_toShow);
@@ -94,6 +104,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (type === 'like') {
       if (this.tvShowCover.isLiked) {
         console.log('Aqui endpoint de eliminar de liked');
+        this.onDeleteLikeTvShow(this.tvShowCover.id);
       } else {
         console.log('Listo endpoint de guardar en favoritos');
         this.onLikeTvShow(this.tvShowCover);
@@ -102,6 +113,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     } else {
       if (this.tvShowCover.isSaved) {
         console.log('Aqui endpoint de eliminar de saved');
+        this.onDeleteSavedTvShow(
+          this.tvShowCover.id,
+          this.tvShowCover.idListSaved
+        );
         this.tvShowCover.isSaved = !this.tvShowCover.isSaved;
       } else {
         this.tvShowCover.isSaved = !this.tvShowCover.isSaved;
@@ -116,19 +131,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       ? (this.tvShowCover.isSaved = !this.tvShowCover.isSaved)
       : (this.tvShowCover.isLiked = !this.tvShowCover.isLiked);
   }
-  onLikeTvShow(tv: TvShow) {
-    this._UserSvc
-      .likeTvShow(tv)
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe({
-        next: (data: any) => {
-          console.log('onLikeTvShow: ', data);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-  }
+
   loadMore() {
     if (this.loading) {
       return;
@@ -143,7 +146,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.onDestroy$))
         .subscribe({
           next: (data: PageTvShow) => {
-            this.tvShows.push(...data.results);
+            this.checkSavedLiked(data.results);
+            let newTvShows = this.findIfLikedOrSaved(data.results);
+            this.tvShows.push(...newTvShows);
             this.tvShows_toShow = this.tvShows;
             this.loading = false;
           },
@@ -246,6 +251,174 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
   Search(toSearchVal: string) {}
+  // like a serie
+  onLike(tv: any, isLiked: boolean) {
+    console.log(tv);
+
+    if (isLiked) {
+      //endp. eliminar like
+      tv.isLiked = false;
+      this.onDeleteLikeTvShow(tv.id);
+    } else {
+      //endp. guardar en favoritos - like
+      this.onLikeTvShow(tv);
+    }
+  }
+  onLikeTvShow(tv: TvShow) {
+    this._UserSvc
+      .likeTvShow(tv)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (data: any) => {
+          console.log('onLikeTvShow: ', data);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+
+  onDeleteLikeTvShow(id: number) {
+    this._UserSvc
+      .delteLikeTvShow(id)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (data: any) => {
+          console.log('delteLikeTvShow data: ', data);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+  //save a serie
+  onSave(tvShow: any, isSaved: boolean) {
+    if (isSaved) {
+      //endp. eliminar de guardados con id y id-list
+      this.onDeleteSavedTvShow(tvShow.id, tvShow.idListSaved);
+    } else {
+      this._route.navigate(['./lists/' + tvShow.id]);
+      //navegar a /lists/:id
+    }
+  }
+  onDeleteSavedTvShow(idTv: number, idListSaved: number) {
+    this._UserSvc
+      .deleteTvShowSaved(idTv, idListSaved)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (data: any) => {
+          console.log('deleteTvShowSaved data: ', data);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+  //Obtener todos los liked y saved para saber si esa serie ya esta guardada o likeada
+  getLikedList() {
+    this._UserSvc
+      .getLikedList()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (data: any) => {
+          // this.likedList = data.lists;
+          this.likedTvShows = data.series;
+          this.likedTvShows.map((tv: any) => {
+            tv.film.isLiked = true;
+            tv.film.isSaved = false;
+            tv.film.idListSaved = 0;
+            tv.film.idGeneral = tv.id;
+            tv.film.idListSaved = 0;
+          });
+          console.log('this.likedTvShows: ', this.likedTvShows);
+          if (this.getListEnd) {
+            // chekear coincidencias
+            this.checkMatches();
+          } else {
+            this.getListEnd = true;
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+
+  getSavedList() {
+    this._UserSvc
+      .getSavedList()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (data: any) => {
+          this.savedList = data;
+          for (let list of this.savedList) {
+            list.list_movies.map((tv: any) => {
+              tv.film.isLiked = false;
+              tv.film.isSaved = true;
+              tv.film.idListSaved = list.id;
+              tv.film.idGeneral = tv.id;
+            });
+          }
+
+          if (this.getListEnd) {
+            // chekear coincidencias
+            this.checkMatches();
+            console.log('matches ');
+          } else {
+            this.getListEnd = true;
+            console.log('no matches ');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+  checkMatches() {
+    for (let list of this.savedList) {
+      list.list_movies.map((tvSaved: any) => {
+        this.likedTvShows.map((tvLiked: any) => {
+          if (tvLiked.film.id === tvSaved.film.id) {
+            tvSaved.film.isLiked = true;
+            tvLiked.film.isSaved = true;
+            tvLiked.film.idListSaved = list.id;
+          }
+        });
+      });
+      this.allMyTvShows.push(...list.list_movies);
+    }
+    this.allMyTvShows.push(...this.likedTvShows);
+    console.log('this.allMyTvShows: ', this.allMyTvShows);
+    this.tvShows.unshift(this.tvShowCover);
+    this.tvShows = this.findIfLikedOrSaved(this.tvShows);
+    let firstElement = this.tvShows.shift();
+    if (firstElement) {
+      this.tvShowCover = firstElement;
+      this.getTvShowTrailer(firstElement.id);
+    }
+    this.tvShows_toShow = this.tvShows;
+  }
+  findIfLikedOrSaved(tvShowList: TvShow[]): TvShow[] {
+    for (let tv of this.allMyTvShows) {
+      tvShowList.map((tvShow: TvShow) => {
+        if (tv.film.id === tvShow.id) {
+          tvShow.isLiked = tv.film.isLiked;
+          tvShow.isLiked = tv.film.isLiked;
+          tvShow.isSaved = tv.film.isSaved;
+          tvShow.idListSaved = tv.film.idListSaved;
+        }
+      });
+    }
+    console.log('findIfLikedOrSaved() - tvShowList: ', tvShowList);
+    return tvShowList;
+  }
+  getTvShowToLikeFromCard(tv: TvShow) {
+    console.log('tvShowToLikeFromCardFromCard: ', tv);
+    this.onLike(tv, tv.isLiked);
+  }
+  getTvShowToSaveFromCard(tv: TvShow) {
+    this.onSave(tv, tv.isSaved);
+  }
   ngOnDestroy() {
     this.onDestroy$.next(true);
     // window.removeEventListener('scroll', this.onScroll.bind(this));

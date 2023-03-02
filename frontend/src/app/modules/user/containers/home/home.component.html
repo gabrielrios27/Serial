@@ -45,7 +45,7 @@
       <!-- SAVED ICON -->
       <a
         class="main__wrapperIcon"
-        routerLink="./../lists/{{ tvShowCover.id }}"
+        (click)="onSavedOrLikedCover('save')"
         [ngClass]="tvShowCover.isSaved ? 'main__wrapperIcon--active' : ''"
       >
         <svg
@@ -163,6 +163,8 @@
         [tvShow]="item"
         [idTvShowSelected]="idTvShowSelected"
         (idTvShow)="getIdTvShowSelected($event)"
+        (tvShowToLike)="getTvShowToLikeFromCard($event)"
+        (tvShowToSave)="getTvShowToSaveFromCard($event)"
       ></app-card>
     </ng-container>
     <h2 class="gallery__notMatches" *ngIf="notFound">No matches found</h2>

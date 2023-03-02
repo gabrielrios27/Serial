@@ -63,7 +63,7 @@ export interface TvShow {
   vote_count: number;
   isSaved: boolean;
   isLiked: boolean;
-  idListSaved?: number;
+  idListSaved: number;
   idGeneral: number;
 }
 

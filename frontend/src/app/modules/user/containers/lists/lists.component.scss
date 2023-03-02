@@ -117,6 +117,7 @@
 // -------------TYPE LIST------------------
 .typeList {
   width: 100%;
+  margin-bottom: 50px;
   .typeList__createContainer {
     cursor: pointer;
     width: 100%;
@@ -245,7 +246,7 @@
 .typeBlock {
   width: 100%;
   display: flex;
-
+  margin-bottom: 50px;
   flex-wrap: wrap;
   gap: 5px;
   margin-top: 27px;
