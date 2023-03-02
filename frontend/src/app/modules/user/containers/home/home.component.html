@@ -134,6 +134,29 @@
     [infiniteScrollThrottle]="1000"
     (scrolled)="loadMore()"
   >
+    <div class="searcherContainer">
+      <label class="searcher" for="search">
+        <label for="toSearch">
+          <img
+            class="icons searcher__ico"
+            src="../../../../../assets/icons/lists/search-white.svg"
+            alt="icon searcher"
+          />
+        </label>
+        <div class="searcher__containerInput">
+          <input
+            class="searcher__input"
+            type="text"
+            [(ngModel)]="toSearch"
+            (ngModelChange)="onSearch(toSearch)"
+            required
+            id="toSearch"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+      </label>
+    </div>
     <ng-container *ngFor="let item of tvShows_toShow">
       <app-card
         *ngIf="item.poster_path"

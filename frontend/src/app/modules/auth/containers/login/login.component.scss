@@ -45,6 +45,7 @@
     .main__clipPath {
       width: 100vw;
       height: calc(100vh - 62px);
+      -webkit-clip-path: polygon(61px 0, 100% 38%, 100% 100%, 0 100%, 0 24%);
       clip-path: polygon(61px 0, 100% 38%, 100% 100%, 0 100%, 0 24%);
       background-color: rgba(16, 69, 255, 0.5);
     }
@@ -115,7 +116,30 @@
   }
 }
 .logoContainer--expanse {
+  -webkit-animation: expanse 2s linear forwards;
   animation: expanse 2s linear forwards;
+}
+@-webkit-keyframes expanse {
+  0% {
+    max-width: 59px;
+    top: calc(50% - 28px - 21px);
+    left: calc(50% - 29px);
+  }
+  25% {
+    max-width: 59px;
+    top: calc(50% - 28px - 21px);
+    left: 0px;
+  }
+  75% {
+    max-width: 342px;
+    top: calc(50% - 28px - 21px);
+    left: 0px;
+  }
+  100% {
+    max-width: 342px;
+    top: 0px;
+    left: 0px;
+  }
 }
 @keyframes expanse {
   0% {
@@ -249,24 +273,25 @@
     position: relative;
 
     margin-top: 158px;
-
-    .login__title {
-      font-family: "HelveticaNeue-Bold";
-      font-size: 34px;
-      font-weight: 700;
-      margin-bottom: 21px;
+    .login__containerTitle {
       align-self: flex-start;
-    }
-    .login__extras {
-      padding: 5px 0;
-      cursor: pointer;
-      font-size: 16px;
-      align-self: flex-start;
-      font-family: "HelveticaNeue-Thin";
-      .login__extrasSpan {
+      .login__title {
         font-family: "HelveticaNeue-Bold";
-        padding-left: 5px;
-        // color: white;
+        font-size: 34px;
+        font-weight: 700;
+        margin-bottom: 21px;
+      }
+      .login__extras {
+        padding: 5px 0;
+        cursor: pointer;
+        font-size: 16px;
+        // align-self: flex-start;
+        font-family: "HelveticaNeue-Thin";
+        .login__extrasSpan {
+          font-family: "HelveticaNeue-Bold";
+          padding-left: 5px;
+          // color: white;
+        }
       }
     }
     .login__or {
@@ -419,5 +444,35 @@
     .login__container {
       margin-top: 0px;
     }
+  }
+}
+@media (min-width: 760px) {
+  .login {
+    .login__container {
+      .login__containerTitle {
+        align-self: center;
+        margin-right: 120px;
+      }
+    }
+  }
+  .form {
+    margin-top: 50px;
+    .form__submit {
+      width: 360px;
+    }
+  }
+  .googleBtn {
+    position: relative;
+    width: 360px;
+  }
+}
+@media (min-width: 769px) and (max-height: 780px) {
+  .login {
+    .login__container {
+      margin-top: 20px;
+    }
+  }
+  .form {
+    margin-top: 30px;
   }
 }

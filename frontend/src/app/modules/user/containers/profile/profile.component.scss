@@ -47,8 +47,43 @@
       cursor: pointer;
       width: 100px;
       height: 150px;
+      -o-object-fit: cover;
       object-fit: cover;
+      -o-object-position: center;
       object-position: center;
+    }
+  }
+}
+@media (min-width: 769px) {
+  .profile {
+    padding-top: 150px;
+    .profile__title {
+      font-size: 22px;
+    }
+    .profile__dataUser {
+      .profile__name {
+        font-size: 20px;
+      }
+      .profile__email {
+        font-size: 20px;
+      }
+      .profile__data {
+        font-size: 18px;
+      }
+    }
+  }
+  .tvShows {
+    .tvShows__title {
+      padding-left: 20px;
+      font-size: 22px;
+      padding: 10px;
+    }
+    .tvShows__coversContainer {
+      gap: 23px;
+      .tvShows__covers {
+        width: 200px;
+        height: 300px;
+      }
     }
   }
 }

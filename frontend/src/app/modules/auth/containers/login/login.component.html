@@ -93,13 +93,16 @@
   <section class="login" *ngIf="login">
     <div class="login__container">
       <ng-container *ngIf="!success">
-        <h2 class="login__title">Log in</h2>
-        <p class="login__extras" (click)="toogleLogin('register')">
-          Don’t have an account? <span class="login__extrasSpan">SIGN UP</span>
-        </p>
-        <p class="login__extras">
-          Forgot something? <span class="login__extrasSpan">RECOVER ID</span>
-        </p>
+        <div class="login__containerTitle">
+          <h2 class="login__title">Log in</h2>
+          <p class="login__extras" (click)="toogleLogin('register')">
+            Don’t have an account?
+            <span class="login__extrasSpan">SIGN UP</span>
+          </p>
+          <p class="login__extras">
+            Forgot something? <span class="login__extrasSpan">RECOVER ID</span>
+          </p>
+        </div>
         <form
           class="form"
           [formGroup]="form"

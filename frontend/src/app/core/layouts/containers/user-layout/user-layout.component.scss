@@ -6,6 +6,7 @@
   position: relative;
 
   .userLayout__logo {
+    display: block;
     cursor: pointer;
     position: fixed;
     top: 46px;
@@ -13,10 +14,45 @@
     z-index: 100;
     // width: 105px;
   }
+  .userLayout__logo--complete {
+    cursor: pointer;
+    position: fixed;
+    display: none;
+    top: 50px;
+    left: 60px;
+    width: 320px;
+    z-index: 100;
+  }
   .userLayout__navbar {
     position: fixed;
     bottom: 48px;
     left: 0;
     width: 100%;
+  }
+}
+@media (min-width: 769px) {
+  .userLayout {
+    height: auto;
+
+    padding: 0 60px;
+
+    .userLayout__logo {
+      display: none;
+    }
+    .userLayout__logo--complete {
+      display: inline-flex;
+      top: 50px;
+      left: 60px;
+      width: 320px;
+    }
+    .userLayout__navbar {
+      height: 48px;
+      position: fixed;
+      top: 50px;
+      left: auto;
+      right: 32px;
+      width: 100%;
+      max-width: 466px;
+    }
   }
 }

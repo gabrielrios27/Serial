@@ -2,10 +2,12 @@
   <!-- <h2 class="logo">SERIAL</h2> -->
   <div class="login__container">
     <ng-container *ngIf="!success">
-      <h2 class="login__title">Sign up</h2>
-      <p class="login__extras" (click)="toogleLogin('login')">
-        Already have an account? <span class="login__extrasSpan">LOG IN</span>
-      </p>
+      <div class="login__containerTitle">
+        <h2 class="login__title">Sign up</h2>
+        <p class="login__extras" (click)="toogleLogin('login')">
+          Already have an account? <span class="login__extrasSpan">LOG IN</span>
+        </p>
+      </div>
       <form
         class="form"
         [formGroup]="form"

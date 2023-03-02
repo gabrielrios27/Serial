@@ -11,13 +11,17 @@
     .card__face {
       position: absolute;
 
+      -webkit-backface-visibility: hidden;
+
       backface-visibility: hidden;
       width: 100px;
       height: 150px;
       .card__img {
         width: 100px;
         height: 150px;
+        -o-object-fit: cover;
         object-fit: cover;
+        -o-object-position: center;
         object-position: center;
       }
     }
@@ -101,5 +105,31 @@
     display: flex;
     justify-content: space-evenly;
     width: 100%;
+  }
+}
+@media (min-width: 769px) {
+  .scene {
+    width: 180px;
+    height: 275px;
+
+    .card {
+      .card__face {
+        width: 180px;
+        height: 275px;
+        .card__img {
+          width: 180px;
+          height: 275px;
+        }
+      }
+    }
+  }
+  .card__container {
+    width: 180px;
+
+    .card__containerIcon {
+      .card__icon {
+        width: 70px;
+      }
+    }
   }
 }

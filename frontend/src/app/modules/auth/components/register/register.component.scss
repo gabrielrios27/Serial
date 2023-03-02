@@ -12,22 +12,25 @@
     position: relative;
 
     margin-top: 158px;
-    .login__title {
-      font-family: "HelveticaNeue-Bold";
-      font-size: 34px;
-      font-weight: 700;
-      margin-bottom: 21px;
+    .login__containerTitle {
       align-self: flex-start;
-    }
-    .login__extras {
-      padding: 5px 0;
-      cursor: pointer;
-      font-size: 16px;
-      align-self: flex-start;
-      font-family: "HelveticaNeue-Thin";
-      .login__extrasSpan {
+      .login__title {
         font-family: "HelveticaNeue-Bold";
-        padding-left: 5px;
+        font-size: 34px;
+        font-weight: 700;
+        margin-bottom: 21px;
+        align-self: flex-start;
+      }
+      .login__extras {
+        padding: 5px 0;
+        cursor: pointer;
+        font-size: 16px;
+        align-self: flex-start;
+        font-family: "HelveticaNeue-Thin";
+        .login__extrasSpan {
+          font-family: "HelveticaNeue-Bold";
+          padding-left: 5px;
+        }
       }
     }
     .login__or {
@@ -188,5 +191,35 @@
     .login__container {
       margin-top: 0px;
     }
+  }
+}
+@media (min-width: 760px) {
+  .login {
+    .login__container {
+      .login__containerTitle {
+        align-self: center;
+        margin-right: 120px;
+      }
+    }
+  }
+  .form {
+    margin-top: 35px;
+    .form__submit {
+      width: 360px;
+    }
+  }
+  .googleBtn {
+    position: relative;
+    width: 360px;
+  }
+}
+@media (min-width: 769px) and (max-height: 780px) {
+  .login {
+    .login__container {
+      margin-top: 20px;
+    }
+  }
+  .form {
+    margin-top: 20px;
   }
 }
