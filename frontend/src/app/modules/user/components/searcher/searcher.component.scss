@@ -54,7 +54,6 @@
 .searcher__input:-webkit-autofill:hover,
 .searcher__input:-webkit-autofill:focus,
 .searcher__input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px #0f1627 inset !important;
   box-shadow: 0 0 0 30px #0f1627 inset !important;
 }
 .searcher__input:-webkit-autofill {
@@ -63,5 +62,10 @@
 @media (max-width: 576px) {
   .searcher__containerInput {
     width: 220px;
+  }
+}
+@media (min-width: 769px) {
+  .searcher {
+    display: none;
   }
 }

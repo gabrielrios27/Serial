@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   translatePaginationString: string = '0px';
   toSearch: string = '';
   quantity: number = 0;
-  genres: Genre[];
 
   loading = false;
   openSearch: boolean;
@@ -37,72 +36,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   // suscripciones
   onDestroy$: Subject<boolean> = new Subject();
   constructor(private _UserSvc: UserService, private _route: Router) {
-    this.genres = [
-      {
-        id: 37,
-        name: 'Western',
-      },
-      {
-        id: 10768,
-        name: 'War & Politics',
-      },
-      {
-        id: 10767,
-        name: 'Talk',
-      },
-      {
-        id: 10766,
-        name: 'Soap',
-      },
-      {
-        id: 10765,
-        name: 'Sci-Fi & Fantasy',
-      },
-      {
-        id: 10764,
-        name: 'Reality',
-      },
-      {
-        id: 10763,
-        name: 'News',
-      },
-      {
-        id: 9648,
-        name: 'Mystery',
-      },
-      {
-        id: 10762,
-        name: 'Kids',
-      },
-      {
-        id: 10751,
-        name: 'Family',
-      },
-      {
-        id: 18,
-        name: 'Drama',
-      },
-      {
-        id: 99,
-        name: 'Documentary',
-      },
-      {
-        id: 80,
-        name: 'Crime',
-      },
-      {
-        id: 35,
-        name: 'Comedy',
-      },
-      {
-        id: 16,
-        name: 'Animation',
-      },
-      {
-        id: 10759,
-        name: 'Action & Adventure',
-      },
-    ];
     this.openSearch = false;
     this.notFound = false;
     this.idTvShowSelected = 0;
@@ -145,9 +78,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           console.log(err);
-        },
-        complete: () => {
-          this.namedGenre(this.genres, this.tvShows_toShow);
         },
       });
   }
@@ -219,9 +149,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           },
           error: (err) => {
             console.log(err);
-          },
-          complete: () => {
-            this.namedGenre(this.genres, this.tvShows_toShow);
           },
         });
     } else {
@@ -318,7 +245,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         },
       });
   }
-
+  Search(toSearchVal: string) {}
   ngOnDestroy() {
     this.onDestroy$.next(true);
     // window.removeEventListener('scroll', this.onScroll.bind(this));
