@@ -466,3 +466,13 @@
     width: 360px;
   }
 }
+@media (min-width: 769px) and (max-height: 780px) {
+  .login {
+    .login__container {
+      margin-top: 20px;
+    }
+  }
+  .form {
+    margin-top: 30px;
+  }
+}

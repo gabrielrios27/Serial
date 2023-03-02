@@ -354,3 +354,18 @@
     -webkit-text-fill-color: #000000 !important;
   }
 }
+@media (min-width: 769px) and (max-height: 780px) {
+  .main {
+    .main__containerCover {
+      height: 355px;
+    }
+  }
+  .user {
+    .cover {
+      .cover__img {
+        width: 260px;
+        height: 355px;
+      }
+    }
+  }
+}

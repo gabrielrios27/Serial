@@ -326,6 +326,17 @@
     .mainContainer__title {
       font-size: 22px;
     }
+    .mainContainer__btnContainer {
+      margin: 31px auto;
+      .mainContainer__btn {
+        width: 200px;
+        height: 35px;
+        font-size: 20px;
+      }
+      .mainContainer__btn--active {
+        background: #ddff7c;
+      }
+    }
   }
   .searcher__input {
     font-size: 20px;
@@ -399,5 +410,26 @@
     &:hover {
       background-color: #1d1d1dc5;
     }
+  }
+  .searcherContainer {
+    height: 40px;
+
+    .searcherContainer__iconsContainer {
+      width: 65px;
+
+      .searcherContainer__icon {
+        height: 44px;
+      }
+      .searcherContainer__icon--block {
+        height: 30px;
+        margin-top: 2px;
+      }
+      .searcherContainer__icon--list {
+        margin-top: 3px;
+      }
+    }
+  }
+  .searcher__ico {
+    width: 31px;
   }
 }

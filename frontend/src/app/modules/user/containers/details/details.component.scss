@@ -488,3 +488,11 @@
     }
   }
 }
+@media (min-width: 769px) and (max-height: 780px) {
+  .main {
+    .main__containerCover {
+      width: 260px;
+      height: 355px;
+    }
+  }
+}
