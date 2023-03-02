@@ -309,13 +309,11 @@ export class UserService {
       'Authorization',
       `Bearer ${token}`
     );
-    let params = new HttpParams().set('id', id.toString());
 
     return this._http.delete<any>(
-      this.baseUrlBack + this.epDeleteListComplete,
+      this.baseUrlBack + this.epDeleteListComplete + id,
       {
         headers: headersBack,
-        params: params,
       }
     );
   }
