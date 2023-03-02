@@ -30,6 +30,7 @@ export class UserService {
   epAddTvShow: string;
   epDeleteLike: string;
   epDeleteSaved: string;
+  epDeleteListComplete: string;
   constructor(private _http: HttpClient) {
     this.baseUrlBack = 'https://serial-backend.onrender.com/';
     this.epSavedList = 'list/client/all';
@@ -42,6 +43,7 @@ export class UserService {
     this.epAddTvShow = 'list/add';
     this.epDeleteLike = 'like/remove';
     this.epDeleteSaved = 'list/remove';
+    this.epDeleteListComplete = 'list/remove/';
   }
   getUserToken() {
     let tokenJSON = localStorage.getItem('user');
@@ -293,5 +295,28 @@ export class UserService {
     return this._http.post<any>(this.baseUrlBack + this.epCreateList, body, {
       headers: headersBack,
     });
+  }
+  deleteListComplete(id: number): Observable<any> {
+    console.log('svc deleteListComplete', id);
+    let userJson = localStorage.getItem('user');
+
+    if (userJson) {
+      this.user = JSON.parse(userJson);
+    }
+    const token = this.user.token;
+
+    const headersBack = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${token}`
+    );
+    let params = new HttpParams().set('id', id.toString());
+
+    return this._http.delete<any>(
+      this.baseUrlBack + this.epDeleteListComplete,
+      {
+        headers: headersBack,
+        params: params,
+      }
+    );
   }
 }

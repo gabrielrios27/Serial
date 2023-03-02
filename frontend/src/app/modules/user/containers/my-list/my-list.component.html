@@ -53,7 +53,7 @@
           </svg>
         </div> -->
         <!-- Icono de guardar lista -->
-        <!-- <div
+        <div
           class="details__iconWrapper"
           [ngClass]="isTypeSaved ? 'details__iconWrapper--blue ' : ''"
           (click)="toogleModalDelete(true)"
@@ -76,7 +76,7 @@
               />
             </g>
           </svg>
-        </div> -->
+        </div>
       </div>
     </div>
     <div class="details__infoContainer">
@@ -310,6 +310,6 @@
   *ngIf="isDeleteItem"
   [idList]="idList"
   [listName]="nameList"
-  (isDeleteItem)="isDelete($event)"
+  (isDeleteItem)="isDeleteList($event)"
 >
 </app-modal-delete>

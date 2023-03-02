@@ -417,18 +417,33 @@ export class MyListComponent implements OnInit {
   toogleModalDelete(value: boolean) {
     this.isDeleteItem = value;
   }
-  isDelete(event: boolean) {
+  isDeleteList(event: boolean) {
     if (event) {
       console.log('Aqui endp. eliminar lista'); //-------------------------------
       // Al terminar navegar a list
-      this._route.navigate(['./lists']);
+      this.onDeleteListComplete(this.idList);
     } else {
-      console.log('Lista eliminada');
+      console.log('Lista no fue eliminada');
       this.isDeleteItem = false;
     }
   }
   onDeleteItem() {
-    this.isDeleteItem = true;
+    //para modal de eliminar lista
+    this.isDeleteItem = true; // isDeleteItem controla la aparicion o no del modal de eliminar lista
+  }
+  onDeleteListComplete(id: number) {
+    this._UserSvc
+      .deleteListComplete(id)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe({
+        next: (data: any) => {
+          console.log('onDeleteListComplete() data: ', data);
+          this._route.navigate(['./lists']);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
   onLikeFromCard(tv: any, isLiked: boolean) {
     console.log(tv);
