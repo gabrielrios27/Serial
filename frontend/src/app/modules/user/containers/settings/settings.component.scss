@@ -28,3 +28,19 @@
     }
   }
 }
+@media (min-width: 769px) {
+  .settings {
+    padding-top: 150px;
+    // align-items: flex-start;
+    .settings__title {
+      font-size: 24px;
+      margin-bottom: 96px;
+    }
+
+    .settings__container {
+      width: 100%;
+      max-width: 500px;
+      align-self: center;
+    }
+  }
+}
