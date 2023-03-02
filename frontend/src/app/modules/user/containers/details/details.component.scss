@@ -42,6 +42,7 @@
     align-items: center;
     gap: 11px;
     .main__wrapperIcon {
+      cursor: pointer;
       width: 46px;
       height: 46px;
       background-color: white;
@@ -55,16 +56,11 @@
       .main__icon--play {
         margin-left: 5px;
       }
-      &:active {
-        background-color: #506cff;
-        .main__icon {
-          g {
-            fill: white;
-          }
-          path {
-            fill: white;
-          }
-        }
+    }
+    .main__wrapperIcon--selected {
+      background-color: #506cff;
+      g {
+        fill: white;
       }
     }
   }
@@ -339,7 +335,7 @@
       .main__wrapperIcon {
         width: 46px;
         height: 46px;
-        background-color: white;
+
         display: flex;
         justify-content: center;
         align-items: center;

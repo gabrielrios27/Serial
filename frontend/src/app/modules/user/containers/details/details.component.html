@@ -11,7 +11,11 @@
     <!-- <h1 class="main__title">{{ tvShow.name }}</h1> -->
     <div class="main__containerIcons">
       <!-- LIKED -->
-      <a class="main__wrapperIcon">
+      <a
+        class="main__wrapperIcon"
+        (click)="onLike(tvShow, likeTv)"
+        [ngClass]="likeTv ? 'main__wrapperIcon--selected' : ''"
+      >
         <svg
           class="main__icon"
           version="1.0"
@@ -34,7 +38,11 @@
         </svg>
       </a>
       <!-- SAVED -->
-      <a class="main__wrapperIcon" routerLink="./../../lists/{{ tvShow.id }}">
+      <a
+        class="main__wrapperIcon"
+        (click)="onSave(tvShow, saveTv)"
+        [ngClass]="saveTv ? 'main__wrapperIcon--selected' : ''"
+      >
         <svg
           class="main__icon"
           version="1.0"
@@ -81,7 +89,7 @@
           </svg>
         </a>
       </div>
-      <!-- INFO -->
+      <!-- INFO - para escalar app -->
       <!-- <div class="main__wrapperIcon">
         <svg
           class="main__icon"
@@ -97,7 +105,7 @@
           />
         </svg>
       </div> -->
-      <!-- SHARED -->
+      <!-- SHARED - para escalar app -->
       <!-- <div class="main__wrapperIcon">
         <svg
           class="main__icon"
