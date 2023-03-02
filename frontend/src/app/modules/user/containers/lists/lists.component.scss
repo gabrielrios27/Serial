@@ -373,6 +373,28 @@
         -o-object-position: center;
         object-position: center;
       }
+      .saveCover {
+        &:hover .saveCover__icon {
+          path {
+            fill: #1045ff;
+          }
+        }
+        .saveCover__icon {
+          width: 40px;
+          height: 40px;
+        }
+        .saveCover__success {
+          .saveCover__successIco {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 15px;
+          }
+          .saveCover__successText {
+            text-align: center;
+            font-size: 18px;
+          }
+        }
+      }
     }
   }
   // -------------TYPE LIST------------------
@@ -410,6 +432,46 @@
 
     &:hover {
       background-color: #1d1d1dc5;
+    }
+    .list__containerImg {
+      width: 90px;
+      height: 120px;
+
+      margin-right: 20px;
+      .list__img {
+        width: 40px;
+        height: 60px;
+      }
+      .list__img--alone {
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+        -o-object-position: center;
+        object-position: center;
+      }
+      .saveCover {
+        width: 100%;
+        height: 100%;
+
+        .saveCover__icon {
+          width: 40px;
+          height: 40px;
+        }
+        .saveCover__success {
+          .saveCover__successIco {
+            width: 25px;
+            margin-bottom: 10px;
+          }
+          .saveCover__successText {
+            text-align: center;
+            font-size: 18px;
+          }
+        }
+      }
+      .saveCover--added {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
     }
   }
   .searcherContainer {
