@@ -137,6 +137,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       return;
     }
     this.loading = true;
+    console.log('Load more.....');
 
     if (this.toSearch === '') {
       this.pageSelected += 1;
@@ -293,7 +294,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (isLiked) {
       this.onDeleteLikeTvShow(tv.id);
     } else {
-      this.onLikeTvShow(tv);
+      // this.onLikeTvShow(tv);
+      console.log('estoy en home - se debe likear en el card ');
     }
     console.log('Despues de like this.tvShows: ', this.tvShows);
     console.log('Despues de like this.tvShows_toShow: ', this.tvShows_toShow);
@@ -331,7 +333,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       //endp. eliminar de guardados con id y id-list
       this.onDeleteSavedTvShow(tvShow.id, tvShow.idListSaved);
     } else {
-      this._route.navigate(['./lists/' + tvShow.id]);
+      // this._route.navigate(['./lists/' + tvShow.id]);
       //navegar a /lists/:id
     }
   }

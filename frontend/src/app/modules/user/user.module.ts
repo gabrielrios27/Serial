@@ -18,6 +18,7 @@ import { ModalDeleteComponent } from './components/modal-delete/modal-delete.com
 import { SettingsComponent } from './containers/settings/settings.component';
 import { ActivityComponent } from './containers/activity/activity.component';
 import { ProfileComponent } from './containers/profile/profile.component';
+import { ActivitiesComponent } from './containers/activities/activities.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ProfileComponent } from './containers/profile/profile.component';
     SettingsComponent,
     ActivityComponent,
     ProfileComponent,
+    ActivitiesComponent,
   ],
   imports: [
     CommonModule,

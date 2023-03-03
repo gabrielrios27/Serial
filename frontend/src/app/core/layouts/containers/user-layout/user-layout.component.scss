@@ -38,8 +38,8 @@
 @media (min-width: 769px) {
   .userLayout {
     width: 100%;
-    overflow-y: scroll;
-    height: auto;
+    // overflow-y: scroll;
+    max-height: auto;
     padding: 0 60px;
     .userLayout__logo {
       display: none;

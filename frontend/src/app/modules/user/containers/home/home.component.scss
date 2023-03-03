@@ -1,7 +1,7 @@
 .user {
   background-color: black;
   width: 100%;
-  min-height: 100vh;
+  // height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -197,6 +197,7 @@
     justify-content: flex-end;
     padding-top: 150px;
     position: relative;
+
     .cover {
       position: fixed;
       top: 150px;
@@ -265,9 +266,9 @@
   }
   .gallery {
     width: 59%;
-
+    margin-bottom: 0;
     margin-top: 0px;
-    margin-bottom: 90px;
+    // margin-bottom: 90px;
     gap: 20px;
 
     .gallery__notMatches {

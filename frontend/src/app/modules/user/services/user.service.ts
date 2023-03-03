@@ -31,6 +31,7 @@ export class UserService {
   epDeleteLike: string;
   epDeleteSaved: string;
   epDeleteListComplete: string;
+  epActivity: string;
   constructor(private _http: HttpClient) {
     this.baseUrlBack = 'https://serial-backend.onrender.com/';
     this.epSavedList = 'list/client/all';
@@ -44,6 +45,7 @@ export class UserService {
     this.epDeleteLike = 'like/remove';
     this.epDeleteSaved = 'list/remove';
     this.epDeleteListComplete = 'list/remove/';
+    this.epActivity = 'activity';
   }
   getUserToken() {
     let tokenJSON = localStorage.getItem('user');
@@ -146,7 +148,7 @@ export class UserService {
     return this._http.get<any>(this.baseUrlBack + this.epSavedList, {
       headers: headersBack,
     });
-  } ///tv/{tv_id}/videos
+  }
   getTvShowTrailer(id: number): Observable<any> {
     let params = new HttpParams().set('language', 'en');
 
@@ -316,5 +318,23 @@ export class UserService {
         headers: headersBack,
       }
     );
+  }
+  getActivities(): Observable<any> {
+    console.log('svc SavedList');
+    let tokenJSON = localStorage.getItem('user');
+
+    if (tokenJSON) {
+      this.user = JSON.parse(tokenJSON);
+    }
+    const token = this.user.token;
+
+    const headersBack = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${token}`
+    );
+
+    return this._http.get<any>(this.baseUrlBack + this.epActivity, {
+      headers: headersBack,
+    });
   }
 }

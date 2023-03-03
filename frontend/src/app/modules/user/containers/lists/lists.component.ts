@@ -1,5 +1,5 @@
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
 import { TvShow } from './../../interfaces/user';
@@ -10,7 +10,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './lists.component.html',
   styleUrls: ['./lists.component.scss'],
 })
-export class ListsComponent implements OnInit {
+export class ListsComponent implements OnInit, OnDestroy {
   toSearch: string;
   btnSaved: boolean;
   isTypeList: boolean;

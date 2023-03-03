@@ -1,1 +1,8 @@
-<div class="main"></div>
+<div class="main">
+  <h2 class="main__title">Your recent Activities:</h2>
+  <ol>
+    <li class="main__activity" *ngFor="let activity of activitiesList">
+      {{ activity.title }}
+    </li>
+  </ol>
+</div>
