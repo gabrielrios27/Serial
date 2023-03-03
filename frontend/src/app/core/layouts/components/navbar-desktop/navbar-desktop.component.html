@@ -1,0 +1,74 @@
+<div
+  class="navbarContainer"
+  [ngClass]="navbarOpen ? '' : 'navbarContainer--close'"
+>
+  <div class="navbar">
+    <a
+      (click)="onOption(1); toogleNavbar()"
+      [ngClass]="selected === 1 ? 'zIndex20' : ''"
+      class="linkTool linkTool__home"
+      routerLink="./home"
+      routerLinkActive="linkTool--active"
+    >
+      <img
+        class="linkTool__img"
+        src="../../../../../assets/icons/home.svg"
+        alt="home"
+      />
+    </a>
+    <a
+      (click)="onOption(2); toogleNavbar()"
+      [ngClass]="selected === 2 ? 'zIndex20' : ''"
+      class="linkTool"
+      routerLink="./settings"
+      routerLinkActive="linkTool--active"
+    >
+      <img
+        class="linkTool__img"
+        src="../../../../../assets/icons/settings.svg"
+        alt="settings"
+      />
+    </a>
+    <a
+      (click)="onOption(3); toogleNavbar()"
+      [ngClass]="selected === 3 ? 'zIndex20' : ''"
+      class="linkTool"
+      routerLink="./lists"
+      routerLinkActive="linkTool--active"
+      ><img
+        class="linkTool__img--list"
+        src="../../../../../assets/icons/list.svg"
+        alt="list"
+    /></a>
+    <a
+      (click)="onOption(4); toogleNavbar()"
+      [ngClass]="selected === 4 ? 'zIndex20' : ''"
+      class="linkTool"
+      routerLink="./activities"
+      routerLinkActive="linkTool--active"
+      ><img
+        class="linkTool__img--activity"
+        src="../../../../../assets/icons/activity.svg"
+        alt="activity"
+    /></a>
+    <a
+      (click)="onOption(5); toogleNavbar()"
+      [ngClass]="selected === 5 ? 'zIndex20' : ''"
+      class="linkTool"
+      routerLink="./profile"
+      routerLinkActive="linkTool--active"
+      ><img
+        class="linkTool__img--profile"
+        src="../../../../../assets/icons/profile.svg"
+        alt="profile"
+    /></a>
+    <div class="navbar__screenSelected" (click)="toogleNavbar()">
+      <h2
+        class="navbar__screenText"
+        [ngClass]="showText ? '' : 'navbar__screenText--hide'"
+      >
+        {{ screenSelected }}
+      </h2>
+    </div>
+  </div>
+</div>

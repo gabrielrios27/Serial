@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MyNewListComponent } from './my-new-list.component';
+import { NavbarDesktopComponent } from './navbar-desktop.component';
 
-describe('MyNewListComponent', () => {
-  let component: MyNewListComponent;
-  let fixture: ComponentFixture<MyNewListComponent>;
+describe('NavbarDesktopComponent', () => {
+  let component: NavbarDesktopComponent;
+  let fixture: ComponentFixture<NavbarDesktopComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MyNewListComponent ]
+      declarations: [ NavbarDesktopComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MyNewListComponent);
+    fixture = TestBed.createComponent(NavbarDesktopComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

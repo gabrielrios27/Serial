@@ -1,0 +1,287 @@
+.navbarContainer {
+  position: relative;
+  right: 24px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 440px;
+  height: 52px;
+  transition: all 1s linear;
+  .linkTool {
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+    z-index: 10;
+    box-sizing: content-box;
+    transition: all 1s linear;
+    &:nth-child(1) {
+      right: 354px;
+      -webkit-animation: mover1-back 1s forwards;
+      animation: mover1-back 1s forwards;
+    }
+    &:nth-child(2) {
+      right: 266px;
+      -webkit-animation: mover2-back 1s forwards;
+      animation: mover2-back 1s forwards;
+    }
+    &:nth-child(3) {
+      right: 178px;
+      -webkit-animation: mover3-back 1s forwards;
+      animation: mover3-back 1s forwards;
+    }
+    &:nth-child(4) {
+      right: 90px;
+      -webkit-animation: mover4-back 1s forwards;
+      animation: mover4-back 1s forwards;
+    }
+    &:nth-child(5) {
+      right: 4px;
+    }
+  }
+}
+
+.navbarContainer--close {
+  //   max-width: 88px;
+  //   -webkit-clip-path: polygon(352px 0, 100% 0, 100% 100%, 352px 100%);
+  //   clip-path: polygon(352px 0, 100% 0, 100% 100%, 352px 100%);
+  .linkTool {
+    &:nth-child(1) {
+      -webkit-animation: mover1 1s forwards;
+      animation: mover1 1s forwards;
+    }
+    &:nth-child(2) {
+      -webkit-animation: mover2 1s forwards;
+      animation: mover2 1s forwards;
+    }
+    &:nth-child(3) {
+      -webkit-animation: mover3 1s forwards;
+      animation: mover3 1s forwards;
+    }
+    &:nth-child(4) {
+      -webkit-animation: mover4 1s forwards;
+      animation: mover4 1s forwards;
+    }
+  }
+}
+@-webkit-keyframes mover1 {
+  from {
+    right: 354px;
+  }
+  to {
+    right: 4px;
+  }
+}
+@keyframes mover1 {
+  from {
+    right: 352px;
+  }
+  to {
+    right: 4px;
+  }
+}
+@-webkit-keyframes mover1-back {
+  from {
+    right: 4px;
+  }
+  to {
+    right: 354px;
+  }
+}
+@keyframes mover1-back {
+  from {
+    right: 4px;
+  }
+  to {
+    right: 354px;
+  }
+}
+@-webkit-keyframes mover2 {
+  from {
+    right: 266px;
+  }
+  to {
+    right: 4px;
+  }
+}
+@keyframes mover2 {
+  from {
+    right: 266px;
+  }
+  to {
+    right: 4px;
+  }
+}
+@-webkit-keyframes mover2-back {
+  from {
+    right: 4px;
+  }
+  to {
+    right: 266px;
+  }
+}
+@keyframes mover2-back {
+  from {
+    right: 4px;
+  }
+  to {
+    right: 266px;
+  }
+}
+@-webkit-keyframes mover3 {
+  from {
+    right: 178px;
+  }
+  to {
+    right: 4px;
+  }
+}
+@keyframes mover3 {
+  from {
+    right: 178px;
+  }
+  to {
+    right: 4px;
+  }
+}
+@-webkit-keyframes mover3-back {
+  from {
+    right: 4px;
+  }
+  to {
+    right: 178px;
+  }
+}
+@keyframes mover3-back {
+  from {
+    right: 4px;
+  }
+  to {
+    right: 178px;
+  }
+}
+@-webkit-keyframes mover4 {
+  from {
+    right: 90px;
+  }
+  to {
+    right: 4px;
+  }
+}
+@keyframes mover4 {
+  from {
+    right: 90px;
+  }
+  to {
+    right: 4px;
+  }
+}
+@-webkit-keyframes mover4-back {
+  from {
+    right: 4px;
+  }
+  to {
+    right: 90px;
+  }
+}
+@keyframes mover4-back {
+  from {
+    right: 4px;
+  }
+  to {
+    right: 90px;
+  }
+}
+@-webkit-keyframes mover5 {
+  from {
+    right: 4px;
+  }
+  to {
+    right: 4px;
+  }
+}
+@keyframes mover5 {
+  from {
+    right: 4px;
+  }
+  to {
+    right: 4px;
+  }
+}
+
+.navbar {
+  width: 440px;
+  height: 55px;
+
+  padding: 0 28px;
+  overflow: hidden;
+  .navbar__screenSelected {
+    cursor: pointer;
+    position: absolute;
+    right: 41px;
+    top: 5px;
+    height: 42px;
+    overflow: hidden;
+    .navbar__screenText {
+      padding: 10px 30px;
+      font-size: 20px;
+      color: #ddff7c;
+      transition: all 0.6s ease;
+    }
+    .navbar__screenText--hide {
+      transform: translateX(160px);
+    }
+  }
+  .linkTool {
+    margin-top: 2px;
+    text-decoration: none;
+    width: 48px;
+    height: 48px;
+    background-color: white;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    .linkTool__img {
+      width: 38px;
+      margin-right: 1px;
+    }
+    .linkTool__img--list {
+      margin-right: 15px;
+      width: 40px;
+    }
+    .linkTool__img--activity {
+      width: 74px;
+    }
+    .linkTool__img--profile {
+      height: 32px;
+      align-self: flex-end;
+    }
+  }
+  .linkTool--active {
+    background-color: #ddff7c;
+    // transform: translateX();
+  }
+}
+@-webkit-keyframes moverText {
+  from {
+    right: 4px;
+  }
+  to {
+    right: 4px;
+  }
+}
+@keyframes moverText {
+  from {
+    right: 4px;
+  }
+  to {
+    right: 4px;
+  }
+}
+.navbarContainer {
+  .zIndex20 {
+    z-index: 20;
+    transform: scale(1.05);
+  }
+}

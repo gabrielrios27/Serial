@@ -24,22 +24,23 @@
     z-index: 100;
   }
   .userLayout__navbar {
+    display: block;
     position: fixed;
     bottom: 48px;
     left: 0;
     width: 100%;
   }
-  .userRoute {
-    max-width: 1450px;
-    margin: auto;
+  .userLayout__navbar--desktop {
+    display: none;
   }
 }
+
 @media (min-width: 769px) {
   .userLayout {
+    width: 100%;
+    overflow-y: scroll;
     height: auto;
-
     padding: 0 60px;
-
     .userLayout__logo {
       display: none;
     }
@@ -50,13 +51,17 @@
       width: 320px;
     }
     .userLayout__navbar {
+      display: none;
+    }
+    .userLayout__navbar--desktop {
+      display: block;
       height: 48px;
       position: fixed;
       top: 50px;
       left: auto;
       right: 32px;
       width: 100%;
-      max-width: 466px;
+      max-width: 440px;
     }
   }
 }
