@@ -5,21 +5,215 @@
       <p class="settings__option">Sign out</p>
       <p>></p>
     </div>
-    <!-- <div class="settings__containerOption">
-      <p class="settings__option">Email adress</p>
-      <p>></p>
-    </div>
-    <div class="settings__containerOption">
-      <p class="settings__option">Change password</p>
-      <p>></p>
-    </div> -->
-    <div class="settings__containerOption">
+    <div class="settings__containerOption" (click)="toogleModalPolicity()">
       <p class="settings__option">Privacy policy</p>
       <p>></p>
     </div>
-    <div class="settings__containerOption">
+    <div class="settings__containerOption" (click)="toogleModaltermsOfUse()">
       <p class="settings__option">Terms of use</p>
       <p>></p>
     </div>
+  </div>
+  <div class="modal" *ngIf="terms">
+    <img
+      src="../../../../../assets/icons/close.svg"
+      (click)="toogleModaltermsOfUse()"
+      class="modal__close"
+      alt=""
+    />
+    <h5 class="modal__title">TERMS OF USE</h5>
+    <p class="modal__description">
+      By accessing and using SERIAL and any other site, application, API or
+      embedded content owned or operated by SERIAL Limited (the “Service”), you
+      accept and agree to be bound by the following terms and conditions
+      (“Terms”):<br /><br />
+      Use: You may only use the Service in accordance with these Terms. All
+      rights not expressly granted to you in these Terms are reserved by us.<br /><br />
+      Responsibility: You will be responsible for all activity that occurs as a
+      result of your use of the Service. We disclaim any and all liability
+      (including for negligence) for the content, opinions, statements or other
+      information posted to, or use of, the Service by its users.<br /><br />
+      Provision of information: In order to use the services provided on the
+      Service, you must be at least 16 years of age. When you register to use
+      the Service, you agree to provide true, accurate, current and complete
+      information about yourself as prompted by the Service (“Registration
+      Information”), and to maintain and promptly update your Registration
+      Information in order to ensure that it remains true, accurate, current and
+      complete. <br /><br />Community policy: You must be courteous and
+      respectful of others’ opinions, and you must not post unwelcome,
+      aggressive, suggestive or otherwise inappropriate remarks directed at
+      another member of the Service. Read our full policy. <br /><br />
+      Conduct: You must not use the Service to promote, engage in or incite
+      hate, violence, discrimination or intolerance, including based on race,
+      age, gender, gender identity, ethnicity, religion, disability, sexual
+      orientation or other protected attribute. <br /><br />We reserve the right
+      to remove content that has the potential to harm communities we consider
+      worthy of protection. We reserve the right to consider off-platform
+      behavior as part of our moderating process. You must not use the Service
+      (or encourage others to use the Service) to create multiple accounts,
+      deceive or mislead other users, disrupt discussions, circumvent account
+      blocks, game the Service’s mechanics, alter consensus, participate in
+      orchestrated attacks against films or filmmakers, post spam or otherwise
+      violate our community policy.<br /><br />
+      You must not follow an excessively high number of accounts (or like an
+      excessive number of reviews or lists) in order to generate reciprocal
+      follows or likes and thereby manipulate your account’s popularity.
+      <br /><br />No malicious use: You agree to access the Service through the
+      interface we provide. You must not use the Service for any malicious
+      means, or abuse, harass, threaten, intimidate or impersonate any other
+      user of the Service or any Serial employee. <br /><br />You must not
+      request or attempt to solicit personal or identifying information from
+      another member of the Service. You must not mislead the Service’s support
+      or moderation representatives, such as by making false or malicious
+      reports about other members or their content, or by sending (or
+      encouraging others to send) multiple reports regarding the same content or
+      issue. Such behaviors may result in action being taken on your account.<br /><br />
+      No illegal use: You must not use the Service for any unlawful purpose, or
+      post any information that is in breach of any confidentiality obligation,
+      copyright, trade mark or other intellectual property or proprietary rights
+      of any person. Removal of content: We reserve the right to remove any
+      content posted to the Service that we consider (in our absolute
+      discretion) to be offensive, objectionable, unlawful, explicit, graphic or
+      otherwise in breach of these Terms, including content that expressly (or
+      implicitly, through coded language, symbol, keywords or tags) praises,
+      supports, promotes or represents white-nationalist or neighboring
+      ideologies. <br /><br />We reserve the right to remove any content posted
+      to the Service that disseminates misinformation and its related
+      manipulations, including viral sloganeering. Subscription fees: We may
+      charge subscription fees for the use of certain services offered on the
+      Service (“Fees”).
+    </p>
+  </div>
+  <div class="modal" *ngIf="policity">
+    <img
+      src="../../../../../assets/icons/close.svg"
+      (click)="toogleModalPolicity()"
+      class="modal__close"
+      alt=""
+    />
+
+    <h5 class="modal__title">PRIVACY POLICY</h5>
+    <p class="modal__description">
+      Your privacy: SERIAL is committed to ensuring the privacy of your
+      information.<br /><br />
+      Application: This Privacy Policy applies to all personal information
+      submitted by you on SERIAL (the “Website”), or via an official SERIAL app
+      (the “App”), or via use of the SERIAL API (the “API”), and any information
+      that may be automatically retrieved through your use of these channels.
+      <br /><br />Consent: By accepting our Terms of Use and this Privacy Policy
+      when you create a SERIAL account, and by accessing and using the Website,
+      App or API, you consent to the collection, use, disclosure, storage and
+      processing of your information in accordance with this Privacy Policy.
+      <br /><br />Changes to Privacy Policy: We may amend or update this Privacy
+      Policy from time to time, with or without notice to you. You agree to be
+      bound by the Privacy Policy that is in effect at the time you access and
+      use the Website, App or API. <br /><br />Personal information: In order to
+      use particular services that we offer, you may need to submit certain
+      personal information such as your email address, name, address, telephone
+      number, gender and date of birth. You may be asked to submit further
+      information from time to time. If you purchase a subscription via Paddle,
+      we may send identifying information to Paddle in order to link your
+      subscription to your account. If you connect your Facebook or Twitter
+      accounts to your SERIAL account, we will access these accounts to identify
+      which of your friends on those services also useSERIAL.
+      <br /><br />Cookies: A cookie is a small piece of data that is stored on
+      your computer or mobile device. Like many websites, we use cookies and
+      similar technologies to collect additional website usage data and to
+      operate our services. Although most web browsers automatically accept
+      cookies, many browsers’ settings can be set to decline cookies or alert
+      you when a website is attempting to place a cookie on your computer.
+      However, some of our services may not function properly if you disable
+      cookies. When your browser or device allows it, we use both session
+      cookies and persistent cookies to keep you signed in, to better understand
+      how you interact with our services, to monitor aggregate usage patterns,
+      and to personalize and otherwise operate our services such as by providing
+      account security and personalized content. Our service also uses cookies
+      and similar tracking technologies such as the Common ID cookie to provide
+      its services. Cookies are important devices for measuring advertising
+      effectiveness and ensuring a robust online advertising industry. The
+      Common ID cookie stores a unique ID in the first-party domain that is
+      accessible to our ad partners. This ID can be utilized to improve user
+      matching, especially when delivering ads to iOS and macOS browsers. Users
+      may opt out of Common ID tracking. <br /><br />Advertising privacy: (EU
+      users only)When you use our website, pre-selected companies may access and
+      use certain information on your device and about your interests to serve
+      ads or personalized content. You may change your consent choices at any
+      time (this link will only work for users who see ads). <br /><br />Log
+      data: We also receive information when you view content on, or otherwise
+      interact with, our services, which we refer to as “Log Data”, even if you
+      have not created a SERIAL account. This Log Data includes information such
+      as your IP address, browser type, operating system, the referring web
+      page, pages visited, location, your mobile carrier, device information
+      (including device and application IDs), search terms, and cookie
+      information. We use Log Data to operate our services and to ensure their
+      secure, reliable, and robust performance. For example, we use Log Data to
+      protect the security of your account and to determine what features are
+      popular on our services. We also use this data to improve the content we
+      show you and to identify potential misuse of our services.
+      <br /><br />Payment information: The Service relies on third parties to
+      process subscription payments, so the Service necessarily must share
+      identifying information with the relevant payment processor in order to
+      know which account the payment will be applied to. We do not otherwise
+      store any of your payment information. All payments are processed by
+      Paddle, Apple or Googleas merchant of record (collectively, the
+      “Resellers”). As the payment process is entirely and independently carried
+      out by the Resellers, you submit the relevant payment details directly to
+      the Reseller. The Resellers respective privacy policies are at
+      paddle.com/legal, apple.com/legal/privacy and policies.google.com/privacy.
+      For web subscriptions (“Products”), Paddle allows the Service to access
+      the following payment data: your email address and your payment method
+      (e.g. by credit card), but not the specifics of the payment itself, in
+      order to obtain an overview over the Products performance. The legitimate
+      interest of Paddle is to transparently communicate its sales of the
+      Product to the Service; the legitimate interest of the Service is to know
+      about its revenues generated by Paddle. The user, data subject has the
+      possibility to revoke consent for the handling of personal data at any
+      time from Paddle. A revocation shall not have any effect on personal data,
+      which must be processed, used or transmitted in accordance with
+      (contractual) payment processing. <br /><br />Use of information: The
+      personal information you provide us will only be used in relation to the
+      services we provide you, to communicate with you in relation to our
+      services or to co-operate with any government, industry or regulatory
+      authorities. <br /><br />Disclosure of information: Unless you have
+      expressly authorized us to do so, we will not disclose your personal
+      information to any third party except where disclosure relates to the
+      purposes for which the information was collected (as stated in clause 8
+      above). <br /><br />Access to and updates of information: You may request
+      at any time to access the personal information that we hold on your behalf
+      or to correct or update any of your personal information (to the extent
+      that you are unable to do so yourself on the Website). If you have
+      registered an account with SERIAL, you can access, correct, delete, or
+      modify the personal information you provided to us and associated with
+      your account via your Settings page on the Website. <br /><br />Storage of
+      information: We will securely store your personal information in the
+      United States, although you acknowledge and agree that your personal
+      information may be transferred outside of the United States in connection
+      with the services we offer, as further set out in clause 12 below.
+      <br /><br />Global operations and Privacy Shield: To bring you our
+      services, we operate globally. Where the laws of your country allow you to
+      do so, you authorize us to transfer, store, and use your data in the
+      United States, New Zealand and any other country where we might operate.
+      In some of the countries to which we transfer personal data, the privacy
+      and data protection laws and rules regarding when government authorities
+      may access data may vary from those of your country. When we transfer
+      personal data outside of the European Union or EFTA States, we ensure an
+      adequate level of protection for the rights of data subjects based on the
+      adequacy of the receiving countrys data protection laws, contractual
+      obligations placed on the recipient of the data, or EU-US and Swiss-US
+      Privacy Shield principles <br /><br />Retention: We will hold your
+      personal information both before and after the deactivation or your
+      account, but only for as long as we are lawfully entitled to do so, or
+      until you request that we permanently delete it. <br /><br />Deactivation
+      and deletion: Your account can be deactivated in Settings, and you can
+      request permanent deletion as part of this process. When deactivated, your
+      SERIAL account (including your username, profile and content) will no
+      longer be viewable on the Website, App or API, but they will be retained
+      on our servers unless and until permanent deletion is completed, if
+      requested. It is possible to reactivate of your account at any time prior
+      to a permanent deletion. We cannot restore permanently deleted accounts.
+      <br /><br />Portability: SERIAL provides you a means to download the
+      information you have shared through our services by using the account
+      export option on your Settings page on the Website.
+    </p>
   </div>
 </div>
