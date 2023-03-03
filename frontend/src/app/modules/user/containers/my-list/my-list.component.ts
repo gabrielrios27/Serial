@@ -22,6 +22,7 @@ export class MyListComponent implements OnInit {
   isTypeSaved: boolean;
   selectedSavedLists: any;
   savedList: any;
+
   likedList: any;
   likedTvShows: any;
   listToShow: any;

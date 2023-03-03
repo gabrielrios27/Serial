@@ -16,6 +16,7 @@ export class ListsComponent implements OnInit {
   isTypeList: boolean;
   user: any;
   savedList: any;
+  savedListComplete: any;
   likedList: any;
   likedTvShows: any;
   listToShow: any;
@@ -128,6 +129,7 @@ export class ListsComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           this.savedList = data;
+          this.savedListComplete = this.savedList;
           this.sortListTvShowSaved(this.savedList);
           console.log('this.savedList: ', this.savedList);
           this.listToShow = this.savedList;
@@ -163,8 +165,21 @@ export class ListsComponent implements OnInit {
         : (list.description = '');
     });
   }
-  Search(toSearch: string) {
-    console.log(toSearch);
+
+  Search(toSearchVal: string) {
+    console.log(toSearchVal);
+    if (this.btnSaved) {
+      console.log('this.listToShow: ', this.listToShow);
+      if (toSearchVal === '') {
+        this.savedList = this.savedListComplete;
+      } else {
+        this.savedList = this.savedList.filter(
+          (item: any) =>
+            item.name.toLowerCase().includes(toSearchVal.toLowerCase()) ||
+            item.description.toLowerCase().includes(toSearchVal.toLowerCase())
+        );
+      }
+    }
   }
   toogleLikedOrSaved(value: boolean) {
     this.btnSaved = value;
@@ -190,8 +205,6 @@ export class ListsComponent implements OnInit {
     this.onAddTvShowToSaved(this.tvShow, idLista);
     setTimeout(() => {
       this.isSavedInThisList = null;
-      this.saveInLclStg('isTypeList', this.isTypeList);
-      this.saveInLclStg('btnSaved', this.btnSaved);
       this.idToSave = 0;
     }, 1500);
   }
@@ -201,7 +214,6 @@ export class ListsComponent implements OnInit {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe({
         next: (data: any) => {
-          console.log('onAddTvShowToSaved: ', data);
           this.saveInLclStg('isTypeList', this.isTypeList);
           this.saveInLclStg('btnSaved', true);
           this._route.navigate(['./lists']);
