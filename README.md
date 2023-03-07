@@ -1,5 +1,5 @@
 
-# SERIAL - Equipo c9-14-m
+# SERIAL
 
 SERIAL es una biblioteca de bolsillo, permite al usuario guardar, likear y agrupar series generando listas. Existen muchas apps en el mercado que contemplan esta funcionalidad, pero está relegada a un segundo plano, muchas veces descuidando su complejidad, profundidad y potencial. SERIAL surge para suplir esta brecha, brindando al usuario una amplia base de datos con toda la información pertinente a través de un atractivo diseño visual.
 
