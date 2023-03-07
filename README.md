@@ -29,4 +29,4 @@ https://www.youtube.com/watch?v=XUeLvluQiLU&t=122s&ab_channel=SebastianGarc%C3%A
 
 Video Web: 
 https://www.youtube.com/watch?v=a1MpYqWwLPg&ab_channel=SebastianGarc%C3%ADaFraga
-## Mockups
+
